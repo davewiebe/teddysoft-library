@@ -1,5 +1,5 @@
 package teddySoft;
 
-public class BooksClass {
+public class PassGen {
 
 }
