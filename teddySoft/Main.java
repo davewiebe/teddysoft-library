@@ -1,8 +1,11 @@
+package teddySoft;
+
+
 import javax.swing.*;
 import java.awt.*;
 
 
-public class MediaLibraryMainGUI {
+public class Main {
 	
 	public static void setWindowsLook(){
 	    try{
@@ -184,7 +187,7 @@ public class MediaLibraryMainGUI {
 		JFrame frame = new JFrame("Media Library");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-        MediaLibraryMainGUI app = new MediaLibraryMainGUI();
+        Main app = new Main();
         Component contents = app.createComponents();
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
