@@ -1,14 +1,9 @@
 package teddySoft;
 
-public class Security implements SecurityInterface{
-
-	public void changePassword(String newPass){
-		return;
-	}
-	public boolean changeUserName(String newName){
-		return true;
-	}
-	public boolean addUser(String name, String password){
-		return true;
+public class Security{
+	KeyGen key = new KeyGen();
+	
+	public String returnPass(String username, String password){
+		return this.key.generateKey(username, password);
 	}
 }
