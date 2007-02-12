@@ -1,9 +1,28 @@
 package teddySoft;
 
 public class Security{
-	KeyGen key = new KeyGen();
 	
-	public String returnPass(String username, String password){
-		return this.key.generateKey(username, password);
+	private static KeyGen key;
+	
+	
+	//public static boolean validateUser(String username, String password){
+		//String key = user.getUserKey(username);
+		//return (getKey(username, password) == key);
+	//}
+	
+	public static String getKey(String username, String password){
+		key = new KeyGen();
+		System.out.println(key.generateKey(username, password));
+		return key.generateKey(username, password);
+	}
+	
+	
+	public static boolean validateKey(String username, String password, String key){
+		return(getKey(username, password) == key);
+	}
+	
+	public static void testKeys(){
+		String d = getKey("dave", "jordan");
+		String h = getKey("dave", "joddan");
 	}
 }

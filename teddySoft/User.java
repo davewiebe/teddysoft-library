@@ -5,8 +5,7 @@ public class User {
 	private String password;
 	
 	private Database db;
-	
-	
+
 	public String getName(){
 		return name;
 	}
@@ -21,6 +20,12 @@ public class User {
 	
 	public void setName(String newName){
 		name = newName;
+	}
+	
+	public String getUserKey(String username){
+		///find username, return key
+		String key = "";
+		return key;
 	}
 	
 	

@@ -1,7 +1,7 @@
 package teddySoft;
 
 public class KeyGen {
-	public static String generateKey(String username, String password){
+	public String generateKey(String username, String password){
 
 		String key = "";
 		int u = 0;
@@ -28,14 +28,8 @@ public class KeyGen {
 				p++;
 			}
 		}
-		System.out.println("key = "+key);
 		return key;
 	}
-	
-	public static void main(String[] args){
-		generateKey("dave", "jordan");
-	}
-	
-	
+		
 	
 }
