@@ -5,10 +5,9 @@ public class Security{
 	private static KeyGen key;
 	private UserDatabase users;
 	
-	//public static boolean validateUser(String username, String password){
-		//String key = user.getUserKey(username);
-		//return (getKey(username, password) == key);
-	//}
+	public boolean validateUser(String username, String password){		
+		return (users.findUser(username).getKey() == key.generateKey(username, password));
+	}
 	public Security(){
 		users = new UserDatabase();
 	}
