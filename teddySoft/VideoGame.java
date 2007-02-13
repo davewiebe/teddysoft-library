@@ -1,3 +1,4 @@
+package teddySoft;
 import java.io.Serializable;
 
 public class VideoGame implements Serializable  {

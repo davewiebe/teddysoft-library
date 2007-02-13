@@ -1,4 +1,4 @@
-
+package teddySoft;
 public class VHS_R extends VHS {
 
 	private String timeStamp;

@@ -1,3 +1,5 @@
+package teddySoft;
+
 import java.io.Serializable;
 
 	public class DatabaseTest implements Serializable{
