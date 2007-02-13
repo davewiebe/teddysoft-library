@@ -1,4 +1,4 @@
-
+package teddySoft;
 public class DVD extends VHS {
 	
 	private boolean isWideScreen;

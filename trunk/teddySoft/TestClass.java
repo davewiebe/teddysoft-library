@@ -1,3 +1,4 @@
+package teddySoft;
 import java.io.*;
 
 public class TestClass {
