@@ -1,0 +1,8 @@
+Version 2.2.8
+=============
+
+1) Settings panel is now a toolbar instead.
+2) 'Recent Directories' combo in Browser window now resizes to the parent panel.
+3) Pasting clipboard as new picture will now have an initial 'modified' state. This means
+   that the 'Want to save?' confirm dialog will be shown if the picture is closed.
+4) Help file.

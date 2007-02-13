@@ -1,0 +1,8 @@
+function [ Z ] = noisegen( dur, fs )
+%
+%
+
+nT = [0:dur/fs:dur];
+nT(:,length(nT)) = [];
+
+Z = 0.5*(randn()* ones(1,length(nT)));

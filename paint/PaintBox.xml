@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<Settings>
+	<PaintBox>
+		<Dialogs>
+			<WinLeft>384</WinLeft>
+			<WinTop>145</WinTop>
+		</Dialogs>
+		<Main>
+			<Recent_Files>
+				<MaxFileList>5</MaxFileList>
+			</Recent_Files>
+			<Recent_Text>
+				<MaxRecentList>10</MaxRecentList>
+				<RecentText1>frequency</RecentText1>
+				<RecentText2>magnitude</RecentText2>
+				<RecentText3>y axis = amplitude
+
+</RecentText3>
+				<RecentText4>y axis = amplitude</RecentText4>
+				<RecentText5>x axis = time</RecentText5>
+			</Recent_Text>
+			<ShowZoomGrid>Yes</ShowZoomGrid>
+			<ViewerIsVisible>No</ViewerIsVisible>
+			<CbViewerIsVisible>No</CbViewerIsVisible>
+			<BrowserTreeVisible>Yes</BrowserTreeVisible>
+			<WinMaximized>Yes</WinMaximized>
+			<WinNormLeft>188</WinNormLeft>
+			<WinNormTop>119</WinNormTop>
+			<WinNormRight>835</WinNormRight>
+			<WinNormBottom>648</WinNormBottom>
+			<Colour_Panel>
+				<Expanded>No</Expanded>
+				<Locked>No</Locked>
+			</Colour_Panel>
+			<Recent_Colours>
+				<Colour0>16777215</Colour0>
+				<Colour1>16777215</Colour1>
+				<Colour2>16777215</Colour2>
+				<Colour3>16777215</Colour3>
+				<Colour4>16777215</Colour4>
+				<Colour5>16777215</Colour5>
+				<Colour6>16777215</Colour6>
+				<Colour7>16777215</Colour7>
+				<Colour8>16777215</Colour8>
+				<Colour9>16777215</Colour9>
+				<Colour10>16777215</Colour10>
+				<Colour11>16777215</Colour11>
+				<Colour12>16777215</Colour12>
+				<Colour13>16777215</Colour13>
+				<Colour14>16777215</Colour14>
+			</Recent_Colours>
+		</Main>
+		<Viewer>
+			<Pinned>No</Pinned>
+			<Left>622</Left>
+			<Top>249</Top>
+			<Width>218</Width>
+			<Height>237</Height>
+			<XDiff>0</XDiff>
+			<YDiff>0</YDiff>
+			<DisplayFrame>No</DisplayFrame>
+		</Viewer>
+		<CbViewer>
+			<Pinned>No</Pinned>
+			<Left>520</Left>
+			<Top>193</Top>
+			<Width>218</Width>
+			<Height>249</Height>
+			<XDiff>0</XDiff>
+			<YDiff>0</YDiff>
+		</CbViewer>
+	</PaintBox>
+</Settings>

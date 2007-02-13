@@ -1,0 +1,33 @@
+function [y, phi ] = plotspec( x, fs, option )
+%
+%  
+
+N = length(x);
+zpf = 2;
+x = [x, zeros(1,(zpf-1)*N)];
+X = fft(x);
+y = abs(X);
+phi = angle(X);
+
+%Plot
+Nfft = length(x);
+fni = [0:Nfft/2-1]*fs/Nfft;
+
+if (strcmp(option,'linear') == 1)
+    subplot(211); stem(fni, y(1:Nfft/2));
+    xlabel('Frequency (cycles per sample)');
+    ylabel('Magnitude (Linear)');
+    subplot(212); stem(fni, phi(1:Nfft/2));
+    xlabel('Frequency (cycles per sample)');
+    ylabel('Phase');
+end
+
+if (strcmp(option,'log') == 1)
+    spec = 20*log10(y); % Spectral magnitude in dB
+    subplot(211); stem(fni, spec(1:Nfft/2));
+    xlabel('Frequency (cycles per sample))');
+    ylabel('Magnitude (logrithmic)');
+    subplot(212); stem(fni, phi(1:Nfft/2));
+    
+end;
+
