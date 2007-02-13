@@ -1,10 +1,15 @@
 package teddySoft;
 
 public class UserDatabase {
+	
+	User[] userList;
+	int userListSize;
+	
 		public class User{
 		
 			private String name;
 			private String key;
+			//private MediaDatabase media;
 			
 			public User(String name, String password){
 				this.name = name;
@@ -19,9 +24,6 @@ public class UserDatabase {
 				return name;
 			}
 		}
-
-	User[] userList;
-	int userListSize;
 
 
 	public UserDatabase(){

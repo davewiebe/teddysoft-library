@@ -18,11 +18,13 @@ public class Security{
 	}
 	
 	
-	public static boolean validateKey(String username, String password, String key){
+	public boolean validateKey(String username, String password, String key){
 		return(getKey(username, password) == key);
 	}
 	
-	public static void testKeys(){
+
+	
+	public void testKeys(){
 		String d = getKey("dave", "jordan");
 		String h = getKey("dave", "joddan");
 	}
