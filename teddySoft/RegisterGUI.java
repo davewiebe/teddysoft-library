@@ -176,23 +176,33 @@ public class RegisterGUI implements ActionListener {
 			}
 			if (password1.compareTo(password2) == 0 && 
 					username.getText().compareTo("") != 0 && 
+					username.getText().compareTo(" ") != 0 &&
 					password1.compareTo("") != 0){
 				//UserDatabase.addUser(user.getText(), password1));
 				
 				boolean added = UserDatabase.addUser(username.getText(), password1);
-				System.out.print(username.getText() + " ");
-				if (added){ 
-					System.out.println("added.");
-					errorlabel.setText("User added.");
-				}else{
-					System.out.println("already exists.");
+				//System.out.print(username.getText() + " ");
+				//if (added){ 
+					//System.out.println("added.");
+					//errorlabel.setText("User added.");
+				 if (!added){
+					//System.out.println("already exists.");
 					errorlabel.setText("User already exists.");
 				}
 				frame.dispose();
 			}
-			else{
-				System.out.println("no good man,");
-				errorlabel.setText("Invalid information.");
+			else if (username.getText().compareTo("") == 0 || username.getText().compareTo(" ") == 0){
+				errorlabel.setText("Username field is empty.");
+			}
+			else if (password1.compareTo("") == 0 || password2.compareTo("") == 0){
+				errorlabel.setText("Password field is empty.");
+			}
+			else if (password1.compareTo(password2) != 0){
+				//System.out.println("no good man,");
+				errorlabel.setText("Passwords do not match.");
+			}
+			else {
+				errorlabel.setText("Username field is empty or invalid.");
 			}
 		}
 		else if(e.getSource() == btnCancel){
