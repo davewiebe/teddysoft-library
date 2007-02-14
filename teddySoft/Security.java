@@ -21,7 +21,7 @@ public class Security{
 	
 	public static String createKey(String username, String password){
 		KeyGen keyToCreate = new KeyGen();
-		System.out.println(keyToCreate.generateKey(username, password));
+		//System.out.println(keyToCreate.generateKey(username, password));
 		return keyToCreate.generateKey(username, password);
 	}
 	
