@@ -212,7 +212,7 @@ public class LoginGUI implements ActionListener {
 		
 		//Create and set up the window.
 		frame = new JFrame("Media Library");
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
         LoginGUI app = new LoginGUI();
         Component contents = app.mainWindowComponents();
