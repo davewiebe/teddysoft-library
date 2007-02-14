@@ -141,8 +141,7 @@ public class RegisterGUI implements ActionListener {
 		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		//mainpanel.add(radiopanel);
 		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		mainpanel.add(regpanel);
-		mainpanel.add(Box.createRigidArea(new Dimension(0,58)));	
+		mainpanel.add(regpanel);	
 		return mainpanel;
 	}
 	
@@ -184,8 +183,8 @@ public class RegisterGUI implements ActionListener {
 		
 		//Display the window.
 		frame.pack();
-		frame.setVisible(true);
 		frame.setSize(290,280); // make frame 640x460
+		frame.setVisible(true);
 		frame.setLocationRelativeTo(null); //centers window
 
 	}	

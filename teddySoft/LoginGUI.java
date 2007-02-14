@@ -181,8 +181,8 @@ public class LoginGUI implements ActionListener {
 		
 		//Display the window.
 		frame.pack();
-		frame.setVisible(true);
 		frame.setSize(640,460); // make frame 640x460
+		frame.setVisible(true);
 		frame.setLocationRelativeTo(null); //centers window
 
 	}	
