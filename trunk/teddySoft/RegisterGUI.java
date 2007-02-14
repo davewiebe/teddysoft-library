@@ -124,10 +124,10 @@ public class RegisterGUI implements ActionListener {
 		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		textpanel.add(rpw);
 		
-		toppanel.add(Box.createRigidArea(new Dimension(10,0)));
+		toppanel.add(Box.createRigidArea(new Dimension(5,0)));
 		toppanel.add(labelpanel);
 		toppanel.add(textpanel);
-		labelpanel.add(Box.createRigidArea(new Dimension(10,0)));
+		labelpanel.add(Box.createRigidArea(new Dimension(5,0)));
 		
 		//radiopanel.add(maleButton);
 		//radiopanel.add(femaleButton);
@@ -142,8 +142,7 @@ public class RegisterGUI implements ActionListener {
 		//mainpanel.add(radiopanel);
 		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		mainpanel.add(regpanel);
-	
-		//mainpanel.add(mainpanel);
+		mainpanel.add(Box.createRigidArea(new Dimension(0,58)));	
 		return mainpanel;
 	}
 	
