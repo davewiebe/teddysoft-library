@@ -3,8 +3,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowAdapter;
+
 
 public class LoginGUI implements ActionListener {
+
+	private String username, password = "";
+	private JButton btnSignin, btnRegister;
+	private JTextField user;
+	private JPasswordField pw;
+	private static JFrame frame;
 	
 	public static void setWindowsLook(){
 	    try{
@@ -36,25 +45,26 @@ public class LoginGUI implements ActionListener {
 		
 		//Username
 		JLabel userlabel = new JLabel("Username:");
-		JTextField user = new JTextField(20);
+		user = new JTextField(20);
 		user.setMinimumSize(new Dimension(160, 20));
 		user.setMaximumSize(new Dimension(160, 20));
 		user.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Password
 		JLabel pwlabel = new JLabel("Password:");
-		JPasswordField pw = new JPasswordField(20);
+		pw = new JPasswordField(20);
 		pw.setMinimumSize(new Dimension(160, 20));
 		pw.setMaximumSize(new Dimension(160, 20));
 		pw.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Signin button
-		JButton btnSignin = new JButton("Sign in");
+		btnSignin = new JButton("Sign in");
 		btnSignin.setMaximumSize(new Dimension(120, 23));
 		btnSignin.setAlignmentX(Component.LEFT_ALIGNMENT);
 		btnSignin.setActionCommand("Signin");
 		btnSignin.addActionListener(this);
 		
+
 		//Top Right Panel
 		JPanel toprightpanel = new JPanel();
 		toprightpanel.setLayout(new BoxLayout(toprightpanel, BoxLayout.LINE_AXIS));	
@@ -72,7 +82,7 @@ public class LoginGUI implements ActionListener {
 		reglabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		//Register button
-		JButton btnRegister = new JButton("Register new user");
+		btnRegister = new JButton("Register new user");
 		btnRegister.setMaximumSize(new Dimension(180, 23));
 		btnRegister.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnRegister.setActionCommand("Register");
@@ -135,16 +145,37 @@ public class LoginGUI implements ActionListener {
 		return mainpanel;
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-
+	
+	
+	public void actionPerformed(ActionEvent e){
+		if(e.getSource() == btnSignin){
+			username = user.getText();
+			char[] temppass = pw.getPassword();
+			for (int i = 0; i< temppass.length; i++){
+				password += temppass[i]; 
+			}
+			Security secureCheck = new Security();
+			if (secureCheck.validateKey(username, password) == true){
+				Main.CreateGUI();
+				frame.dispose();
+			}
+			else {
+				password = "";
+				pw.setText("");
+				//insert wrong password notification here
+			}	
+		}
+		else if(e.getSource() == btnRegister){
+			//register user
+		}
 	}	
 	
 	private static void CreateGUI(){
 		setWindowsLook(); //Set windows decorations
 		
 		//Create and set up the window.
-		JFrame frame = new JFrame("Media Library");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame = new JFrame("Media Library");
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
         LoginGUI app = new LoginGUI();
         Component contents = app.mainWindowComponents();
