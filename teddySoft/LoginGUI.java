@@ -192,6 +192,7 @@ public class LoginGUI implements ActionListener {
         //creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run(){
+				//read userdatabase.ser
 				CreateGUI();
 			}
 		});

@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 public class RegisterGUI implements ActionListener {
 	private JButton btnReg;
 	private JPasswordField pw, rpw;
-	private JTextField user;
+	private JTextField username;
 	private static JFrame frame;
 	
 	
@@ -42,10 +42,10 @@ public class RegisterGUI implements ActionListener {
 		
 		//Username
 		JLabel userlabel = new JLabel("Username:");
-		user = new JTextField(20);
-		user.setMinimumSize(new Dimension(160, 20));
-		user.setMaximumSize(new Dimension(160, 20));
-		user.setAlignmentX(Component.LEFT_ALIGNMENT);
+		username = new JTextField(20);
+		username.setMinimumSize(new Dimension(160, 20));
+		username.setMaximumSize(new Dimension(160, 20));
+		username.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Password
 		JLabel pwlabel = new JLabel("Password:");
@@ -118,7 +118,7 @@ public class RegisterGUI implements ActionListener {
 		labelpanel.add(Box.createRigidArea(new Dimension(0,15)));
 		labelpanel.add(rpwlabel);
 		
-		textpanel.add(user);
+		textpanel.add(username);
 		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		textpanel.add(pw);
 		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
@@ -158,11 +158,21 @@ public class RegisterGUI implements ActionListener {
 			for (int i = 0; i< temppass2.length; i++){
 				password2 += temppass2[i]; 
 			}
+<<<<<<< .mine
+			if (password1.compareTo(password2) == 0 && username.getText().compareTo("") != 0){
+=======
 			if (password1.compareTo(password2) == 0 && user.getText().compareTo("") != 0 && password1.compareTo("") != 0){
 				//UserDatabase.addUser(user.getText(), password1));
 				
+>>>>>>> .r65
 				System.out.println("they match");
+<<<<<<< .mine
+				UserDatabase.addUser(username.getText(), password1);
+				System.out.println(username.getText() + " added");
 				frame.dispose();
+=======
+				frame.dispose();
+>>>>>>> .r65
 			}
 			else{
 				System.out.println("no good man,");
