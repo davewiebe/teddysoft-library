@@ -9,6 +9,7 @@ public class RegisterGUI implements ActionListener {
 	private JButton btnReg;
 	private JPasswordField pw, rpw;
 	private JTextField user;
+	private static JFrame frame;
 	
 	
 	public static void setWindowsLook(){
@@ -173,7 +174,7 @@ public class RegisterGUI implements ActionListener {
 		setWindowsLook(); //Set windows decorations
 		
 		//Create and set up the window.
-		JFrame frame = new JFrame("Register New User");
+		frame = new JFrame("Register New User");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
         RegisterGUI app = new RegisterGUI();
