@@ -1,5 +1,6 @@
 package teddySoft;
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -10,7 +11,7 @@ import java.awt.event.WindowAdapter;
 public class LoginGUI implements ActionListener {
 
 	private String username, password = "";
-	private JButton btnSignin, btnRegister;
+	private JButton btnSignin, btnRegister, btnExit;
 	private JTextField user;
 	private JPasswordField pw;
 	private static JFrame frame;
@@ -72,21 +73,42 @@ public class LoginGUI implements ActionListener {
 		toprightpanel.setBorder(BorderFactory.createTitledBorder(
         "Registered Users"));
 		
-		//Bottom Right Panel
+		//BottomRight Panel
 		JPanel bottomrightpanel = new JPanel();
-		bottomrightpanel.setLayout(new BoxLayout(bottomrightpanel, BoxLayout.PAGE_AXIS));	
+		bottomrightpanel.setLayout(new BoxLayout(bottomrightpanel, BoxLayout.LINE_AXIS));	
 		bottomrightpanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		//Register Panel
+		JPanel regpanel = new JPanel();
+		regpanel.setLayout(new BoxLayout(regpanel, BoxLayout.PAGE_AXIS));	
+		regpanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		//Register Label
 		JLabel reglabel = new JLabel("New user? Click below to register");
 		reglabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		regpanel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		
 		//Register button
 		btnRegister = new JButton("Register new user");
 		btnRegister.setMaximumSize(new Dimension(180, 23));
 		btnRegister.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnRegister.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		btnRegister.setActionCommand("Register");
 		btnRegister.addActionListener(this);
+		
+		//EXIT Panel
+		JPanel exitpanel = new JPanel();
+		exitpanel.setLayout(new BoxLayout(exitpanel, BoxLayout.PAGE_AXIS));	
+		exitpanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		exitpanel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+				
+		//Exit button
+		btnExit = new JButton("Exit");
+		btnExit.setMaximumSize(new Dimension(80, 23));
+		btnExit.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnExit.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		btnExit.setActionCommand("Exit");
+		btnExit.addActionListener(this);
 		
 		//Right Panel
 		JPanel rightpanel = new JPanel();
@@ -109,9 +131,14 @@ public class LoginGUI implements ActionListener {
                 20) //right
                 );	
 		
-		bottomrightpanel.add(reglabel);
-		bottomrightpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		bottomrightpanel.add(btnRegister);
+		regpanel.add(reglabel);
+		regpanel.add(Box.createRigidArea(new Dimension(0,10)));
+		regpanel.add(btnRegister);
+		
+		exitpanel.add(btnExit);
+		bottomrightpanel.add(regpanel);
+		bottomrightpanel.add(Box.createRigidArea(new Dimension(10,0)));
+		bottomrightpanel.add(exitpanel);
 		
 		labelpanel.add(Box.createRigidArea(new Dimension(0,20)));
 		labelpanel.add(userlabel);
@@ -174,6 +201,9 @@ public class LoginGUI implements ActionListener {
 		else if(e.getSource() == btnRegister){
 			RegisterGUI.CreateGUI();
 			
+		}
+		else if(e.getSource() == btnExit){
+			System.exit(0);
 		}
 	}	
 	
