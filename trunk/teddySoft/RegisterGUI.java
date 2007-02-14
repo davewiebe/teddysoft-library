@@ -177,6 +177,9 @@ public class RegisterGUI implements ActionListener {
 				System.out.println("no good man,");
 			}
 		}
+		else if(e.getSource() == btnCancel){
+			frame.dispose();
+		}
 	}	
 	
 	public static void CreateGUI(){
