@@ -168,13 +168,9 @@ public class AddBookGUI implements ActionListener {
 		revpanel.setAlignmentY(Component.TOP_ALIGNMENT);	
 		revpanel.setBorder(BorderFactory.createTitledBorder(
         "Review"));
-<<<<<<< .mine
+
 				
 		review = new JTextArea(6, 20);
-=======
-				
-		JTextArea review = new JTextArea(6, 20);
->>>>>>> .r62
 		review.setLineWrap(true);
 		JScrollPane reviewscroll = new JScrollPane(review);
 				
