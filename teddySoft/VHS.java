@@ -1,7 +1,7 @@
 package teddySoft;
 import java.io.Serializable;
 
-public class VHS implements Serializable {
+public class VHS implements Serializable, Comparable {
 
 		private String title, director, year, contentRated, runningTime;
 		private int rating;
@@ -54,5 +54,21 @@ public class VHS implements Serializable {
 		
 		public void setRating(int rating){
 			this.rating = rating;}
+		
+		//Comparable interface
+		public int compareTo(Object v) throws ClassCastException{
+			if (!(v instanceof Books))
+				throw new ClassCastException("A VHS object expected.");
+			
+			int x;
+			VHS vhsToTest = ((VHS) v);
+			if ((this.getTitle()).equals(vhsToTest.getTitle())){
+				x = 0;}
+			else if (this.getTitle().compareTo(vhsToTest.getTitle()) > 0){
+				x = 1;}
+			else{
+				x=-1;}
+			return x;
+		}
 		
 }
