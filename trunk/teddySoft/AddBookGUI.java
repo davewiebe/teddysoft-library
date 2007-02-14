@@ -6,6 +6,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class AddBookGUI implements ActionListener {
+	private JTextField title, author, edition, date, place, isbn;
+	private ButtonGroup ratinggroup;
+	private JComboBox genreList; 
+	private JButton btnAdd, btnAnother, btnClose;
+	private static JFrame frame;
+	private JTextArea description, review;
+	private JRadioButton oneButton, twoButton, threeButton, fourButton, fiveButton;
 	
 	public static void setWindowsLook(){
 	    try{
@@ -31,7 +38,7 @@ public class AddBookGUI implements ActionListener {
 		
 		//Genre combo box
 		String[] genres = { "Select book genre...", "Action", "Adventure", "Children", "Comedy", "Fantasy", "Horror", "Mystery", "Romance", "Science Fiction" };
-		JComboBox genreList = new JComboBox(genres);
+		genreList = new JComboBox(genres);
 		genreList.setSelectedIndex(0);
 		genreList.setMaximumSize(new Dimension(240, 22));
 		genreList.setActionCommand("Genre");
@@ -59,42 +66,42 @@ public class AddBookGUI implements ActionListener {
 		
 		//Title
 		JLabel titlelabel = new JLabel("Title:");
-		JTextField title = new JTextField(20);
+		title = new JTextField(20);
 		title.setMinimumSize(new Dimension(160, 20));
 		title.setMaximumSize(new Dimension(160, 20));
 		title.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Author
 		JLabel authorlabel = new JLabel("Author:");
-		JTextField author = new JTextField(20);
+		author = new JTextField(20);
 		author.setMinimumSize(new Dimension(160, 20));
 		author.setMaximumSize(new Dimension(160, 20));
 		author.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Edition
 		JLabel editionlabel = new JLabel("Edition:");
-		JTextField edition = new JTextField(20);
+		edition = new JTextField(20);
 		edition.setMinimumSize(new Dimension(160, 20));
 		edition.setMaximumSize(new Dimension(160, 20));
 		edition.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Date
 		JLabel datelabel = new JLabel("Publishing date:");
-		JTextField date = new JTextField(20);
+		date = new JTextField(20);
 		date.setMinimumSize(new Dimension(160, 20));
 		date.setMaximumSize(new Dimension(160, 20));
 		date.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Location
 		JLabel placelabel = new JLabel("Publishing place:");
-		JTextField place = new JTextField(20);
+		place = new JTextField(20);
 		place.setMinimumSize(new Dimension(160, 20));
 		place.setMaximumSize(new Dimension(160, 20));
 		place.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//ISBN
 		JLabel isbnlabel = new JLabel("ISBN number:");
-		JTextField isbn = new JTextField(20);
+		isbn = new JTextField(20);
 		isbn.setMinimumSize(new Dimension(160, 20));
 		isbn.setMaximumSize(new Dimension(160, 20));
 		isbn.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -114,28 +121,28 @@ public class AddBookGUI implements ActionListener {
 		midpanel.setAlignmentY(Component.TOP_ALIGNMENT);
 				
 		//Radio Buttons
-	    JRadioButton oneButton = new JRadioButton("1 Star");
+	    oneButton = new JRadioButton("1 Star");
 	    oneButton.setActionCommand("One");
 	    oneButton.addActionListener(this);
 	    oneButton.setSelected(true);
 
-	    JRadioButton twoButton = new JRadioButton("2 Stars");
+	    twoButton = new JRadioButton("2 Stars");
 	    oneButton.setActionCommand("Two");
 	    oneButton.addActionListener(this);
 	    
-	    JRadioButton threeButton = new JRadioButton("3 Stars");
+	    threeButton = new JRadioButton("3 Stars");
 	    oneButton.setActionCommand("Three");
 	    oneButton.addActionListener(this);
 	    
-	    JRadioButton fourButton = new JRadioButton("4 Stars");
+	    fourButton = new JRadioButton("4 Stars");
 	    oneButton.setActionCommand("Four");
 	    oneButton.addActionListener(this);
 	    
-	    JRadioButton fiveButton = new JRadioButton("5 Stars");
+	    fiveButton = new JRadioButton("5 Stars");
 	    oneButton.setActionCommand("Five");
 	    oneButton.addActionListener(this);
 	    
-	    ButtonGroup ratinggroup = new ButtonGroup();
+	    ratinggroup = new ButtonGroup();
 	    ratinggroup.add(oneButton);
 	    ratinggroup.add(twoButton);
 	    ratinggroup.add(threeButton);
@@ -150,7 +157,7 @@ public class AddBookGUI implements ActionListener {
 		descpanel.setBorder(BorderFactory.createTitledBorder(
         "Description"));
 		
-		JTextArea description = new JTextArea(6, 20);
+		description = new JTextArea(6, 20);
 		description.setLineWrap(true);
 		JScrollPane descscroll = new JScrollPane(description);
 		
@@ -161,8 +168,13 @@ public class AddBookGUI implements ActionListener {
 		revpanel.setAlignmentY(Component.TOP_ALIGNMENT);	
 		revpanel.setBorder(BorderFactory.createTitledBorder(
         "Review"));
+<<<<<<< .mine
+				
+		review = new JTextArea(6, 20);
+=======
 				
 		JTextArea review = new JTextArea(6, 20);
+>>>>>>> .r62
 		review.setLineWrap(true);
 		JScrollPane reviewscroll = new JScrollPane(review);
 				
@@ -172,19 +184,19 @@ public class AddBookGUI implements ActionListener {
 		buttonpanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		buttonpanel.setAlignmentY(Component.TOP_ALIGNMENT);	
 		
-		JButton btnAdd = new JButton("Add");
+		btnAdd = new JButton("Add");
 		btnAdd.setMaximumSize(new Dimension(120, 23));
 		btnAdd.setAlignmentX(Component.LEFT_ALIGNMENT);
 		btnAdd.setActionCommand("Add");
 		btnAdd.addActionListener(this);
 		
-		JButton btnAnother = new JButton("Add another");
+		btnAnother = new JButton("Add another");
 		btnAnother.setMaximumSize(new Dimension(120, 23));
 		btnAnother.setAlignmentX(Component.LEFT_ALIGNMENT);
 		btnAnother.setActionCommand("Another");
 		btnAnother.addActionListener(this);
 		
-		JButton btnClose = new JButton("Close");
+		btnClose = new JButton("Close");
 		btnClose.setMaximumSize(new Dimension(120, 23));
 		btnClose.setAlignmentX(Component.LEFT_ALIGNMENT);
 		btnClose.setActionCommand("Close");
@@ -262,14 +274,34 @@ public class AddBookGUI implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-
+		if(e.getSource() == btnClose){
+			frame.dispose();
+		}
+		else if(e.getSource() == btnAdd){
+			//SAVE THE TEXT TO AN OBJECT IN THE USERS MEDIA
+			
+			frame.dispose();
+		}
+		else if(e.getSource() == btnAnother){
+			//SAVE THE TEXT TO AN OBJECT IN THE USERS MEDIA
+			title.setText("");
+			author.setText("");
+			date.setText("");
+			edition.setText("");
+			place.setText("");
+			isbn.setText("");
+			oneButton.setSelected(true);
+			genreList.setSelectedIndex(0);
+			description.setText("");
+			review.setText("");
+		}
 	}	
 	
 	private static void CreateGUI(){
 		setWindowsLook(); //Set windows decorations
 		
 		//Create and set up the window.
-		JFrame frame = new JFrame("Add Book");
+		frame = new JFrame("Add Book");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
         AddBookGUI app = new AddBookGUI();
