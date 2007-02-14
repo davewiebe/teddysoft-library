@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class ViewBookGUI implements ActionListener {
+	private JButton btnClose;
+	private static JFrame frame;
 	
 	public static void setWindowsLook(){
 	    try{
@@ -103,7 +105,6 @@ public class ViewBookGUI implements ActionListener {
 	    JRadioButton oneButton = new JRadioButton("1 Star");
 	    oneButton.setActionCommand("One");
 	    oneButton.addActionListener(this);
-	    oneButton.setSelected(true);
 
 	    JRadioButton twoButton = new JRadioButton("2 Stars");
 	    oneButton.setActionCommand("Two");
@@ -120,6 +121,14 @@ public class ViewBookGUI implements ActionListener {
 	    JRadioButton fiveButton = new JRadioButton("5 Stars");
 	    oneButton.setActionCommand("Five");
 	    oneButton.addActionListener(this);
+	    
+	    //Check for Rating
+	    oneButton.setEnabled(false);
+	    twoButton.setEnabled(false);
+	    threeButton.setEnabled(false);
+	    fourButton.setSelected(true);
+	    fiveButton.setEnabled(false);
+	    
 	    
 	    ButtonGroup ratinggroup = new ButtonGroup();
 	    ratinggroup.add(oneButton);
@@ -158,7 +167,7 @@ public class ViewBookGUI implements ActionListener {
 		buttonpanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		buttonpanel.setAlignmentY(Component.TOP_ALIGNMENT);	
 		
-		JButton btnClose = new JButton("Close");
+		btnClose = new JButton("Close");
 		btnClose.setMaximumSize(new Dimension(120, 23));
 		btnClose.setAlignmentX(Component.LEFT_ALIGNMENT);
 		btnClose.setActionCommand("Close");
@@ -204,6 +213,7 @@ public class ViewBookGUI implements ActionListener {
 		infopanel.add(labelpanel);
 		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
 		infopanel.add(textpanel);
+		infopanel.add(Box.createHorizontalGlue());
 				
 		ratepanel.add(oneButton);
 		ratepanel.add(twoButton);
@@ -235,14 +245,16 @@ public class ViewBookGUI implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-
+		if(e.getSource() == btnClose){
+			frame.dispose();
+		}
 	}	
 	
 	private static void CreateGUI(){
 		setWindowsLook(); //Set windows decorations
 		
 		//Create and set up the window.
-		JFrame frame = new JFrame("View Book");
+		frame = new JFrame("View Book");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
         ViewBookGUI app = new ViewBookGUI();
