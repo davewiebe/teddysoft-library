@@ -306,8 +306,8 @@ public class AddBookGUI implements ActionListener {
 		
 		//Display the window.
 		frame.pack();
-		frame.setVisible(true);
 		frame.setSize(460,520); // make frame 640x460
+		frame.setVisible(true);
 		frame.setLocationRelativeTo(null); //centers window
 
 	}	
