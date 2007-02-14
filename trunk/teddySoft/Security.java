@@ -26,7 +26,11 @@ public class Security{
 	}
 	
 	public boolean validateKey(String username, String password){
-		return validateKeyHelper(username, password, (UserDatabase.findUser(username)).getKey());
+		User user = UserDatabase.findUser(username);
+		if (user == null){
+			return false;
+		}
+		return validateKeyHelper(username, password, user.getKey());
 	}
 	
 	public boolean validateKeyHelper(String username, String password, String key){
