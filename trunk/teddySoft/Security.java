@@ -17,6 +17,9 @@ public class Security{
 		return key.generateKey(username, password);
 	}
 	
+	public boolean validateKey(String username, String password){
+		return (users.findUser(username).getKey() == getKey(username, password));
+	}
 	
 	public boolean validateKey(String username, String password, String key){
 		return(getKey(username, password) == key);
