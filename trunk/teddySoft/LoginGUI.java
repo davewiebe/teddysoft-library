@@ -1,4 +1,5 @@
 package teddySoft;
+//newer
 import javax.swing.*;
 
 import java.awt.*;
@@ -6,6 +7,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowAdapter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 
 public class LoginGUI implements ActionListener {
@@ -16,6 +24,11 @@ public class LoginGUI implements ActionListener {
 	private JPasswordField pw;
 	private static JFrame frame;
 	private JLabel userlabel, errorlabel;
+	private static UserDatabase userDB;
+	
+	public static UserDatabase getUserDB(){
+		return userDB;
+	}
 
 	
 	public static void setWindowsLook(){
@@ -189,11 +202,24 @@ public class LoginGUI implements ActionListener {
 			char[] temppass = pw.getPassword();
 			password = new String(temppass);
 			Security secureCheck = new Security();
-			boolean valid = secureCheck.validateKey(username, password);
+			boolean valid = secureCheck.validateKey(username, password, userDB);
 			if (username.compareTo("") != 0 && 
 					password.compareTo("") != 0 &&
 					valid){
 				Main.CreateGUI();
+//				write userDB.ser
+				try{
+					FileOutputStream fileout = new FileOutputStream("UserDB.ser");
+					ObjectOutputStream objectout = new ObjectOutputStream(fileout);
+					objectout.writeObject(userDB.getUserList());
+					//objectout.flush();
+					objectout.close();
+				}
+				catch (IOException ex) {
+					User test = (userDB.getUserList())[0];
+					System.out.println(test.getName());
+					System.out.println("User List cannot be written.");
+				}
 				frame.dispose();
 			}
 			else if(username.compareTo("") == 0) {
@@ -251,7 +277,21 @@ public class LoginGUI implements ActionListener {
         //creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run(){
-				//read userdatabase.ser
+				//read userDB.ser
+				try{
+					InputStream istream = new FileInputStream("UserDB.ser");
+					ObjectInput oinput = new ObjectInputStream(istream);
+					User[] newList = ((User[])oinput.readObject());
+					userDB = new UserDatabase(newList);
+					oinput.close();
+				}
+				catch (IOException ex) {
+					System.out.println("User List not found or not created yet.");
+					userDB = new UserDatabase();
+				}
+				catch (ClassNotFoundException ex2){
+					System.out.println("User class not found.");
+				}
 				CreateGUI();
 			}
 		});
