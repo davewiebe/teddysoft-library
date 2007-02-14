@@ -262,7 +262,7 @@ public class AddBookGUI implements ActionListener {
 		setWindowsLook(); //Set windows decorations
 		
 		//Create and set up the window.
-		JFrame frame = new JFrame("Register New User");
+		JFrame frame = new JFrame("Add Book");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
         AddBookGUI app = new AddBookGUI();
