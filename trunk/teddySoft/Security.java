@@ -2,33 +2,42 @@ package teddySoft;
 
 public class Security{
 	
-	private static KeyGen key;
+	//private KeyGen key;
 	private UserDatabase users;
 	
-	public boolean validateUser(String username, String password){		
+/*	public boolean validateUser(String username, String password){		
 		return (users.findUser(username).getKey() == key.generateKey(username, password));
-	}
+	}*/
 	public Security(){
 		users = new UserDatabase();
+		users.addUser("JordanMc", "password"); //test
 	}
-	public static String getKey(String username, String password){
+	
+/*	public static String getKey(String username, String password){
 		key = new KeyGen();
 		System.out.println(key.generateKey(username, password));
 		return key.generateKey(username, password);
+	}*/
+	
+	public static String createKey(String username, String password){
+		KeyGen keyToCreate = new KeyGen();
+		System.out.println(keyToCreate.generateKey(username, password));
+		return keyToCreate.generateKey(username, password);
 	}
 	
 	public boolean validateKey(String username, String password){
-		return (users.findUser(username).getKey() == getKey(username, password));
+		return validateKeyHelper(username, password, (users.findUser(username)).getKey());
 	}
 	
-	public boolean validateKey(String username, String password, String key){
-		return(getKey(username, password) == key);
+	public boolean validateKeyHelper(String username, String password, String key){
+		if(createKey(username, password).equals(key))
+			return true;
+		else return false;
 	}
 	
-
 	
 	public void testKeys(){
-		String d = getKey("dave", "jordan");
-		String h = getKey("dave", "joddan");
+		String d = createKey("dave", "jordan");
+		String h = createKey("dave", "joddan");
 	}
 }
