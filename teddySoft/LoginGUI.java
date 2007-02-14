@@ -15,7 +15,7 @@ public class LoginGUI implements ActionListener {
 	private JTextField user;
 	private JPasswordField pw;
 	private static JFrame frame;
-	private JLabel userlabel;
+	private JLabel userlabel, errorlabel;
 
 	
 	public static void setWindowsLook(){
@@ -98,6 +98,10 @@ public class LoginGUI implements ActionListener {
 		btnRegister.setActionCommand("Register");
 		btnRegister.addActionListener(this);
 		
+		//ERROR
+		errorlabel = new JLabel(" ");
+		errorlabel.setText("<html>"+"Sign in with your login information."+"</font></html>");
+		errorlabel.setVisible(true);
 		//EXIT Panel
 		JPanel exitpanel = new JPanel();
 		exitpanel.setLayout(new BoxLayout(exitpanel, BoxLayout.PAGE_AXIS));	
@@ -153,6 +157,8 @@ public class LoginGUI implements ActionListener {
 		textpanel.add(pw);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(btnSignin);
+		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
+		textpanel.add(errorlabel);
 		textpanel.add(Box.createRigidArea(new Dimension(0,20)));
 		
 		toprightpanel.add(Box.createRigidArea(new Dimension(15,0)));
@@ -191,13 +197,18 @@ public class LoginGUI implements ActionListener {
 			}
 			else if(username.compareTo("") == 0) {
 				//insert no username notification here
+				errorlabel.setText("<html><font color=red>"+"User field is empty"+"</font></html>");
+				errorlabel.setVisible(true);
 			}
 			else if(password.compareTo("")==0){
 				//insert no password notification here
+				errorlabel.setText("<html><font color=red>"+"Password field is empty"+"</font></html>");
+				errorlabel.setVisible(true);
 			}
 			else {
-				
 				//insert incorrect password, or wrong username alert here
+				errorlabel.setText("<html><font color=red>"+"No such user or wrong password"+"</font></html>");
+				errorlabel.setVisible(true);
 			}
 		}
 		else if(e.getSource() == btnRegister){
