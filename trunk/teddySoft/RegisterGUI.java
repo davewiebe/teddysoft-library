@@ -158,21 +158,12 @@ public class RegisterGUI implements ActionListener {
 			for (int i = 0; i< temppass2.length; i++){
 				password2 += temppass2[i]; 
 			}
-<<<<<<< .mine
-			if (password1.compareTo(password2) == 0 && username.getText().compareTo("") != 0){
-=======
-			if (password1.compareTo(password2) == 0 && user.getText().compareTo("") != 0 && password1.compareTo("") != 0){
+			if (password1.compareTo(password2) == 0 && username.getText().compareTo("") != 0 && password1.compareTo("") != 0){
 				//UserDatabase.addUser(user.getText(), password1));
 				
->>>>>>> .r65
-				System.out.println("they match");
-<<<<<<< .mine
 				UserDatabase.addUser(username.getText(), password1);
 				System.out.println(username.getText() + " added");
 				frame.dispose();
-=======
-				frame.dispose();
->>>>>>> .r65
 			}
 			else{
 				System.out.println("no good man,");
