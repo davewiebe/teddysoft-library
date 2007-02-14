@@ -1,6 +1,7 @@
 package teddySoft;
+import java.io.Serializable;
 
-public class RBTree {
+public class RBTree implements Serializable{
 	
 	class RBnode{
 		public RBnode left;

@@ -1,4 +1,5 @@
 package teddySoft;
+//newer
 import javax.swing.*;
 
 import java.awt.*;
@@ -174,21 +175,10 @@ public class RegisterGUI implements ActionListener {
 			for (int i = 0; i< temppass2.length; i++){
 				password2 += temppass2[i]; 
 			}
-			if (password1.compareTo(password2) == 0 && 
-					username.getText().compareTo("") != 0 && 
-					username.getText().compareTo(" ") != 0 &&
-					password1.compareTo("") != 0){
-				//UserDatabase.addUser(user.getText(), password1));
-				
-				boolean added = UserDatabase.addUser(username.getText(), password1);
-				//System.out.print(username.getText() + " ");
-				//if (added){ 
-					//System.out.println("added.");
-					//errorlabel.setText("User added.");
-				 if (!added){
-					//System.out.println("already exists.");
-					errorlabel.setText("User already exists.");
-				}
+			if (password1.compareTo(password2) == 0 && username.getText().compareTo("") != 0){
+				System.out.println("they match");
+				LoginGUI.getUserDB().addUser(username.getText(), password1);
+				System.out.println(username.getText() + " added");
 				frame.dispose();
 			}
 			else if (username.getText().compareTo("") == 0 || username.getText().compareTo(" ") == 0){
