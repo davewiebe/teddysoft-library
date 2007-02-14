@@ -16,6 +16,9 @@ public class UserDatabase implements Serializable {
 	}
 	
 	public static boolean addUser(String username, String password){
+		if (findUser(username) != null){
+			return false;  // the user already exists
+		}
 		if (userListSize == userList.length){
 			User[] temp = new User[userListSize*2];
 			for (int i =0; i>userListSize; i++){
