@@ -100,7 +100,8 @@ public class LoginGUI implements ActionListener {
 		
 		//ERROR
 		errorlabel = new JLabel(" ");
-		errorlabel.setText("<html>"+"Sign in with your login information."+"</font></html>");
+		//errorlabel.setText("<html>"+"Sign in with your login information."+"</font></html>");
+		errorlabel.setText("Enter username and password.");
 		errorlabel.setVisible(true);
 		//EXIT Panel
 		JPanel exitpanel = new JPanel();
@@ -197,17 +198,23 @@ public class LoginGUI implements ActionListener {
 			}
 			else if(username.compareTo("") == 0) {
 				//insert no username notification here
-				errorlabel.setText("<html><font color=red>"+"User field is empty"+"</font></html>");
+				errorlabel.setText("User field is empty");
+				//errorlabel.setText("<html><font color=red>"+"User field is empty"+"</font></html>");
+				errorlabel.setForeground(new Color(0xff0000));
 				errorlabel.setVisible(true);
 			}
 			else if(password.compareTo("")==0){
 				//insert no password notification here
-				errorlabel.setText("<html><font color=red>"+"Password field is empty"+"</font></html>");
+				//errorlabel.setText("<html><font color=red>"+"Password field is empty"+"</font></html>");
+				errorlabel.setText("Password field is empty");
+				errorlabel.setForeground(new Color(0xff0000));
 				errorlabel.setVisible(true);
 			}
 			else {
 				//insert incorrect password, or wrong username alert here
-				errorlabel.setText("<html><font color=red>"+"No such user or wrong password"+"</font></html>");
+				//errorlabel.setText("<html><font color=red>"+"No such user or wrong password"+"</font></html>");
+				errorlabel.setText("No such user or wrong password");
+				errorlabel.setForeground(new Color(0xff0000));
 				errorlabel.setVisible(true);
 			}
 		}
