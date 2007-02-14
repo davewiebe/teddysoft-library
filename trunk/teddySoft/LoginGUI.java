@@ -151,9 +151,7 @@ public class LoginGUI implements ActionListener {
 		if(e.getSource() == btnSignin){
 			username = user.getText();
 			char[] temppass = pw.getPassword();
-			for (int i = 0; i< temppass.length; i++){
-				password += temppass[i]; 
-			}
+			password = new String(temppass);
 			Security secureCheck = new Security();
 			if (secureCheck.validateKey(username, password) == true){
 				Main.CreateGUI();

@@ -1,7 +1,7 @@
 package teddySoft;
 import java.io.Serializable;
 
-public class Books implements Serializable{
+public class Books implements Comparable, Serializable{
 	private
 		String title, author, edition, pubDate, pubLocation;
 		int isbn;
@@ -49,4 +49,20 @@ public class Books implements Serializable{
 	
 	public void setIsbn(int isbn){
 		this.isbn = isbn;}
+	
+	//Comparable interface
+	public int compareTo(Object b) throws ClassCastException{
+		if (!(b instanceof Books))
+			throw new ClassCastException("A Books object expected.");
+		
+		int x;
+		Books bookToTest = ((Books) b);
+		if ((this.getTitle()).equals(bookToTest.getTitle())){
+			x = 0;}
+		else if (this.getTitle().compareTo(bookToTest.getTitle()) > 0){
+			x = 1;}
+		else{
+			x=-1;}
+		return x;
+	}
 }

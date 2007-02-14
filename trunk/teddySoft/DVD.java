@@ -11,18 +11,34 @@ public class DVD extends VHS {
 		//implement search key
 	}
 	
+	//Getters
 	public boolean getIsWideScreen(){
 		return isWideScreen;}
 	
 	public String getFormat(){
 		return format;}
 	
+	//Setters
 	public void setIsWideScreen(boolean isWideScreen){
 		this.isWideScreen = isWideScreen;}
 	
 	public void setFormat(String format){
 		this.format = format;}
 	
-	
+	//Comparable interface
+	public int compareTo(Object dvd) throws ClassCastException{
+		if (!(dvd instanceof DVD))
+			throw new ClassCastException("A DVD object expected.");
+		
+		int x;
+		DVD dvdToTest = ((DVD) dvd);
+		if ((this.getTitle()).equals(dvdToTest.getTitle())){
+			x = 0;}
+		else if (this.getTitle().compareTo(dvdToTest.getTitle()) > 0){
+			x = 1;}
+		else{
+			x=-1;}
+		return x;
+	}
 	
 }

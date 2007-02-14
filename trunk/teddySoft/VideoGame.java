@@ -1,7 +1,7 @@
 package teddySoft;
 import java.io.Serializable;
 
-public class VideoGame implements Serializable  {
+public class VideoGame implements Serializable, Comparable  {
 
 	private String title, developer, year, contentRated, platform;
 	private int rating, maxPlayers;
@@ -61,4 +61,20 @@ public class VideoGame implements Serializable  {
 	
 	public void setMaxPlayers(int maxPlayers){
 		this.maxPlayers = maxPlayers;}
+	
+	//Comparable interface
+	public int compareTo(Object vg) throws ClassCastException{
+		if (!(vg instanceof VideoGame))
+			throw new ClassCastException("A VideoGame object expected.");
+		
+		int x;
+		VideoGame vgToTest = ((VideoGame) vg);
+		if ((this.getTitle()).equals(vgToTest.getTitle())){
+			x = 0;}
+		else if (this.getTitle().compareTo(vgToTest.getTitle()) > 0){
+			x = 1;}
+		else{
+			x=-1;}
+		return x;
+	}
 }
