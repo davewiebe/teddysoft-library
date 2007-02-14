@@ -6,6 +6,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class RegisterGUI implements ActionListener {
+	private JButton btnReg;
+	private JPasswordField pw, rpw;
+	private JTextField user;
+	
 	
 	public static void setWindowsLook(){
 	    try{
@@ -37,21 +41,21 @@ public class RegisterGUI implements ActionListener {
 		
 		//Username
 		JLabel userlabel = new JLabel("Username:");
-		JTextField user = new JTextField(20);
+		user = new JTextField(20);
 		user.setMinimumSize(new Dimension(160, 20));
 		user.setMaximumSize(new Dimension(160, 20));
 		user.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Password
 		JLabel pwlabel = new JLabel("Password:");
-		JPasswordField pw = new JPasswordField(20);
+		pw = new JPasswordField(20);
 		pw.setMinimumSize(new Dimension(160, 20));
 		pw.setMaximumSize(new Dimension(160, 20));
 		pw.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Repeat Password
 		JLabel rpwlabel = new JLabel("Repeat password:");
-		JPasswordField rpw = new JPasswordField(20);
+		rpw = new JPasswordField(20);
 		rpw.setMinimumSize(new Dimension(160, 20));
 		rpw.setMaximumSize(new Dimension(160, 20));
 		rpw.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -61,6 +65,9 @@ public class RegisterGUI implements ActionListener {
 		toppanel.setLayout(new BoxLayout(toppanel, BoxLayout.LINE_AXIS));	
 		toppanel.setAlignmentX(Component.LEFT_ALIGNMENT);	
 
+/*		
+		//---unless distinguishing between male and female becomes necessary
+		// we dont need this here----
 		//Radio button Panel
 		JPanel radiopanel = new JPanel();
 		radiopanel.setLayout(new BoxLayout(radiopanel, BoxLayout.PAGE_AXIS));	
@@ -68,6 +75,9 @@ public class RegisterGUI implements ActionListener {
 		radiopanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		radiopanel.setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
 		
+		
+		//---unless distinguishing between male and female becomes necessary
+		// we dont need this here----
 		//Radio Buttons
 	    JRadioButton maleButton = new JRadioButton("Male");
 	    maleButton.setActionCommand("Male");
@@ -81,14 +91,14 @@ public class RegisterGUI implements ActionListener {
 	    ButtonGroup gendergroup = new ButtonGroup();
 	    gendergroup.add(maleButton);
 	    gendergroup.add(femaleButton);
-
+*/
 	    //Register panel
 		JPanel regpanel = new JPanel();
 		regpanel.setLayout(new BoxLayout(regpanel, BoxLayout.LINE_AXIS));	
 		regpanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 	    
 		//Register button
-		JButton btnReg = new JButton("Register");
+		btnReg = new JButton("Register");
 		btnReg.setMaximumSize(new Dimension(120, 23));
 		btnReg.setAlignmentX(Component.LEFT_ALIGNMENT);
 		btnReg.setActionCommand("Register");
@@ -118,8 +128,8 @@ public class RegisterGUI implements ActionListener {
 		toppanel.add(textpanel);
 		labelpanel.add(Box.createRigidArea(new Dimension(10,0)));
 		
-		radiopanel.add(maleButton);
-		radiopanel.add(femaleButton);
+		//radiopanel.add(maleButton);
+		//radiopanel.add(femaleButton);
 		
 		regpanel.add(Box.createHorizontalGlue());
 		regpanel.add(btnReg);
@@ -128,7 +138,7 @@ public class RegisterGUI implements ActionListener {
 		mainpanel.add(Box.createRigidArea(new Dimension(0,30)));
 		mainpanel.add(toppanel);
 		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		mainpanel.add(radiopanel);
+		//mainpanel.add(radiopanel);
 		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		mainpanel.add(regpanel);
 	
@@ -137,10 +147,29 @@ public class RegisterGUI implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-
+		if(e.getSource() == btnReg){
+			String password1 = "";
+			String password2 = "";
+			char[] temppass1 = pw.getPassword();
+			for (int i = 0; i< temppass1.length; i++){
+				password1 += temppass1[i]; 
+			}
+			char[] temppass2 = rpw.getPassword();
+			for (int i = 0; i< temppass2.length; i++){
+				password2 += temppass2[i]; 
+			}
+			if (password1.compareTo(password2) == 0 && user.getText().compareTo("") != 0){
+				//UserDatabase.addUser(user.getText(), password1));
+				
+				System.out.println("they match");
+			}
+			else{
+				System.out.println("no good man,");
+			}
+		}
 	}	
 	
-	private static void CreateGUI(){
+	public static void CreateGUI(){
 		setWindowsLook(); //Set windows decorations
 		
 		//Create and set up the window.

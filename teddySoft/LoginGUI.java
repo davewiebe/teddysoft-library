@@ -166,7 +166,7 @@ public class LoginGUI implements ActionListener {
 			}	
 		}
 		else if(e.getSource() == btnRegister){
-			//register user
+			RegisterGUI.CreateGUI();
 		}
 	}	
 	

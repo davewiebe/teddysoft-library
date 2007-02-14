@@ -2,8 +2,8 @@ package teddySoft;
 
 public class UserDatabase {
 	
-	User[] userList;
-	int userListSize;
+	private static User[] userList;
+	private static int userListSize;
 	
 		public class User{
 		
@@ -18,6 +18,14 @@ public class UserDatabase {
 			
 			public String getKey(){
 				return key;
+			}
+			
+			public void setName(String name){
+				this.name = name;
+			}
+			
+			public void setKey(String key){
+				this.key = key;
 			}
 			
 			public String getName(){
@@ -40,7 +48,12 @@ public class UserDatabase {
 		return null;
 	}
 	
-	public boolean addUser(User user){
+	public boolean addUser(String username, String password){
+		User user = new User(username, password);
+		return addUser(user);
+	}
+	
+	public static boolean addUser(User user){
 		if (userListSize == userList.length){
 			User[] temp = new User[userListSize*2];
 			for (int i =0; i>userListSize; i++){
