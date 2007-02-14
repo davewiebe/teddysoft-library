@@ -1,4 +1,4 @@
-package teddySoft;
+//package teddySoft;
 import javax.swing.*;
 
 import java.awt.*;
@@ -152,9 +152,7 @@ public class AddBookGUI implements ActionListener {
 		
 		JTextArea description = new JTextArea(6, 20);
 		description.setLineWrap(true);
-		description.setBorder(BorderFactory.createBevelBorder(1));
-		//description.setMinimumSize(new Dimension(160, 20));
-		//description.setMaximumSize(new Dimension(160, 20));
+		JScrollPane descscroll = new JScrollPane(description);
 		
 		//Review Panel
 		JPanel revpanel = new JPanel();
@@ -163,13 +161,11 @@ public class AddBookGUI implements ActionListener {
 		revpanel.setAlignmentY(Component.TOP_ALIGNMENT);	
 		revpanel.setBorder(BorderFactory.createTitledBorder(
         "Review"));
-		
+				
 		JTextArea review = new JTextArea(6, 20);
 		review.setLineWrap(true);
-		review.setBorder(BorderFactory.createBevelBorder(1));
-		//description.setMinimumSize(new Dimension(160, 20));
-		//description.setMaximumSize(new Dimension(160, 20));
-		
+		JScrollPane reviewscroll = new JScrollPane(review);
+				
 		//Button panel
 		JPanel buttonpanel = new JPanel();
 		buttonpanel.setLayout(new BoxLayout(buttonpanel, BoxLayout.LINE_AXIS));	
@@ -232,9 +228,10 @@ public class AddBookGUI implements ActionListener {
 		midpanel.add(infopanel);
 		midpanel.add(ratepanel);
 		
-		descpanel.add(description);
+		descpanel.add(descscroll);
 				
-		revpanel.add(review);
+		//revpanel.add(review);
+		revpanel.add(reviewscroll);
 				
 		buttonpanel.add(Box.createHorizontalGlue());
 		buttonpanel.add(btnAdd);
