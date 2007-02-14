@@ -10,7 +10,7 @@ public class RegisterGUI implements ActionListener {
 	private JPasswordField pw, rpw;
 	private JTextField username;
 	private static JFrame frame;
-	
+	private JLabel errorlabel;
 	
 	public static void setWindowsLook(){
 	    try{
@@ -64,7 +64,12 @@ public class RegisterGUI implements ActionListener {
 		//Top Panel
 		JPanel toppanel = new JPanel();
 		toppanel.setLayout(new BoxLayout(toppanel, BoxLayout.LINE_AXIS));	
-		toppanel.setAlignmentX(Component.LEFT_ALIGNMENT);	
+		toppanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		
+		//ERROR
+		errorlabel = new JLabel(" ");
+		errorlabel.setForeground(new Color(0xff0000));
+		errorlabel.setVisible(true);
 
 /*		
 		//---unless distinguishing between male and female becomes necessary
@@ -120,19 +125,22 @@ public class RegisterGUI implements ActionListener {
         "Registered New User"));
 
 		labelpanel.add(userlabel);
-		labelpanel.add(Box.createRigidArea(new Dimension(0,15)));
+		labelpanel.add(Box.createRigidArea(new Dimension(0,12)));
 		labelpanel.add(pwlabel);
-		labelpanel.add(Box.createRigidArea(new Dimension(0,15)));
+		labelpanel.add(Box.createRigidArea(new Dimension(0,12)));
 		labelpanel.add(rpwlabel);
 		
 		textpanel.add(username);
-		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
+		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(pw);
-		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
+		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(rpw);
+		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
+		textpanel.add(errorlabel);
 		
 		toppanel.add(Box.createRigidArea(new Dimension(5,0)));
 		toppanel.add(labelpanel);
+		toppanel.add(Box.createRigidArea(new Dimension(5,0)));
 		toppanel.add(textpanel);
 		labelpanel.add(Box.createRigidArea(new Dimension(5,0)));
 		
@@ -145,7 +153,7 @@ public class RegisterGUI implements ActionListener {
 		regpanel.add(btnCancel);
 		regpanel.add(Box.createRigidArea(new Dimension(5,0)));
 		
-		mainpanel.add(Box.createRigidArea(new Dimension(0,30)));
+		mainpanel.add(Box.createRigidArea(new Dimension(0,40)));
 		mainpanel.add(toppanel);
 		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		//mainpanel.add(radiopanel);
@@ -175,13 +183,16 @@ public class RegisterGUI implements ActionListener {
 				System.out.print(username.getText() + " ");
 				if (added){ 
 					System.out.println("added.");
+					errorlabel.setText("User added.");
 				}else{
 					System.out.println("already exists.");
+					errorlabel.setText("User already exists.");
 				}
 				frame.dispose();
 			}
 			else{
 				System.out.println("no good man,");
+				errorlabel.setText("Invalid information.");
 			}
 		}
 		else if(e.getSource() == btnCancel){
