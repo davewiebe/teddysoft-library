@@ -15,6 +15,8 @@ public class LoginGUI implements ActionListener {
 	private JTextField user;
 	private JPasswordField pw;
 	private static JFrame frame;
+	private JLabel userlabel;
+
 	
 	public static void setWindowsLook(){
 	    try{
@@ -45,7 +47,7 @@ public class LoginGUI implements ActionListener {
 		textpanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		
 		//Username
-		JLabel userlabel = new JLabel("Username:");
+		userlabel = new JLabel("Username:");
 		user = new JTextField(20);
 		user.setMinimumSize(new Dimension(160, 20));
 		user.setMaximumSize(new Dimension(160, 20));
@@ -188,13 +190,13 @@ public class LoginGUI implements ActionListener {
 				frame.dispose();
 			}
 			else if(username.compareTo("") == 0) {
-				
 				//insert no username notification here
 			}
 			else if(password.compareTo("")==0){
 				//insert no password notification here
 			}
 			else {
+				
 				//insert incorrect password, or wrong username alert here
 			}
 		}
