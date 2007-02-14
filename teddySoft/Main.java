@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Main implements ActionListener {
+	private
+		JButton btnView, btnEdit, btnDelete, btnAll, btnBooks, btnRecipes, btnGames,
+		btnMusic, btnMovies, btnExit;
 	
 	public static void setWindowsLook(){
 	    try{
@@ -28,19 +31,19 @@ public class Main implements ActionListener {
 		topleftpanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		//View Entry button 
-		JButton btnView = new JButton("View Entry");
+		btnView = new JButton("View Entry");
 		btnView.setMnemonic('v'); 
 		btnView.setMaximumSize(new Dimension(120, 23));
 		btnView.setActionCommand("View");
 		btnView.addActionListener(this);
 		//Edit Entry button
-		JButton btnEdit = new JButton("Edit Entry");
+		btnEdit = new JButton("Edit Entry");
 		btnEdit.setMnemonic('e');
 		btnEdit.setMaximumSize(new Dimension(120, 23));
 		btnEdit.setActionCommand("Edit");
 		btnEdit.addActionListener(this);
 		//Delete Entry button
-		JButton btnDelete = new JButton("Delete Entry");
+		btnDelete = new JButton("Delete Entry");
 		btnDelete.setMnemonic('d');
 		btnDelete.setMaximumSize(new Dimension(120, 23));
 		btnDelete.setActionCommand("Delete");
@@ -67,32 +70,32 @@ public class Main implements ActionListener {
 		viewpanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		//Show All button 
-		JButton btnAll = new JButton("Show All");
+		btnAll = new JButton("Show All");
 		btnAll.setMaximumSize(new Dimension(100, 23));
 		btnAll.setActionCommand("All");
 		btnAll.addActionListener(this);
 		//Only Books button 
-		JButton btnBooks = new JButton("Only Books");
+		btnBooks = new JButton("Only Books");
 		btnBooks.setMaximumSize(new Dimension(100, 23));
 		btnBooks.setActionCommand("Books");
 		btnBooks.addActionListener(this);
 		//Only Games button 
-		JButton btnGames = new JButton("Only Games");
+		btnGames = new JButton("Only Games");
 		btnGames.setMaximumSize(new Dimension(100, 23));
 		btnGames.setActionCommand("Games");
 		btnGames.addActionListener(this);
 		//Only Recipes button 
-		JButton btnRecipes = new JButton("Only Recipes");
+		btnRecipes = new JButton("Only Recipes");
 		btnRecipes.setMaximumSize(new Dimension(100, 23));
 		btnRecipes.setActionCommand("Recipes");
 		btnRecipes.addActionListener(this);
 		//Only Music button 
-		JButton btnMusic = new JButton("Only Music");
+		btnMusic = new JButton("Only Music");
 		btnMusic.setMaximumSize(new Dimension(100, 23));
 		btnMusic.setActionCommand("Music");
 		btnMusic.addActionListener(this);
 		//Only Movies button 
-		JButton btnMovies = new JButton("Only Movies");
+		btnMovies = new JButton("Only Movies");
 		btnMovies.setMaximumSize(new Dimension(100, 23));
 		btnMovies.setActionCommand("Movies");
 		btnMovies.addActionListener(this);		
@@ -115,16 +118,11 @@ public class Main implements ActionListener {
                 "Type"};
 
 		Object[][] data = {
-		{"ABC", "Action",
-		new Integer(2005), " ", "Book"},
-		{"AAA", "Adventure",
-		new Integer(1983), "Publisher",  "Book"},
-		{"XYZ", "Mystery",
-		new Integer(2121), "1234",  "Book"},
-		{"ZZZ", "Horror",
-		new Integer(2000), "abc",  "Book"},
-		{"ADFAF KJAFA", "Horror",
-		new Integer(1078), "ddd",  "Book"}
+		{"ABC", "Action", new Integer(2005), " ", "Book"},
+		{"AAA", "Adventure", new Integer(1983), "Publisher",  "Book"},
+		{"XYZ", "Mystery", new Integer(2121), "1234",  "Book"},
+		{"ZZZ", "Horror", new Integer(2000), "abc",  "Book"},
+		{"ADFAF KJAFA", "Horror", new Integer(1078), "ddd",  "Book"}
 		};
 				
 		JTable temptable = new JTable(data, columnNames);
@@ -137,7 +135,7 @@ public class Main implements ActionListener {
 		//topleftpanel.setAlignmentX(Component.LEFT_ALIGNMENT);		
 		
 		//Exit button 
-		JButton btnExit = new JButton("Exit");
+		btnExit = new JButton("Exit");
 		btnExit.setMaximumSize(new Dimension(120, 23));
 		btnExit.setActionCommand("Exit");
 		btnExit.addActionListener(this);

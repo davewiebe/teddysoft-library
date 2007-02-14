@@ -153,18 +153,27 @@ public class LoginGUI implements ActionListener {
 			char[] temppass = pw.getPassword();
 			password = new String(temppass);
 			Security secureCheck = new Security();
-			if (secureCheck.validateKey(username, password) == true){
+			boolean valid = secureCheck.validateKey(username, password);
+			if (username.compareTo("") != 0 && 
+					password.compareTo("") != 0 &&
+					valid){
 				Main.CreateGUI();
 				frame.dispose();
 			}
+			else if(username.compareTo("") == 0) {
+				
+				//insert no username notification here
+			}
+			else if(password.compareTo("")==0){
+				//insert no password notification here
+			}
 			else {
-				password = "";
-				pw.setText("");
-				//insert wrong password notification here
-			}	
+				//insert incorrect password, or wrong username alert here
+			}
 		}
 		else if(e.getSource() == btnRegister){
 			RegisterGUI.CreateGUI();
+			
 		}
 	}	
 	
