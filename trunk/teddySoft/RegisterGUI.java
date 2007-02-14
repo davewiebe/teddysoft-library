@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class RegisterGUI implements ActionListener {
-	private JButton btnReg;
+	private JButton btnReg, btnCancel;
 	private JPasswordField pw, rpw;
 	private JTextField username;
 	private static JFrame frame;
@@ -104,6 +104,13 @@ public class RegisterGUI implements ActionListener {
 		btnReg.setAlignmentX(Component.LEFT_ALIGNMENT);
 		btnReg.setActionCommand("Register");
 		btnReg.addActionListener(this);
+		
+		//Cancel button
+		btnCancel = new JButton("Cancel");
+		btnCancel.setMaximumSize(new Dimension(120, 23));
+		btnCancel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		btnCancel.setActionCommand("Cancel");
+		btnCancel.addActionListener(this);
 			
 		//Main Panel
 		JPanel mainpanel = new JPanel();
@@ -134,6 +141,8 @@ public class RegisterGUI implements ActionListener {
 		
 		regpanel.add(Box.createHorizontalGlue());
 		regpanel.add(btnReg);
+		regpanel.add(Box.createRigidArea(new Dimension(5,0)));
+		regpanel.add(btnCancel);
 		regpanel.add(Box.createRigidArea(new Dimension(5,0)));
 		
 		mainpanel.add(Box.createRigidArea(new Dimension(0,30)));
