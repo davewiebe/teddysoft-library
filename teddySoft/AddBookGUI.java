@@ -205,16 +205,26 @@ public class AddBookGUI implements ActionListener {
 		genrepanel.add(genreList);
 		
 		labelpanel.add(titlelabel);
+		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(authorlabel);
+		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(editionlabel);
+		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(datelabel);
+		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(placelabel);
+		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(isbnlabel);
 		textpanel.add(title);
+		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(author);
+		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(edition);
+		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(date);
+		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(place);
+		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(isbn);
 		infopanel.add(labelpanel);
 		infopanel.add(textpanel);
