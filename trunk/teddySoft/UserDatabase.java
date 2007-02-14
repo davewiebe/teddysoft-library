@@ -1,35 +1,12 @@
 package teddySoft;
+import java.io.Serializable;
 
-public class UserDatabase {
-		public class User{
-		
-			private String name;
-			private String key;
-			
-			public User(String name, String password){
-				this.name = name;
-				this.key = Security.createKey(name, password);
-			}
-			
-			public String getKey(){
-				return key;
-			}
-			
-			public String getName(){
-				return name;
-			}
-		}
+public class UserDatabase implements Serializable {
 
-	private User[] userList;
-	private int userListSize;
-
-	public UserDatabase(){
-		userList = new User[10];
-		userListSize = 0;
-		
-	}
+	private static User[] userList = new User[10];
+	private static int userListSize = 0;
 	
-	public User findUser(String name){
+	public static User findUser(String name){//, User[] userList){
 		for (int i = 0; i < userListSize; i++){
 			if ((userList[i].getName()).equals(name)){
 				return userList[i];
@@ -38,7 +15,7 @@ public class UserDatabase {
 		return null;
 	}
 	
-	public boolean addUser(String username, String password){
+	public static boolean addUser(String username, String password){
 		if (userListSize == userList.length){
 			User[] temp = new User[userListSize*2];
 			for (int i =0; i>userListSize; i++){
@@ -49,6 +26,10 @@ public class UserDatabase {
 		userList[userListSize] = new User(username, password);
 		userListSize++;
 		return true;
+	}
+	
+	public User[] getUserList(){
+		return userList;
 	}
 	
 	public int getUserListSize(){

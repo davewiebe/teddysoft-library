@@ -8,10 +8,10 @@ public class Security{
 /*	public boolean validateUser(String username, String password){		
 		return (users.findUser(username).getKey() == key.generateKey(username, password));
 	}*/
-	public Security(){
+/*	public Security(){
 		users = new UserDatabase();
 		users.addUser("JordanMc", "password"); //test
-	}
+	}*/
 	
 /*	public static String getKey(String username, String password){
 		key = new KeyGen();
@@ -26,7 +26,7 @@ public class Security{
 	}
 	
 	public boolean validateKey(String username, String password){
-		return validateKeyHelper(username, password, (users.findUser(username)).getKey());
+		return validateKeyHelper(username, password, (UserDatabase.findUser(username)).getKey());
 	}
 	
 	public boolean validateKeyHelper(String username, String password, String key){
