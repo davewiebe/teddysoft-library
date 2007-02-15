@@ -176,10 +176,14 @@ public class RegisterGUI implements ActionListener {
 				password2 += temppass2[i]; 
 			}
 			if (password1.compareTo(password2) == 0 && username.getText().compareTo("") != 0){
-				System.out.println("they match");
-				LoginGUI.getUserDB().addUser(username.getText(), password1);
-				System.out.println(username.getText() + " added");
-				frame.dispose();
+				//System.out.println("they match");
+				boolean addedUser = LoginGUI.getUserDB().addUser(username.getText(), password1);
+				//System.out.println(username.getText() + " added");
+				if (addedUser){
+					frame.dispose();
+				}else{
+					errorlabel.setText("Username already exists.");
+				}
 			}
 			else if (username.getText().compareTo("") == 0 || username.getText().compareTo(" ") == 0){
 				errorlabel.setText("Username field is empty.");

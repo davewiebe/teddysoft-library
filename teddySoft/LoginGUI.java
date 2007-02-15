@@ -205,7 +205,7 @@ public class LoginGUI implements ActionListener {
 			boolean valid = secureCheck.validateKey(username, password, userDB);
 			if (username.compareTo("") != 0 && 
 					password.compareTo("") != 0 &&
-					valid){
+					valid == true){
 				Main.CreateGUI();
 //				write userDB.ser
 				try{
