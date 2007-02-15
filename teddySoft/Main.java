@@ -1,5 +1,6 @@
 package teddySoft;
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -7,9 +8,10 @@ import java.awt.event.ActionEvent;
 public class Main implements ActionListener {
 	private
 		JButton btnView, btnEdit, btnDelete, btnAll, btnBooks, btnRecipes, btnGames,
-		btnMusic, btnMovies, btnExit;
+		btnMusic, btnMovies, btnExit, btnLogOut;
 		JComboBox entrytypeList;
 		static User currentUser;
+		static JFrame frame;
 	
 	public static void setWindowsLook(){
 	    try{
@@ -136,11 +138,17 @@ public class Main implements ActionListener {
 		bottompanel.setLayout(new BoxLayout(bottompanel, BoxLayout.LINE_AXIS));	
 		//topleftpanel.setAlignmentX(Component.LEFT_ALIGNMENT);		
 		
-		//Exit button 
+		//Logout button 
 		btnExit = new JButton("Exit");
 		btnExit.setMaximumSize(new Dimension(120, 23));
 		btnExit.setActionCommand("Exit");
 		btnExit.addActionListener(this);
+		
+		//Exit button 
+		btnLogOut = new JButton("Log Out");
+		btnLogOut.setMaximumSize(new Dimension(120, 23));
+		btnLogOut.setActionCommand("Log Out");
+		btnLogOut.addActionListener(this);
 
 		//Right Panel
 		JPanel rightpanel = new JPanel();
@@ -179,6 +187,7 @@ public class Main implements ActionListener {
 		tablepanel.add(temptable);
 		tablepanel.add(temptablescroll);
 		bottompanel.add(Box.createHorizontalGlue());
+		bottompanel.add(btnLogOut);
 		bottompanel.add(btnExit);		
 		
 		rightpanel.add(tablepanel);
@@ -216,6 +225,10 @@ public class Main implements ActionListener {
 		//if ("disable".equals(e.getActionCommand()))
 		if (e.getActionCommand().equals("Exit")){
 			System.exit(0);
+		}
+		else if (e.getActionCommand().equals("Log Out")){
+			LoginGUI.CreateGUI();
+			frame.dispose();
 		}
 		else if (e.getActionCommand().equals("All")){
 			System.out.println("Show All");
@@ -265,7 +278,7 @@ public class Main implements ActionListener {
 		setWindowsLook(); //Set windows decorations
 		currentUser = user;
 		//Create and set up the window.
-		JFrame frame = new JFrame("Media Library");
+		frame = new JFrame("Media Library");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
         Main app = new Main();
