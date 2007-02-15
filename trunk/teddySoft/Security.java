@@ -21,12 +21,16 @@ public class Security{
 	
 	public static String createKey(String username, String password){
 		KeyGen keyToCreate = new KeyGen();
-		System.out.println(keyToCreate.generateKey(username, password));
+		//System.out.println(keyToCreate.generateKey(username, password));
 		return keyToCreate.generateKey(username, password);
 	}
 	
 	public boolean validateKey(String username, String password, UserDatabase userDB){
-		return validateKeyHelper(username, password, (userDB.findUser(username)).getKey());
+		User a = userDB.findUser(username);
+		if (a == null){ return false;}
+		else{
+			return validateKeyHelper(username, password, (userDB.findUser(username)).getKey());
+		}
 	}
 	
 	public boolean validateKeyHelper(String username, String password, String key){
