@@ -206,7 +206,7 @@ public class LoginGUI implements ActionListener {
 			if (username.compareTo("") != 0 && 
 					password.compareTo("") != 0 &&
 					valid == true){
-				Main.CreateGUI();
+				Main.CreateGUI(userDB.getUser(username));
 //				write userDB.ser
 				try{
 					FileOutputStream fileout = new FileOutputStream("UserDB.ser");

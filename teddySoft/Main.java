@@ -8,6 +8,8 @@ public class Main implements ActionListener {
 	private
 		JButton btnView, btnEdit, btnDelete, btnAll, btnBooks, btnRecipes, btnGames,
 		btnMusic, btnMovies, btnExit;
+		JComboBox entrytypeList;
+		static User currentUser;
 	
 	public static void setWindowsLook(){
 	    try{
@@ -56,7 +58,7 @@ public class Main implements ActionListener {
 		
 		//Add Entries combo box
 		String[] entryTypes = { "Add New Entry...", "Book", "Game", "Recipe", "Music", "Movie" };
-		JComboBox entrytypeList = new JComboBox(entryTypes);
+		entrytypeList = new JComboBox(entryTypes);
 		entrytypeList.setSelectedIndex(0);
 		entrytypeList.setMaximumSize(new Dimension(160, 40));
 		entrytypeList.setActionCommand("EntryType");
@@ -236,16 +238,17 @@ public class Main implements ActionListener {
 		else if (e.getActionCommand().equals("EntryType")){
 			JComboBox temp = (JComboBox)e.getSource();
 			//"Book", "Game", "Recipe", "Music", "Movie"
-	        if (temp.getSelectedIndex() == 1)
+	        if (temp.getSelectedIndex() == 1){
 	        	System.out.println("Add Book");
-	        else if (temp.getSelectedIndex() == 2)
-	        	System.out.println("Add Game");
-	        else if (temp.getSelectedIndex() == 3)
-	        	System.out.println("Add Recipe");
-	        else if (temp.getSelectedIndex() == 4)
-	        	System.out.println("Add Music");
-	        else if (temp.getSelectedIndex() == 5)
-	        	System.out.println("Add Movie");
+	        	AddBookGUI.CreateGUI(currentUser);}
+	        else if (temp.getSelectedIndex() == 2){
+	        	System.out.println("Add Game");}
+	        else if (temp.getSelectedIndex() == 3){
+	        	System.out.println("Add Recipe");}
+	        else if (temp.getSelectedIndex() == 4){
+	        	System.out.println("Add Music");}
+	        else if (temp.getSelectedIndex() == 5){
+	        	System.out.println("Add Movie");}
 		}
 		else if (e.getActionCommand().equals("Delete")){
 			System.out.println("Delete Entry");
@@ -258,9 +261,9 @@ public class Main implements ActionListener {
 		}
 	}	
 	
-	public static void CreateGUI(){
+	public static void CreateGUI(User user){
 		setWindowsLook(); //Set windows decorations
-		
+		currentUser = user;
 		//Create and set up the window.
 		JFrame frame = new JFrame("Media Library");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -26,10 +26,10 @@ public class Security{
 	}
 	
 	public boolean validateKey(String username, String password, UserDatabase userDB){
-		User a = userDB.findUser(username);
+		User a = userDB.getUser(username);
 		if (a == null){ return false;}
 		else{
-			return validateKeyHelper(username, password, (userDB.findUser(username)).getKey());
+			return validateKeyHelper(username, password, (userDB.getUser(username)).getKey());
 		}
 	}
 	
