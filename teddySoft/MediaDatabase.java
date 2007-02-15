@@ -34,6 +34,9 @@ public class MediaDatabase implements Serializable {
 		VideoGame.RBTreeInsert(vg);}
 	
 	
-	
-
+	//getters
+	public Books getBook(String title){
+		Books b = new Books(title, "", "", "", "", "", "", 1, "", "");
+		return (Books)Books.getObj(b);
+	}
 }

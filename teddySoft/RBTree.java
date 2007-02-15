@@ -41,7 +41,7 @@ public class RBTree implements Serializable{
 	///////////////////////////////////////////////////////////////////
 	//POST: returns true it target is found. False otherwise
 	//PARAM: target- search the tree for this data. current: current node that is being looked at.
-	public boolean searchHelper(Comparable target, RBnode current){
+	private boolean searchHelper(Comparable target, RBnode current){
 		if (current == null)
 			return false;
 		if (current.data.compareTo(target) == 0) //if current node contains target data
@@ -54,6 +54,21 @@ public class RBTree implements Serializable{
 	
 	public boolean search(Comparable target){
 		if (size == 0) return false; //if tree is empty return false
+		else return searchHelper(target, root);
+	}
+	
+	private Comparable getObjHelper(Comparable target, RBnode current){
+		if (current == null)
+			return null;
+		if (current.data.compareTo(target) == 0) //if current node contains target data
+			return current.data;
+		else if (current.data.compareTo(target) < 0) //if data in current node is less than target data
+			return searchHelper(target, current.right);
+		else //if data in current node is larger than target data
+			return searchHelper(target, current.left);
+	}
+	public Comparable getObj(Comparable target){
+		if (size == 0) return null; //if tree is empty return false
 		else return searchHelper(target, root);
 	}
 	
@@ -173,7 +188,7 @@ public class RBTree implements Serializable{
 	}
 	
 	///////////////////////////////////////////////////////////////////
-	public void left_rotate(RBnode pivot){
+	private void left_rotate(RBnode pivot){
 		RBnode temp = pivot.right;
 		pivot.right = temp.left;
 		
@@ -196,7 +211,7 @@ public class RBTree implements Serializable{
 	}
 	
 	///////////////////////////////////////////////////////////////////
-	public void right_rotate(RBnode pivot){
+	private void right_rotate(RBnode pivot){
 		RBnode temp = pivot.left;
 		pivot.left = temp.right;
 		
@@ -240,7 +255,7 @@ public class RBTree implements Serializable{
 		return result;
 	}
 	///////////////////////////////////////////////////////////////////
-	public void RBRemoveFix(RBnode x){
+	private void RBRemoveFix(RBnode x){
 		RBnode y = new RBnode();
 		while (x != root && x.isBlack == true){
 			if (x == x.parent.left){ //x is left child
