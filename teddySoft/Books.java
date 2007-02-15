@@ -3,15 +3,21 @@ import java.io.Serializable;
 
 public class Books implements Comparable, Serializable{
 	private
-		String title, author, edition, pubDate, pubLocation, isbn;
+		String title, author, edition, pubDate, pubLocation, isbn, genre;
+		int rating;
 		
-	public Books (String title, String author, String edition, String pubDate, String pubLocation, String isbn){
+	public Books (String title, String author, String edition, 
+			String pubDate, String pubLocation, String isbn, String genre, int rating){
 		this.title = title;
 		this.author = author;
 		this.edition = edition;
 		this.pubDate = pubDate;
 		this.pubLocation = pubLocation;
 		this.isbn = isbn;
+		this.genre = genre;
+		this.rating = rating;
+		if (rating > 5){ this.rating = 5;}
+		if (rating < 1){ this.rating = 1;}
 	}
 	
 	//Getters
