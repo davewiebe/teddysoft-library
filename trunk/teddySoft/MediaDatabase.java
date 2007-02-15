@@ -32,5 +32,7 @@ public class MediaDatabase implements Serializable {
 	public void addVideoGame(VideoGame vg){
 		VideoGame.RBTreeInsert(vg);}
 	
+	
+	
 
 }

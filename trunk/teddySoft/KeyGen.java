@@ -28,6 +28,7 @@ public class KeyGen {
 				p++;
 			}
 		}
+		//System.out.println(key);
 		return key;
 	}
 		
