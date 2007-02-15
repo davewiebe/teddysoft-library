@@ -18,7 +18,7 @@ public class MediaDatabase implements Serializable {
 	}
 	
 	public void addBook(Books b){
-		System.out.println(b.getAuthor() + " added!");
+		System.out.println(b.getTitle() + " added!");
 		Books.RBTreeInsert(b);}
 	
 	public void addVHS(VHS v){
