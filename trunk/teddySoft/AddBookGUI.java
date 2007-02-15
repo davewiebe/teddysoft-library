@@ -271,25 +271,65 @@ public class AddBookGUI implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		int rating = 1;
+		if (oneButton.isSelected() == true){
+			rating = 1;
+		}
+		else if(twoButton.isSelected() == true){
+			rating = 2;
+		}
+		else if(threeButton.isSelected() == true){
+			rating = 3;
+		}
+		else if(fourButton.isSelected() == true){
+			rating = 4;
+		}
+		else if(fiveButton.isSelected() == true){
+			rating = 5;
+		}
+		
+		String genre = "";
+		if (genreList.getSelectedIndex() == 1){
+			genre = "Action";
+		}
+		else if(genreList.getSelectedIndex() == 2){
+			genre = "Adventure";
+		}
+		else if(genreList.getSelectedIndex() == 3){
+			genre = "Children";
+		}
+		else if(genreList.getSelectedIndex() == 4){
+			genre = "Comedy";
+		}
+		else if(genreList.getSelectedIndex() == 5){
+			genre = "Fantasy";
+		}
+		else if(genreList.getSelectedIndex() == 6){
+			genre = "Horror";
+		}
+		else if(genreList.getSelectedIndex() == 7){
+			genre = "Mystery";
+		}
+		else if(genreList.getSelectedIndex() == 8){
+			genre = "Romance";
+		}
+		else if(genreList.getSelectedIndex() == 9){
+			genre = "Science Fiction";
+		}
+		
 		if(e.getSource() == btnClose){
 			frame.dispose();
 		}
-		else if(e.getSource() == btnAdd){
-			//SAVE THE TEXT TO AN OBJECT IN THE USERS MEDIA
-			
-			frame.dispose();
-		}
-		else if(e.getSource() == btnAnother){
-			Books newBook = new Books(
-					title.getText(),
-					author.getText(), 
-					edition.getText(),
-					date.getText(), 
-					place.getText(), 
-					isbn.getText());
+		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
+						
+			Books newBook = new Books(title.getText(),author.getText(), edition.getText(),
+					date.getText(), place.getText(), isbn.getText(), genre, rating);
+					
 			currentUser.getDB().addBook(newBook);
 			
-			//SAVE THE TEXT TO AN OBJECT IN THE USERS MEDIA
+			if (e.getSource() == btnAdd){
+				frame.dispose();
+			}
 			title.setText("");
 			author.setText("");
 			date.setText("");
