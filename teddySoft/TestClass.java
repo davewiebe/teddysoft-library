@@ -9,8 +9,8 @@ public class TestClass {
 		
 		DatabaseTest db = new DatabaseTest();
 			
-		Books vs = new Books("Vanilla Sky", "Don't know", "2", "2001", "hollywood", "5575", "Horror", 1);
-		Books lotr = new Books("LOTR", "JRR", "1", "1990", "hollywood", "12345", "SciFi", 5);
+		Books vs = new Books("Vanilla Sky", "Don't know", "2", "2001", "hollywood", "5575", "Horror", 1, "", "");
+		Books lotr = new Books("LOTR", "JRR", "1", "1990", "hollywood", "12345", "SciFi", 5, "", "");
 		db.insert(vs);
 		db.insert(lotr);
 		
