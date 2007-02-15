@@ -13,6 +13,7 @@ public class AddBookGUI implements ActionListener {
 	private static JFrame frame;
 	private JTextArea description, review;
 	private JRadioButton oneButton, twoButton, threeButton, fourButton, fiveButton;
+	private static User currentUser;
 	
 	public static void setWindowsLook(){
 	    try{
@@ -279,6 +280,15 @@ public class AddBookGUI implements ActionListener {
 			frame.dispose();
 		}
 		else if(e.getSource() == btnAnother){
+			Books newBook = new Books(
+					title.getText(),
+					author.getText(), 
+					edition.getText(),
+					date.getText(), 
+					place.getText(), 
+					isbn.getText());
+			currentUser.getDB().addBook(newBook);
+			
 			//SAVE THE TEXT TO AN OBJECT IN THE USERS MEDIA
 			title.setText("");
 			author.setText("");
@@ -293,9 +303,9 @@ public class AddBookGUI implements ActionListener {
 		}
 	}	
 	
-	private static void CreateGUI(){
+	public static void CreateGUI(User user){
 		setWindowsLook(); //Set windows decorations
-		
+		currentUser = user;
 		//Create and set up the window.
 		frame = new JFrame("Add Book");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -311,7 +321,7 @@ public class AddBookGUI implements ActionListener {
 		frame.setLocationRelativeTo(null); //centers window
 
 	}	
-	
+	/*
 	public static void main(String[] args){
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
@@ -320,5 +330,5 @@ public class AddBookGUI implements ActionListener {
 				CreateGUI();
 			}
 		});
-	}
+	}*/
 }

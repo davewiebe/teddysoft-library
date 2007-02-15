@@ -16,7 +16,7 @@ public class UserDatabase {
 		userListSize = 0;
 	}
 	
-	public User findUser(String name){//, User[] userList){
+	public User getUser(String name){//, User[] userList){
 		for (int i = 0; i < this.getUserListSize(); i++){
 			if (userList[i] != null && (userList[i].getName()).equals(name)){
 				return userList[i];
@@ -26,7 +26,7 @@ public class UserDatabase {
 	}
 	
 	public boolean addUser(String username, String password){
-		if (findUser(username) != null){
+		if (getUser(username) != null){
 			return false;  //the user already exists in the system.
 		}
 		if (userListSize == userList.length){

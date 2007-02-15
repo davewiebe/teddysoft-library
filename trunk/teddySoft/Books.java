@@ -3,10 +3,9 @@ import java.io.Serializable;
 
 public class Books implements Comparable, Serializable{
 	private
-		String title, author, edition, pubDate, pubLocation;
-		int isbn;
+		String title, author, edition, pubDate, pubLocation, isbn;
 		
-	public Books (String title, String author, String edition, String pubDate, String pubLocation, int isbn){
+	public Books (String title, String author, String edition, String pubDate, String pubLocation, String isbn){
 		this.title = title;
 		this.author = author;
 		this.edition = edition;
@@ -31,7 +30,7 @@ public class Books implements Comparable, Serializable{
 	public String getPubLocation(){
 		return pubLocation;}
 	
-	public int getIsbn(){
+	public String getIsbn(){
 		return isbn;}
 	
 	//Setters
@@ -47,7 +46,7 @@ public class Books implements Comparable, Serializable{
 	public void setPubLocation(String pubLocation){
 		this.pubLocation = pubLocation;}
 	
-	public void setIsbn(int isbn){
+	public void setIsbn(String isbn){
 		this.isbn = isbn;}
 	
 	//Comparable interface

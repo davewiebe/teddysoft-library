@@ -21,4 +21,8 @@ public class User implements Serializable{
 	public String getName(){
 		return name;
 	}
+	
+	public MediaDatabase getDB(){
+		return media;
+	}
 }
