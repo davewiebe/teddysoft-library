@@ -323,7 +323,8 @@ public class AddBookGUI implements ActionListener {
 		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
 						
 			Books newBook = new Books(title.getText(),author.getText(), edition.getText(),
-					date.getText(), place.getText(), isbn.getText(), genre, rating);
+					date.getText(), place.getText(), isbn.getText(), genre, 
+					rating, description.getText(), review.getText());
 					
 			currentUser.getDB().addBook(newBook);
 			
