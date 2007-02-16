@@ -1,19 +1,9 @@
-/*
-	RBTree.java
-	Written by Jordan McMillan
-	Edited by David Wiebe
-	
-	Software group: TeddySoft.
-	
-*/
-
 package teddySoft;
-
 import java.io.Serializable;
 
 public class RBTree implements Serializable{
 	
-	class RBnode{
+	class RBnode implements Serializable{
 		public RBnode left;
 		public RBnode right;
 		public RBnode parent;
@@ -38,6 +28,7 @@ public class RBTree implements Serializable{
 	
 	private int size;
 	private RBnode root;
+	private int listCount;
 	
 	public RBTree(){
 		root = null;
@@ -365,6 +356,29 @@ public class RBTree implements Serializable{
 	///////////////////////////////////////////////////////////////////
 	public RBnode RB_Get_Root(){ //return private variable root
 		return root;
+	}
+	
+	public int getSize(){
+		return size;
+	}
+	///////////////////////////////////////////////////////////////////
+	//POST: returns ordered list of tree elements
+	public Comparable[] getTreeElements(){
+		listCount = 0;
+		Comparable List[] = new Comparable[this.size];
+		return getTreeElementsHelper(root, List); //start with root of tree
+	}	
+	///////////////////////////////////////////////////////////////////
+	//POST: puts all elements in tree into an ordered list
+	//PARAM: current: current node being visited
+	public Comparable[] getTreeElementsHelper(RBnode current, Comparable[] List){
+		if (current != null){ //if current node exists
+			getTreeElementsHelper(current.left, List); //recurse with current node's left child
+			List[listCount] = current.data;
+			listCount++;
+			getTreeElementsHelper(current.right, List); //recurse with current node's right child
+		}
+		return List;
 	}
 	
 }

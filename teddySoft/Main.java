@@ -1,18 +1,16 @@
-/*
-	Main.java
-	Written by Frankie Yan
-	Edited by Jordan McMillan & David Wiebe
-	
-	Software group: TeddySoft.
-	
-*/
-
 package teddySoft;
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class Main implements ActionListener {
 	private
@@ -22,6 +20,23 @@ public class Main implements ActionListener {
 		static User currentUser;
 		static JFrame frame;
 	
+	public void close(){
+		//write UserMedia.ser
+		try{
+			FileOutputStream fileout = new FileOutputStream(currentUser.getName() +"-MediaDB.ser");
+			ObjectOutputStream objectout = new ObjectOutputStream(fileout);
+			objectout.writeObject(currentUser.getDB());
+			objectout.flush();
+			objectout.close();
+		}
+		catch (IOException ex) {
+			System.out.println("User MediaDB cannot be written.");
+		}
+		//close window
+		frame.dispose();
+		
+	}
+		
 	public static void setWindowsLook(){
 	    try{
 	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -124,12 +139,19 @@ public class Main implements ActionListener {
 		topleftpanel.setAlignmentX(Component.CENTER_ALIGNMENT);	
 		
 		//Table
-		String[] columnNames = {"", "Title", "Type"};
+		String[] columnNames = {"Test", "Title", "Type"};
+		int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
+		Object[][] data = new Object[BooksTreeLength][3];
+		Comparable List[] = new Comparable[BooksTreeLength];
+		List = currentUser.getDB().getBooksTree().getTreeElements();
+		for(int i=0;i<BooksTreeLength;i++){
+			data[i][0] = (Books)List[i];
+			Books temp = (Books)List[i];
+			data[i][1] = temp.getTitle();
+			data[i][2] = temp.getType();
+		}
 
-		Object[][] data = {
-				for (int = 0;
-		{"ABC", "Action", new Integer(2005), " ", "Book"},
-		};
+			
 				
 		JTable temptable = new JTable(data, columnNames);
 		JScrollPane temptablescroll = new JScrollPane(temptable);
@@ -226,11 +248,12 @@ public class Main implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		//if ("disable".equals(e.getActionCommand()))
 		if (e.getActionCommand().equals("Exit")){
-			System.exit(0);
+			LoginGUI.CreateGUI();
+			this.close();
 		}
 		else if (e.getActionCommand().equals("Log Out")){
 			LoginGUI.CreateGUI();
-			frame.dispose();
+			this.close();
 		}
 		else if (e.getActionCommand().equals("All")){
 			System.out.println("Show All");
@@ -280,9 +303,24 @@ public class Main implements ActionListener {
 	public static void CreateGUI(User user){
 		setWindowsLook(); //Set windows decorations
 		currentUser = user;
+		//read userDB.ser
+		try{
+			InputStream istream = new FileInputStream(currentUser.getName() +"-MediaDB.ser");
+			ObjectInput oinput = new ObjectInputStream(istream);
+			MediaDatabase media = (MediaDatabase)oinput.readObject();
+			currentUser.setDB(media);
+			oinput.close();
+		}
+		catch (IOException ex) {
+			System.out.println("User MediaDB not found or not created yet.");
+			currentUser.setDB(new MediaDatabase());
+		}
+		catch (ClassNotFoundException ex2){
+			System.out.println("User class not found.");
+		}
 		//Create and set up the window.
 		frame = new JFrame("Media Library");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
         Main app = new Main();
         Component contents = app.mainWindowComponents();

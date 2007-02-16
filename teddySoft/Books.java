@@ -1,14 +1,4 @@
-/*
-	Books.java
-	Written by Jordan McMillan
-	Edited by David Wiebe
-	
-	Software group: TeddySoft.
-	
-*/
-
 package teddySoft;
-
 import java.io.Serializable;
 
 public class Books implements Comparable, Serializable{
@@ -33,8 +23,6 @@ public class Books implements Comparable, Serializable{
 		if (rating < 1){ this.rating = 1;}
 	}
 	
-	// PARAM: only a title is needed to create a book object.
-	// POST: book object is created with only a title, this is usefull for Comparable class
 	public Books (String title){
 		this.title = title;
 	}
@@ -60,6 +48,9 @@ public class Books implements Comparable, Serializable{
 	
 	public int getRating(){
 		return rating;
+	}
+	public String getType(){
+		return "Book";
 	}
 	
 	public String getGenre(){

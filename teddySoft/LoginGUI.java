@@ -1,15 +1,5 @@
-/*
-	LoginGUI.java
-	Written by Frankie Yan
-	Edited by Jordan McMillan & David Wiebe
-	
-	Software group: TeddySoft.
-	
-*/
-
-
 package teddySoft;
-
+//newer
 import javax.swing.*;
 
 import java.awt.*;
@@ -28,7 +18,6 @@ import java.io.ObjectOutputStream;
 
 public class LoginGUI implements ActionListener {
 
-	// Private Variables with increased scope to be used throughout class.
 	private String username, password = "";
 	private JButton btnSignin, btnRegister, btnExit;
 	private JTextField user;
@@ -208,29 +197,20 @@ public class LoginGUI implements ActionListener {
 	
 	
 	public void actionPerformed(ActionEvent e){
-		// if Signin button pressed
-		if(e.getSource() == btnSignin){
-			
-			//retrieve username information
+		if(e.getSource() == btnSignin){ //user clicks sign in button
 			username = user.getText();
-			
-			// get password from password field.
 			char[] temppass = pw.getPassword();
 			password = new String(temppass);
-			
-			// check to see if password matches user key.
 			Security secureCheck = new Security();
+			//validate username and password
 			boolean valid = secureCheck.validateKey(username, password, userDB);
-			
-			//if username is valid, and fields are not blank or empty.
 			if (username.compareTo("") != 0 && 
 					password.compareTo("") != 0 &&
 					valid == true){
+				//userDB.getUser(username).getDB().getBooksTree().printTree();
 				Main.CreateGUI(userDB.getUser(username));
 				frame.dispose();
 			}
-			
-			// if username field is empty
 			else if(username.compareTo("") == 0) {
 				//insert no username notification here
 				errorlabel.setText("User field is empty");
@@ -238,8 +218,6 @@ public class LoginGUI implements ActionListener {
 				errorlabel.setForeground(new Color(0xff0000));
 				errorlabel.setVisible(true);
 			}
-			
-			// if password field is empty
 			else if(password.compareTo("")==0){
 				//insert no password notification here
 				//errorlabel.setText("<html><font color=red>"+"Password field is empty"+"</font></html>");
@@ -247,7 +225,6 @@ public class LoginGUI implements ActionListener {
 				errorlabel.setForeground(new Color(0xff0000));
 				errorlabel.setVisible(true);
 			}
-			
 			else {
 				//insert incorrect password, or wrong username alert here
 				//errorlabel.setText("<html><font color=red>"+"No such user or wrong password"+"</font></html>");
@@ -256,18 +233,32 @@ public class LoginGUI implements ActionListener {
 				errorlabel.setVisible(true);
 			}
 		}
-		// if register button pressed
 		else if(e.getSource() == btnRegister){
 			RegisterGUI.CreateGUI();
 			
 		}
-		// if exit button pressed
 		else if(e.getSource() == btnExit){
 			System.exit(0);
 		}
 	}	
 	
 	public static void CreateGUI(){
+		//read userDB.ser
+		try{
+			InputStream istream = new FileInputStream("UserDB.ser");
+			ObjectInput oinput = new ObjectInputStream(istream);
+			//User[] newList = ((User[])oinput.readObject());
+			userDB = (UserDatabase)oinput.readObject();
+			oinput.close();
+		}
+		catch (IOException ex) {
+			System.out.println("User List not found or not created yet.");
+			userDB = new UserDatabase();
+		}
+		catch (ClassNotFoundException ex2){
+			System.out.println("User class not found.");
+		}
+		
 		setWindowsLook(); //Set windows decorations
 		
 		//Create and set up the window.
@@ -291,21 +282,6 @@ public class LoginGUI implements ActionListener {
         //creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run(){
-				// try to read userDB.ser
-				try{
-					InputStream istream = new FileInputStream("UserDB.ser");
-					ObjectInput oinput = new ObjectInputStream(istream);
-					User[] newList = ((User[])oinput.readObject());
-					userDB = new UserDatabase(newList);
-					oinput.close();
-				}
-				catch (IOException ex) {
-					System.out.println("User List not found or not created yet.");
-					userDB = new UserDatabase();
-				}
-				catch (ClassNotFoundException ex2){
-					System.out.println("User class not found.");
-				}
 				CreateGUI();
 			}
 		});

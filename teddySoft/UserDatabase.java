@@ -1,21 +1,11 @@
-/*
-	UserDatabase.java
-	Written by David Wiebe & Jordan McMillan
-	Edited by David Wiebe & Jordan McMillan
-	
-	Software group: TeddySoft.
-	
-*/
-
 package teddySoft;
+import java.io.Serializable;
 
-public class UserDatabase {
+public class UserDatabase implements Serializable{
 
-	// contain list of users in Dynamic Array.
 	private User[] userList;
 	private int userListSize;
 	
-	// Constructors
 	public UserDatabase(User[] newList){
 		userList = newList;
 		userListSize = newList.length;
@@ -35,13 +25,10 @@ public class UserDatabase {
 		return null;
 	}
 	
-	
 	public boolean addUser(String username, String password){
 		if (getUser(username) != null){
 			return false;  //the user already exists in the system.
 		}
-		
-		// if the dynamic array is full, bump up all the users.
 		if (userListSize == userList.length){
 			User[] temp = new User[userListSize*2];
 			for (int i =0; i>userListSize; i++){
@@ -54,18 +41,16 @@ public class UserDatabase {
 		return true;
 	}
 	
-	// getters
 	public User[] getUserList(){
 		return userList;
+	}
+	
+	public void setUserList(User[] newList){
+		userList = newList;
 	}
 	
 	public int getUserListSize(){
 		return userListSize;
 	}	
-	
-	// setters
-	public void setUserList(User[] newList){
-		userList = newList;
-	}
 }
 
