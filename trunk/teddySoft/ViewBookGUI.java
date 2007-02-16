@@ -1,4 +1,13 @@
+/*
+	ViewBookGUI.java
+	Written by Frankie Yan
+	
+	Software group: TeddySoft.
+	
+*/
+
 package teddySoft;
+
 import javax.swing.*;
 
 import java.awt.*;

@@ -1,5 +1,14 @@
+/*
+	RegisterGUI.java
+	Written by Frankie Yan
+	Edited by David Wiebe & a little by Jordan McMillan
+	
+	Software group: TeddySoft.
+	
+*/
+
 package teddySoft;
-//newer
+
 import javax.swing.*;
 
 import java.awt.*;

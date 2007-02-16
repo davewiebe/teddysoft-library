@@ -1,5 +1,14 @@
+/*
+	User.java
+	Written by David Wiebe & Jordan McMillan
+	Edited by David Wiebe & Jordan McMillan
+	
+	Software group: TeddySoft.
+	
+*/
+
 package teddySoft;
-//newer
+
 import java.io.Serializable;
 
 public class User implements Serializable{

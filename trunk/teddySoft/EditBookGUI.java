@@ -1,3 +1,13 @@
+/*
+	EditBookGUI.java
+	Written by Frankie Yan
+	Edited by David Wiebe
+	
+	Software group: TeddySoft.
+	
+*/
+
+
 package teddySoft;
 import javax.swing.*;
 

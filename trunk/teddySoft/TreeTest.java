@@ -1,3 +1,11 @@
+/*
+	KeyGen.java
+	Written by Jordan McMillan
+	
+	Software group: TeddySoft.
+	
+*/
+
 package teddySoft;
 
 public class TreeTest {

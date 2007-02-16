@@ -1,3 +1,12 @@
+/*
+	UserDatabase.java
+	Written by David Wiebe & Jordan McMillan
+	Edited by David Wiebe & Jordan McMillan
+	
+	Software group: TeddySoft.
+	
+*/
+
 package teddySoft;
 
 public class UserDatabase {
