@@ -180,24 +180,25 @@ public class RegisterGUI implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		
+		// if register button pressed:
 		if(e.getSource() == btnReg){
-			String password1 = "";
-			String password2 = "";
-			char[] temppass1 = pw.getPassword();
-			for (int i = 0; i< temppass1.length; i++){
-				password1 += temppass1[i]; 
-			}
-			char[] temppass2 = rpw.getPassword();
-			for (int i = 0; i< temppass2.length; i++){
-				password2 += temppass2[i]; 
-			}
+
+			
+			//retrieve passwords
+			String password1 = new String(pw.getPassword());
+			String password2 = new String(rpw.getPassword());
+			
+			// if passwords match and username is not blank
 			if (password1.compareTo(password2) == 0 && username.getText().compareTo("") != 0){
 				//System.out.println("they match");
+				// add user
 				boolean addedUser = LoginGUI.getUserDB().addUser(username.getText(), password1);
 				//System.out.println(username.getText() + " added");
 				if (addedUser){
 					//write userDB.ser
 					try{
+						// save user to database
 						FileOutputStream fileout = new FileOutputStream("UserDB.ser");
 						ObjectOutputStream objectout = new ObjectOutputStream(fileout);
 						objectout.writeObject(LoginGUI.getUserDB());
@@ -212,20 +213,25 @@ public class RegisterGUI implements ActionListener {
 					errorlabel.setText("Username already exists.");
 				}
 			}
+			// if username is empty
 			else if (username.getText().compareTo("") == 0 || username.getText().compareTo(" ") == 0){
 				errorlabel.setText("Username field is empty.");
 			}
+			// if password field is empty
 			else if (password1.compareTo("") == 0 || password2.compareTo("") == 0){
 				errorlabel.setText("Password field is empty.");
 			}
+			// if passwords do not match
 			else if (password1.compareTo(password2) != 0){
 				//System.out.println("no good man,");
 				errorlabel.setText("Passwords do not match.");
 			}
+			// if username field is empty or invalid
 			else {
 				errorlabel.setText("Username field is empty or invalid.");
 			}
 		}
+		// if cancel butten is pressed
 		else if(e.getSource() == btnCancel){
 			frame.dispose();
 		}
@@ -249,7 +255,7 @@ public class RegisterGUI implements ActionListener {
 		frame.setLocationRelativeTo(null); //centers window
 
 	}	
-	
+	/*
 	public static void main(String[] args){
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
@@ -258,5 +264,5 @@ public class RegisterGUI implements ActionListener {
 				CreateGUI();
 			}
 		});
-	}
+	}*/
 }

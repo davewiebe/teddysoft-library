@@ -32,6 +32,8 @@ public class Books implements Comparable, Serializable{
 		this.rating = rating;
 		this.description = description;
 		this.review = review;
+		
+		//rating can only be between 1 and 5 inclusive.
 		if (rating > 5){ this.rating = 5;}
 		if (rating < 1){ this.rating = 1;}
 	}

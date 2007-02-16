@@ -258,6 +258,8 @@ public class ViewBookGUI implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		
+		// if close button pressed
 		if(e.getSource() == btnClose){
 			frame.dispose();
 		}
