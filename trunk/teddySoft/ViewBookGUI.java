@@ -1,3 +1,16 @@
+	/*
+	 * 	ViewBookGUI.java
+	 * 	
+	 * 	Written by Frankie Yan
+	 * 	Edited by David Wiebe and Jordan McMillan
+	 * 
+	 * 	Team TeddySoft is:
+	 * 	David Wiebe
+	 *  Frankie Yan
+	 * 	Jordan McMillan
+	 * 	Lisa Chen
+	 */
+
 package teddySoft;
 import javax.swing.*;
 

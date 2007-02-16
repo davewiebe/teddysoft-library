@@ -1,3 +1,16 @@
+	/*
+	 * 	userDatabase.java
+	 * 	
+	 * 	Written by David Wiebe and Jordan McMillan
+	 * 	Edited by David Wiebe and Jordan McMillan
+	 * 
+	 * 	Team TeddySoft is:
+	 * 	David Wiebe
+	 *  Frankie Yan
+	 * 	Jordan McMillan
+	 * 	Lisa Chen
+	 */
+
 package teddySoft;
 import java.io.Serializable;
 
@@ -12,7 +25,7 @@ public class UserDatabase implements Serializable{
 	}
 	
 	public UserDatabase(){
-		userList = new User[10];
+		userList = new User[100];
 		userListSize = 0;
 	}
 	

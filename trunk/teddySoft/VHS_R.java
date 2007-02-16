@@ -1,3 +1,16 @@
+	/*
+	 * 	VHS_R.java
+	 * 	
+	 * 	Written by Jordan McMillan
+	 * 	
+	 * 
+	 * 	Team TeddySoft is:
+	 * 	David Wiebe
+	 *  Frankie Yan
+	 * 	Jordan McMillan
+	 * 	Lisa Chen
+	 */
+
 package teddySoft;
 public class VHS_R extends VHS {
 

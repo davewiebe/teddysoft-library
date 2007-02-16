@@ -1,3 +1,16 @@
+	/*
+	 * 	Security.java
+	 * 	
+	 * 	Written by David Wiebe
+	 * 	Edited by Jordan McMillan
+	 * 
+	 * 	Team TeddySoft is:
+	 * 	David Wiebe
+	 *  Frankie Yan
+	 * 	Jordan McMillan
+	 * 	Lisa Chen
+	 */
+
 package teddySoft;
 
 public class Security{

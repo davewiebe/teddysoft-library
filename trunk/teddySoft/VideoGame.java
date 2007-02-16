@@ -1,3 +1,16 @@
+	/*
+	 * 	VideoGame.java
+	 * 	
+	 * 	Written by Jordan McMillan
+	 * 	
+	 * 
+	 * 	Team TeddySoft is:
+	 * 	David Wiebe
+	 *  Frankie Yan
+	 * 	Jordan McMillan
+	 * 	Lisa Chen
+	 */
+
 package teddySoft;
 import java.io.Serializable;
 

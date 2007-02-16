@@ -1,3 +1,16 @@
+	/*
+	 * 	DVD.java
+	 * 	
+	 * 	Written by Jordan McMillan
+	 * 	Edited by David Wiebe
+	 * 
+	 * 	Team TeddySoft is:
+	 * 	David Wiebe
+	 *  Frankie Yan
+	 * 	Jordan McMillan
+	 * 	Lisa Chen
+	 */
+
 package teddySoft;
 public class DVD extends VHS {
 	
