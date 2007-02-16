@@ -14,11 +14,14 @@ import java.io.ObjectOutputStream;
 
 public class Main implements ActionListener {
 	private
+		JTable table;
 		JButton btnView, btnEdit, btnDelete, btnAll, btnBooks, btnRecipes, btnGames,
 		btnMusic, btnMovies, btnExit, btnLogOut;
 		JComboBox entrytypeList;
 		static User currentUser;
 		static JFrame frame;
+		Object[][] data;
+		Comparable List[];
 	
 	public void close(){
 		//write UserMedia.ser
@@ -141,8 +144,8 @@ public class Main implements ActionListener {
 		//Table
 		String[] columnNames = {"Title", "Type"};
 		int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
-		Object[][] data = new Object[BooksTreeLength][3];
-		Comparable List[] = new Comparable[BooksTreeLength];
+		data = new Object[BooksTreeLength][3];
+		List = new Comparable[BooksTreeLength];
 		List = currentUser.getDB().getBooksTree().getTreeElements();
 		for(int i=0;i<BooksTreeLength;i++){
 			Books temp = (Books)List[i];
@@ -150,9 +153,10 @@ public class Main implements ActionListener {
 			data[i][1] = temp.getType();
 		}	
 				
-		JTable table = new JTable(data, columnNames);    
+		table = new JTable(data, columnNames);    
 		//table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		JScrollPane scrollPane = new JScrollPane(table);
+
 		
 		//Bottom Panel
 		JPanel bottompanel = new JPanel();
@@ -257,7 +261,6 @@ public class Main implements ActionListener {
 			System.out.println("Show All");
 		}
 		else if (e.getActionCommand().equals("Books")){
-			ViewBookGUI.CreateGUI();
 			System.out.println("Show Books");
 		}
 		else if (e.getActionCommand().equals("Games")){
@@ -294,6 +297,8 @@ public class Main implements ActionListener {
 			System.out.println("Edit Entry");
 		}
 		else if (e.getActionCommand().equals("View")){
+
+			ViewBookGUI.CreateGUI((Books)List[table.getSelectedRow()]);
 			System.out.println("View Entry");
 		}
 	}	
