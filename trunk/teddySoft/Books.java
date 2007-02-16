@@ -33,6 +33,8 @@ public class Books implements Comparable, Serializable{
 		if (rating < 1){ this.rating = 1;}
 	}
 	
+	// PARAM: only a title is needed to create a book object.
+	// POST: book object is created with only a title, this is usefull for Comparable class
 	public Books (String title){
 		this.title = title;
 	}

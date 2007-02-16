@@ -1,14 +1,14 @@
 /*
 	EditBookGUI.java
 	Written by Frankie Yan
-	Edited by David Wiebe
+	Edited slightly by David Wiebe
 	
 	Software group: TeddySoft.
 	
 */
 
-
 package teddySoft;
+
 import javax.swing.*;
 
 import java.awt.*;
@@ -16,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class EditBookGUI implements ActionListener {
+
+	// Private Variables with increased scope to be used throughout class.
 	private JTextField title, author, edition, date, place, isbn;
 	private ButtonGroup ratinggroup;
 	private JComboBox genreList; 
@@ -280,9 +282,11 @@ public class EditBookGUI implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		//if cancel button pressed
 		if(e.getSource() == btnCancel){
 			frame.dispose();
 		}
+		//if save button pressed
 		else if(e.getSource() == btnSave){
 			//SAVE THE TEXT TO AN OBJECT IN THE USERS MEDIA
 			

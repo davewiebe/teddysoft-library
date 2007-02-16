@@ -15,6 +15,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class ViewBookGUI implements ActionListener {
+	
+
+	// Private Variables with increased scope to be used throughout class.
 	private JButton btnClose;
 	private static JFrame frame;
 	
@@ -254,6 +257,8 @@ public class ViewBookGUI implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		
+		// if user closes window
 		if(e.getSource() == btnClose){
 			frame.dispose();
 		}
