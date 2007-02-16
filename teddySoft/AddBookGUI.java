@@ -7,8 +7,8 @@
 	
 */
 
-
 package teddySoft;
+
 import javax.swing.*;
 
 import java.awt.*;
@@ -16,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class AddBookGUI implements ActionListener {
+	
+	// Private Variables with increased scope to be used throughout class.
 	private JTextField title, author, edition, date, place, isbn;
 	private ButtonGroup ratinggroup;
 	private JComboBox genreList; 
@@ -281,6 +283,7 @@ public class AddBookGUI implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		// set int rating when action is performed
 		int rating = 1;
 		if (oneButton.isSelected() == true){
 			rating = 1;
@@ -298,6 +301,7 @@ public class AddBookGUI implements ActionListener {
 			rating = 5;
 		}
 		
+		// set Genre of book.
 		String genre = "";
 		if (genreList.getSelectedIndex() == 1){
 			genre = "Action";
@@ -326,21 +330,26 @@ public class AddBookGUI implements ActionListener {
 		else if(genreList.getSelectedIndex() == 9){
 			genre = "Science Fiction";
 		}
+	
 		
 		if(e.getSource() == btnClose){
 			frame.dispose();
 		}
+		// if the user added the book via the two add buttons.
 		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
 						
 			Books newBook = new Books(title.getText(),author.getText(), edition.getText(),
 					date.getText(), place.getText(), isbn.getText(), genre, 
 					rating, description.getText(), review.getText());
-					
+					// add the book to the current users database
 			currentUser.getDB().addBook(newBook);
 			
+			// if the button pressed was not "Add Another", then close the window.
 			if (e.getSource() == btnAdd){
 				frame.dispose();
 			}
+			// else, if the button was "Add another" reset all fields so that another
+			// entry can be added
 			title.setText("");
 			author.setText("");
 			date.setText("");
@@ -353,7 +362,9 @@ public class AddBookGUI implements ActionListener {
 			review.setText("");
 		}
 	}	
-	
+	// PRE:  Must have a user database with users involved
+	// PARAM: Pass through a pointer to a user object which will be interacted with.
+	// POST: window opened. user class can be edited
 	public static void CreateGUI(User user){
 		setWindowsLook(); //Set windows decorations
 		currentUser = user;

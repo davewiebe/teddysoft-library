@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 public class RegisterGUI implements ActionListener {
+	
+	// Private Variables with increased scope to be used throughout class.
 	private JButton btnReg, btnCancel;
 	private JPasswordField pw, rpw;
 	private JTextField username;
@@ -176,23 +178,28 @@ public class RegisterGUI implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		
+		// if register button pressed
 		if(e.getSource() == btnReg){
-			String password1 = "";
-			String password2 = "";
+			String password1;
+			String password2;
+			
+			// retrieve text from password fields
 			char[] temppass1 = pw.getPassword();
-			for (int i = 0; i< temppass1.length; i++){
-				password1 += temppass1[i]; 
-			}
+			password1 = new String(temppass1);
 			char[] temppass2 = rpw.getPassword();
-			for (int i = 0; i< temppass2.length; i++){
-				password2 += temppass2[i]; 
-			}
+			password2 = new String(temppass2);
+			
+			//if passwords match, and username field is not left blank
 			if (password1.compareTo(password2) == 0 && username.getText().compareTo("") != 0){
 				//System.out.println("they match");
+				
+				// add user to database
 				boolean addedUser = LoginGUI.getUserDB().addUser(username.getText(), password1);
 				//System.out.println(username.getText() + " added");
+				
 				if (addedUser){
-//					write userDB.ser
+					// write userDB.ser
 					try{
 						FileOutputStream fileout = new FileOutputStream("UserDB.ser");
 						ObjectOutputStream objectout = new ObjectOutputStream(fileout);
@@ -207,23 +214,34 @@ public class RegisterGUI implements ActionListener {
 					}
 					frame.dispose();
 				}else{
+					// if username already exists, alert user.
 					errorlabel.setText("Username already exists.");
 				}
 			}
+			
+			// if username field is empty
 			else if (username.getText().compareTo("") == 0 || username.getText().compareTo(" ") == 0){
 				errorlabel.setText("Username field is empty.");
 			}
+			
+			// if password field is empty
 			else if (password1.compareTo("") == 0 || password2.compareTo("") == 0){
 				errorlabel.setText("Password field is empty.");
 			}
+			
+			// if passwords do not match
 			else if (password1.compareTo(password2) != 0){
 				//System.out.println("no good man,");
 				errorlabel.setText("Passwords do not match.");
 			}
+			
+			// if username field is empty or invalid.
 			else {
 				errorlabel.setText("Username field is empty or invalid.");
 			}
 		}
+		
+		// if cancel button is pressed
 		else if(e.getSource() == btnCancel){
 			frame.dispose();
 		}
