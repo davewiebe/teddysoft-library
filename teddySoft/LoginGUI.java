@@ -1,5 +1,5 @@
 /*
-	KeyGen.java
+	LoginGUI.java
 	Written by Frankie Yan
 	Edited by Jordan McMillan & David Wiebe
 	

@@ -1,5 +1,5 @@
 /*
-	User.java
+	RBTree.java
 	Written by Jordan McMillan
 	Edited by David Wiebe
 	

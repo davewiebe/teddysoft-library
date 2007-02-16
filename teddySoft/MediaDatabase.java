@@ -1,5 +1,5 @@
 /*
-	User.java
+	MediaDatabase.java
 	Written by Jordan McMillan
 	Edited a little by David Wiebe
 	

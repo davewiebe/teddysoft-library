@@ -1,6 +1,6 @@
 /*
 	AddBookGUI.java
-	Written by Frakie Yan
+	Written by Frankie Yan
 	Edited by Jordan McMillan & David Wiebe
 	
 	Software group: TeddySoft.
