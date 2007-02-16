@@ -1,4 +1,17 @@
 package teddySoft;
+/*
+ * 	TreeTest.java
+ * 	
+ * 	Written by Jordan McMillan
+ * 	
+ * 
+ * 	Team TeddySoft is:
+ * 	David Wiebe
+ *  Frankie Yan
+ * 	Jordan McMillan
+ * 	Lisa Chen
+ */
+
 
 public class TreeTest {
 

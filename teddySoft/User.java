@@ -1,3 +1,16 @@
+	/*
+	 * 	User.java
+	 * 	
+	 * 	Written by David Wiebe and Jordan McMillan
+	 * 	Edited by David Wiebe and Jordan McMillan
+	 * 
+	 * 	Team TeddySoft is:
+	 * 	David Wiebe
+	 *  Frankie Yan
+	 * 	Jordan McMillan
+	 * 	Lisa Chen
+	 */
+
 package teddySoft;
 import java.io.Serializable;
 
