@@ -27,14 +27,57 @@ import java.io.ObjectOutputStream;
 
 public class Main implements ActionListener {
 	private
-		JTable table;
+		static JTable table;
 		JButton btnView, btnEdit, btnDelete, btnAll, btnBooks, btnRecipes, btnGames,
 		btnMusic, btnMovies, btnExit, btnLogOut;
 		JComboBox entrytypeList;
 		static User currentUser;
 		static JFrame frame;
-		Object[][] data;
-		Comparable List[];
+		static Object[][] data;
+		static Comparable List[];
+		static JScrollPane scrollPane;
+		
+	public boolean isCellEditable(int row, int column){
+		return false;
+	}
+		
+	public static void refreshJTable(){
+		String[] columnNames = {"Title", "Type", "Rating"};
+		int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
+		data = new Object[BooksTreeLength][columnNames.length];
+		List = new Comparable[BooksTreeLength];
+		List = currentUser.getDB().getBooksTree().getTreeElements();
+		for(int i=0;i<BooksTreeLength;i++){
+			Books temp = (Books)List[i];
+			data[i][0] = temp.getTitle();
+			data[i][1] = temp.getType();
+			Integer tempint = new Integer(temp.getRating());
+			data[i][2] = "" + tempint;
+		}	
+				
+		table = new JTable(data, columnNames);    
+		//table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		scrollPane = new JScrollPane(table);
+	}
+	
+/*	public void refreshJTable(User fromAddMedia){
+		String[] columnNames = {"Title", "Type", "Rating"};
+		int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
+		data = new Object[BooksTreeLength][columnNames.length];
+		List = new Comparable[BooksTreeLength];
+		List = currentUser.getDB().getBooksTree().getTreeElements();
+		for(int i=0;i<BooksTreeLength;i++){
+			Books temp = (Books)List[i];
+			data[i][0] = temp.getTitle();
+			data[i][1] = temp.getType();
+			Integer tempint = new Integer(temp.getRating());
+			data[i][2] = "" + tempint;
+		}	
+				
+		table = new JTable(data, columnNames);    
+		//table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		scrollPane = new JScrollPane(table);
+	}*/
 	
 	public void close(){
 		//write UserMedia.ser
@@ -86,12 +129,12 @@ public class Main implements ActionListener {
 		btnEdit.setMaximumSize(new Dimension(120, 23));
 		btnEdit.setActionCommand("Edit");
 		btnEdit.addActionListener(this);
-		//Delete Entry button
+		/*//Delete Entry button
 		btnDelete = new JButton("Delete Entry");
 		btnDelete.setMnemonic('d');
 		btnDelete.setMaximumSize(new Dimension(120, 23));
 		btnDelete.setActionCommand("Delete");
-		btnDelete.addActionListener(this);
+		btnDelete.addActionListener(this);*/
 		
 		//ComboBox Panel
 		JPanel combopanel = new JPanel();
@@ -99,19 +142,19 @@ public class Main implements ActionListener {
 		combopanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		//Add Entries combo box
-		String[] entryTypes = { "Add New Entry...", "Book", "Game", "Recipe", "Music", "Movie" };
+		String[] entryTypes = { "Add New Entry...", "Book"};//, "Game", "Recipe", "Music", "Movie" };
 		entrytypeList = new JComboBox(entryTypes);
 		entrytypeList.setSelectedIndex(0);
 		entrytypeList.setMaximumSize(new Dimension(160, 40));
 		entrytypeList.setActionCommand("EntryType");
 		entrytypeList.addActionListener(this);
 
-		//View Panel
+/*		//View Panel
 		JPanel viewpanel = new JPanel();
 		viewpanel.setLayout(new BoxLayout(viewpanel, BoxLayout.PAGE_AXIS));	
 		viewpanel.setBorder(BorderFactory.createTitledBorder(
         "View"));
-		viewpanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		viewpanel.setAlignmentX(Component.CENTER_ALIGNMENT);*/
 		
 		//Show All button 
 		btnAll = new JButton("Show All");
@@ -155,20 +198,7 @@ public class Main implements ActionListener {
 		topleftpanel.setAlignmentX(Component.CENTER_ALIGNMENT);	
 		
 		//Table
-		String[] columnNames = {"Title", "Type"};
-		int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
-		data = new Object[BooksTreeLength][3];
-		List = new Comparable[BooksTreeLength];
-		List = currentUser.getDB().getBooksTree().getTreeElements();
-		for(int i=0;i<BooksTreeLength;i++){
-			Books temp = (Books)List[i];
-			data[i][0] = temp.getTitle();
-			data[i][1] = temp.getType();
-		}	
-				
-		table = new JTable(data, columnNames);    
-		//table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		JScrollPane scrollPane = new JScrollPane(table);
+		refreshJTable();
 
 		
 		//Bottom Panel
@@ -197,12 +227,12 @@ public class Main implements ActionListener {
 		topleftpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		topleftpanel.add(btnEdit);
 		topleftpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		topleftpanel.add(btnDelete);
+		//topleftpanel.add(btnDelete);
 		topleftpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		
 		combopanel.add(entrytypeList);
 
-		viewpanel.add(btnAll);
+/*		viewpanel.add(btnAll);
 		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		viewpanel.add(btnBooks);
 		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
@@ -212,13 +242,13 @@ public class Main implements ActionListener {
 		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		viewpanel.add(btnMusic);
 		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		viewpanel.add(btnMovies);
+		viewpanel.add(btnMovies);*/
 	
 		leftpanel.add(topleftpanel);
 		leftpanel.add(Box.createRigidArea(new Dimension(0,5)));			
 		leftpanel.add(combopanel);
 		leftpanel.add(Box.createRigidArea(new Dimension(0,5)));			
-		leftpanel.add(viewpanel);
+		//leftpanel.add(viewpanel);
 		leftpanel.add(Box.createVerticalGlue());
 		
 		//tablepanel.add(table.getTableHeader());

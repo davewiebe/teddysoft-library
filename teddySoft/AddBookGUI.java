@@ -16,6 +16,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class AddBookGUI implements ActionListener {
 	
@@ -349,6 +352,8 @@ public class AddBookGUI implements ActionListener {
 			
 			// If "Add" was pressed
 			if (e.getSource() == btnAdd){
+				Main.refreshJTable();
+				//Main.CreateGUI(currentUser);
 				frame.dispose();
 			}
 			
