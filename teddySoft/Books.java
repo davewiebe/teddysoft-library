@@ -78,6 +78,27 @@ public class Books implements Comparable, Serializable{
 		return description;}
 	
 	//Setters
+	
+	public void setAuthor(String author){
+		this.author = author;}
+	
+	public void setEdition(String edition){
+		this.edition = edition;}
+	
+	public void setGenre(String genre){
+		this.genre = genre;}
+	
+	public void setRating(int rating){
+		this.rating = rating;}
+	
+	public void setDescription(String description){
+		this.description = description;}
+	
+	public void setReview(String review){
+		this.review = review;
+	}
+	
+	
 	public void setTitle(String title){
 		this.title = title;}
 	

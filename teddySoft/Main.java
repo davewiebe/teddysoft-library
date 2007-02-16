@@ -291,13 +291,14 @@ public class Main implements ActionListener {
 	        	System.out.println("Add Movie");}
 		}
 		else if (e.getActionCommand().equals("Delete")){
+			//currentUser.getDB().getBooksTree().RBTreeRemove(((Books)List[table.getSelectedRow()]));
 			System.out.println("Delete Entry");
 		}
 		else if (e.getActionCommand().equals("Edit")){
+			EditBookGUI.CreateGUI((Books)List[table.getSelectedRow()]);
 			System.out.println("Edit Entry");
 		}
 		else if (e.getActionCommand().equals("View")){
-
 			ViewBookGUI.CreateGUI((Books)List[table.getSelectedRow()]);
 			System.out.println("View Entry");
 		}
