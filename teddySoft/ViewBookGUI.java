@@ -19,6 +19,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class ViewBookGUI implements ActionListener {
+	
+	private static Books books;
 	private JButton btnClose;
 	private static JFrame frame;
 	
@@ -45,7 +47,7 @@ public class ViewBookGUI implements ActionListener {
 		genrepanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		
 		//Genre LABEL
-		JLabel genre = new JLabel("Genre: " + "Children's");
+		JLabel genre = new JLabel("Genre: " + books.getGenre());
 		//genrelabel.setMinimumSize(new Dimension(240, 20));
 		//genrelabel.setMaximumSize(new Dimension(240, 20));
 		//genrelabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -72,32 +74,32 @@ public class ViewBookGUI implements ActionListener {
 		
 		//Title
 		JLabel titlelabel = new JLabel("Title:");
-		JLabel title = new JLabel("Title");
+		JLabel title = new JLabel(books.getTitle());
 		title.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Author
 		JLabel authorlabel = new JLabel("Author:");
-		JLabel author = new JLabel("Author");
+		JLabel author = new JLabel(books.getAuthor());
 		author.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Edition
 		JLabel editionlabel = new JLabel("Edition:");
-		JLabel edition = new JLabel("Edition");
+		JLabel edition = new JLabel(books.getEdition());
 		edition.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Date
 		JLabel datelabel = new JLabel("Publishing date:");
-		JLabel date = new JLabel("2007");
+		JLabel date = new JLabel(books.getPubDate());
 		date.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Location
 		JLabel placelabel = new JLabel("Publishing place:");
-		JLabel place = new JLabel("Place");
+		JLabel place = new JLabel(books.getPubLocation());
 		place.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//ISBN
 		JLabel isbnlabel = new JLabel("ISBN number:");
-		JLabel isbn = new JLabel("9999999999999");
+		JLabel isbn = new JLabel(books.getIsbn());
 		isbn.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Rating Panel
@@ -135,14 +137,39 @@ public class ViewBookGUI implements ActionListener {
 	    oneButton.setActionCommand("Five");
 	    oneButton.addActionListener(this);
 	    
+	    
 	    //Check for Rating
-	    oneButton.setEnabled(false);
-	    twoButton.setEnabled(false);
-	    threeButton.setEnabled(false);
-	    fourButton.setSelected(true);
-	    fiveButton.setEnabled(false);
+	    if (books.getRating() != 1){
+	    	oneButton.setEnabled(false);
+	    }	    
+	    if (books.getRating() != 2){
+	    	twoButton.setEnabled(false);
+	    }	    
+	    if (books.getRating() != 3){
+	    	threeButton.setEnabled(false);
+	    }
+	    if (books.getRating() != 4){
+	    	fourButton.setEnabled(false);
+	    }
+	    if (books.getRating() != 5){
+	    	fiveButton.setEnabled(false);
+	    }
 	    
-	    
+	    if (books.getRating() == 1){
+	    	oneButton.setSelected(true);
+	    }	    
+	    if (books.getRating() == 2){
+	    	twoButton.setSelected(true);
+	    }	    
+	    if (books.getRating() == 3){
+	    	threeButton.setSelected(true);
+	    }
+	    if (books.getRating() == 4){
+	    	fourButton.setSelected(true);
+	    }
+	    if (books.getRating() == 5){
+	    	fiveButton.setSelected(true);
+	    }
 	    ButtonGroup ratinggroup = new ButtonGroup();
 	    ratinggroup.add(oneButton);
 	    ratinggroup.add(twoButton);
@@ -160,6 +187,7 @@ public class ViewBookGUI implements ActionListener {
 		
 		JTextArea description = new JTextArea(4, 20);
 		description.setLineWrap(true);
+		description.setText(books.getDescription());
 		JScrollPane descscroll = new JScrollPane(description);
 		
 		//Review Panel
@@ -172,6 +200,7 @@ public class ViewBookGUI implements ActionListener {
 				
 		JTextArea review = new JTextArea(4, 20);
 		review.setLineWrap(true);
+		review.setText(books.getReview());
 		JScrollPane reviewscroll = new JScrollPane(review);
 				
 		//Button panel
@@ -265,8 +294,9 @@ public class ViewBookGUI implements ActionListener {
 		}
 	}	
 	
-	public static void CreateGUI(){
+	public static void CreateGUI(Books book){
 		setWindowsLook(); //Set windows decorations
+		books = book;
 		
 		//Create and set up the window.
 		frame = new JFrame("View Book");
@@ -283,14 +313,19 @@ public class ViewBookGUI implements ActionListener {
 		frame.setLocationRelativeTo(null); //centers window
 
 	}	
-	
+	/*
 	public static void main(String[] args){
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run(){
-				CreateGUI();
+				CreateGUI(new Books
+						("String title", "String author", "String edition", 
+								"String pubDate", "String pubLocation", 
+								"String isbn", "String genre", 
+								3, "String description", "String review")
+				);
 			}
 		});
-	}
+	}*/
 }
