@@ -207,19 +207,6 @@ public class LoginGUI implements ActionListener {
 					password.compareTo("") != 0 &&
 					valid == true){
 				Main.CreateGUI(userDB.getUser(username));
-//				write userDB.ser
-				try{
-					FileOutputStream fileout = new FileOutputStream("UserDB.ser");
-					ObjectOutputStream objectout = new ObjectOutputStream(fileout);
-					objectout.writeObject(userDB.getUserList());
-					//objectout.flush();
-					objectout.close();
-				}
-				catch (IOException ex) {
-					User test = (userDB.getUserList())[0];
-					System.out.println(test.getName());
-					System.out.println("User List cannot be written.");
-				}
 				frame.dispose();
 			}
 			else if(username.compareTo("") == 0) {

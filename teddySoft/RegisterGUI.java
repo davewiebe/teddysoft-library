@@ -5,6 +5,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class RegisterGUI implements ActionListener {
 	private JButton btnReg, btnCancel;
@@ -180,6 +183,19 @@ public class RegisterGUI implements ActionListener {
 				boolean addedUser = LoginGUI.getUserDB().addUser(username.getText(), password1);
 				//System.out.println(username.getText() + " added");
 				if (addedUser){
+//					write userDB.ser
+					try{
+						FileOutputStream fileout = new FileOutputStream("UserDB.ser");
+						ObjectOutputStream objectout = new ObjectOutputStream(fileout);
+						objectout.writeObject(LoginGUI.getUserDB().getUserList());
+						//objectout.flush();
+						objectout.close();
+					}
+					catch (IOException ex) {
+						User test = (LoginGUI.getUserDB().getUserList())[0];
+						System.out.println(test.getName());
+						System.out.println("User List cannot be written.");
+					}
 					frame.dispose();
 				}else{
 					errorlabel.setText("Username already exists.");

@@ -12,6 +12,10 @@ public class TreeTest {
 			}
 			
 			tree.printTree();
+			
+			Books temp = new Books("Fred");
+			temp = (Books)tree.getObj(temp);
+			System.out.println("Found " + temp.getTitle() + " " + temp.getAuthor());
 	}
 
 }

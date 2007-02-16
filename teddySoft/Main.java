@@ -115,18 +115,11 @@ public class Main implements ActionListener {
 		topleftpanel.setAlignmentX(Component.CENTER_ALIGNMENT);	
 		
 		//Table
-		String[] columnNames = {"Title",
-                "Genre",
-                "Year",
-                "Publisher",
-                "Type"};
+		String[] columnNames = {"", "Title", "Type"};
 
 		Object[][] data = {
+				for (int = 0;
 		{"ABC", "Action", new Integer(2005), " ", "Book"},
-		{"AAA", "Adventure", new Integer(1983), "Publisher",  "Book"},
-		{"XYZ", "Mystery", new Integer(2121), "1234",  "Book"},
-		{"ZZZ", "Horror", new Integer(2000), "abc",  "Book"},
-		{"ADFAF KJAFA", "Horror", new Integer(1078), "ddd",  "Book"}
 		};
 				
 		JTable temptable = new JTable(data, columnNames);
@@ -234,6 +227,7 @@ public class Main implements ActionListener {
 			System.out.println("Show All");
 		}
 		else if (e.getActionCommand().equals("Books")){
+			ViewBookGUI.CreateGUI();
 			System.out.println("Show Books");
 		}
 		else if (e.getActionCommand().equals("Games")){

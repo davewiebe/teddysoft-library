@@ -3,40 +3,40 @@ import java.io.Serializable;
 
 public class MediaDatabase implements Serializable {
 	
-	private RBTree Books;
-	private RBTree VHS;
-	private RBTree VHS_R;
-	private RBTree DVD;
-	private RBTree VideoGame;
+	private RBTree BooksTree;
+	private RBTree VHSTree;
+	private RBTree VHS_RTree;
+	private RBTree DVDTree;
+	private RBTree VideoGameTree;
 	
 	public MediaDatabase(){
-		Books = new RBTree();
-		VHS = new RBTree();
-		VHS_R = new RBTree();
-		DVD = new RBTree();
-		VideoGame = new RBTree();
+		BooksTree = new RBTree();
+		VHSTree = new RBTree();
+		VHS_RTree = new RBTree();
+		DVDTree = new RBTree();
+		VideoGameTree = new RBTree();
 	}
 	
 	public void addBook(Books b){
 		System.out.println(b.getTitle() + " added!");
-		Books.RBTreeInsert(b);}
+		BooksTree.RBTreeInsert(b);}
 	
 	public void addVHS(VHS v){
-		VHS.RBTreeInsert(v);}
+		VHSTree.RBTreeInsert(v);}
 	
 	public void addVHS_R(VHS_R vhsr){
-		VHS_R.RBTreeInsert(vhsr);}
+		VHS_RTree.RBTreeInsert(vhsr);}
 	
 	public void addDVD(DVD dvd){
-		DVD.RBTreeInsert(dvd);}
+		DVDTree.RBTreeInsert(dvd);}
 	
 	public void addVideoGame(VideoGame vg){
-		VideoGame.RBTreeInsert(vg);}
+		VideoGameTree.RBTreeInsert(vg);}
 	
 	
 	//getters
 	public Books getBook(String title){
-		Books b = new Books(title, "", "", "", "", "", "", 1, "", "");
-		return (Books)Books.getObj(b);
+		Books b = (Books) BooksTree.getObj(title);
+		return b;
 	}
 }
