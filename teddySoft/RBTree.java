@@ -1,4 +1,14 @@
+/*
+	User.java
+	Written by Jordan McMillan
+	Edited by David Wiebe
+	
+	Software group: TeddySoft.
+	
+*/
+
 package teddySoft;
+
 import java.io.Serializable;
 
 public class RBTree implements Serializable{

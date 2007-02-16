@@ -1,5 +1,15 @@
+/*
+	KeyGen.java
+	Written by Frankie Yan
+	Edited by Jordan McMillan & David Wiebe
+	
+	Software group: TeddySoft.
+	
+*/
+
+
 package teddySoft;
-//newer
+
 import javax.swing.*;
 
 import java.awt.*;

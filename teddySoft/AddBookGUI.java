@@ -1,3 +1,13 @@
+/*
+	AddBookGUI.java
+	Written by Frakie Yan
+	Edited by Jordan McMillan & David Wiebe
+	
+	Software group: TeddySoft.
+	
+*/
+
+
 package teddySoft;
 import javax.swing.*;
 
