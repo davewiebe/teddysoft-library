@@ -1,19 +1,6 @@
-	/*
-	 * 	Main.java
-	 * 	
-	 * 	Written by Frankie Yan
-	 * 	Edited by David Wiebe and Jordan McMillan
-	 * 
-	 * 	Team TeddySoft is:
-	 * 	David Wiebe
-	 *  Frankie Yan
-	 * 	Jordan McMillan
-	 * 	Lisa Chen
-	 */
-
 package teddySoft;
 import javax.swing.*;
-
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -152,23 +139,20 @@ public class Main implements ActionListener {
 		topleftpanel.setAlignmentX(Component.CENTER_ALIGNMENT);	
 		
 		//Table
-		String[] columnNames = {"Test", "Title", "Type"};
+		String[] columnNames = {"Title", "Type"};
 		int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
 		Object[][] data = new Object[BooksTreeLength][3];
 		Comparable List[] = new Comparable[BooksTreeLength];
 		List = currentUser.getDB().getBooksTree().getTreeElements();
 		for(int i=0;i<BooksTreeLength;i++){
-			data[i][0] = (Books)List[i];
 			Books temp = (Books)List[i];
-			data[i][1] = temp.getTitle();
-			data[i][2] = temp.getType();
-		}
-
-			
+			data[i][0] = temp.getTitle();
+			data[i][1] = temp.getType();
+		}	
 				
-		JTable temptable = new JTable(data, columnNames);
-		JScrollPane temptablescroll = new JScrollPane(temptable);
-		temptable.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		JTable table = new JTable(data, columnNames);    
+		//table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		JScrollPane scrollPane = new JScrollPane(table);
 		
 		//Bottom Panel
 		JPanel bottompanel = new JPanel();
@@ -190,7 +174,7 @@ public class Main implements ActionListener {
 		//Right Panel
 		JPanel rightpanel = new JPanel();
 		rightpanel.setLayout(new BoxLayout(rightpanel, BoxLayout.PAGE_AXIS));	
-		rightpanel.setAlignmentX(Component.RIGHT_ALIGNMENT);				
+		rightpanel.setAlignmentX(Component.RIGHT_ALIGNMENT);	
 		
 		topleftpanel.add(btnView);
 		topleftpanel.add(Box.createRigidArea(new Dimension(0,5)));
@@ -220,9 +204,9 @@ public class Main implements ActionListener {
 		leftpanel.add(viewpanel);
 		leftpanel.add(Box.createVerticalGlue());
 		
-		tablepanel.add(temptable.getTableHeader());
-		tablepanel.add(temptable);
-		tablepanel.add(temptablescroll);
+		//tablepanel.add(table.getTableHeader());
+		//tablepanel.add(table);
+		tablepanel.add(scrollPane);
 		bottompanel.add(Box.createHorizontalGlue());
 		bottompanel.add(btnLogOut);
 		bottompanel.add(btnExit);		
@@ -263,6 +247,7 @@ public class Main implements ActionListener {
 		if (e.getActionCommand().equals("Exit")){
 			LoginGUI.CreateGUI();
 			this.close();
+			System.exit(0);
 		}
 		else if (e.getActionCommand().equals("Log Out")){
 			LoginGUI.CreateGUI();
