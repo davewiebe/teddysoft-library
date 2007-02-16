@@ -32,12 +32,17 @@ public class Security{
 		return key.generateKey(username, password);
 	}*/
 	
+	// PARAM: username and password
+	// POST: Returns string of key generated from param.
 	public static String createKey(String username, String password){
 		KeyGen keyToCreate = new KeyGen();
 		//System.out.println(keyToCreate.generateKey(username, password));
 		return keyToCreate.generateKey(username, password);
 	}
 	
+	// PRE: must have users in database
+	// PARAM: username, password, and userdatabase
+	// POST: checks to make sure password is valid with key in userdatabase.  returns true
 	public boolean validateKey(String username, String password, UserDatabase userDB){
 		User a = userDB.getUser(username);
 		if (a == null){ return false;}
@@ -46,13 +51,15 @@ public class Security{
 		}
 	}
 	
-	public boolean validateKeyHelper(String username, String password, String key){
+	
+	//Helper function of validateKey
+	private boolean validateKeyHelper(String username, String password, String key){
 		if(createKey(username, password).equals(key))
 			return true;
 		else return false;
 	}
 	
-	
+	// Test functions
 	public void testKeys(){
 		String d = createKey("dave", "jordan");
 		String h = createKey("dave", "joddan");

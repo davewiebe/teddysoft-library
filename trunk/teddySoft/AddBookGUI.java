@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class AddBookGUI implements ActionListener {
+	
 	private JTextField title, author, edition, date, place, isbn;
 	private ButtonGroup ratinggroup;
 	private JComboBox genreList; 
@@ -283,6 +284,8 @@ public class AddBookGUI implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		
+		//set rating from 1-5 when button is pressed.
 		int rating = 1;
 		if (oneButton.isSelected() == true){
 			rating = 1;
@@ -300,6 +303,7 @@ public class AddBookGUI implements ActionListener {
 			rating = 5;
 		}
 		
+		//Set Genre when action happens
 		String genre = "";
 		if (genreList.getSelectedIndex() == 1){
 			genre = "Action";
@@ -329,9 +333,12 @@ public class AddBookGUI implements ActionListener {
 			genre = "Science Fiction";
 		}
 		
+		// On button Close
 		if(e.getSource() == btnClose){
 			frame.dispose();
 		}
+		
+		// When Book is Added
 		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
 						
 			Books newBook = new Books(title.getText(),author.getText(), edition.getText(),
@@ -340,9 +347,12 @@ public class AddBookGUI implements ActionListener {
 					
 			currentUser.getDB().addBook(newBook);
 			
+			// If "Add" was pressed
 			if (e.getSource() == btnAdd){
 				frame.dispose();
 			}
+			
+			// If "Add another" was pressed, clear all information
 			title.setText("");
 			author.setText("");
 			date.setText("");
@@ -356,6 +366,9 @@ public class AddBookGUI implements ActionListener {
 		}
 	}	
 	
+	// PRE: need a user.
+	// PARAM: User information parameter, so window knows which user it is.
+	// POST: Creates window, will be able to edit users.
 	public static void CreateGUI(User user){
 		setWindowsLook(); //Set windows decorations
 		currentUser = user;

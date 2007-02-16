@@ -16,9 +16,11 @@ import java.io.Serializable;
 
 public class UserDatabase implements Serializable{
 
+	// list of users, and integer of list size;
 	private User[] userList;
 	private int userListSize;
 	
+	// constructors
 	public UserDatabase(User[] newList){
 		userList = newList;
 		userListSize = newList.length;
@@ -29,6 +31,8 @@ public class UserDatabase implements Serializable{
 		userListSize = 0;
 	}
 	
+	// PARAM: Name of user (string)
+	// POST: Returns User object, null if not found.
 	public User getUser(String name){//, User[] userList){
 		for (int i = 0; i < this.getUserListSize(); i++){
 			if (userList[i] != null && (userList[i].getName()).equals(name)){
@@ -38,6 +42,7 @@ public class UserDatabase implements Serializable{
 		return null;
 	}
 	
+	// PARAM:  add user with username and password;
 	public boolean addUser(String username, String password){
 		if (getUser(username) != null){
 			return false;  //the user already exists in the system.
@@ -54,16 +59,19 @@ public class UserDatabase implements Serializable{
 		return true;
 	}
 	
+	// Getters
 	public User[] getUserList(){
 		return userList;
 	}
 	
+	public int getUserListSize(){
+		return userListSize;
+	}
+	
+	// Setters
 	public void setUserList(User[] newList){
 		userList = newList;
 	}
-	
-	public int getUserListSize(){
-		return userListSize;
-	}	
+		
 }
 
