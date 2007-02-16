@@ -1,13 +1,4 @@
-/*
-	TestClass.java
-	Written by Jordan McMillan
-	
-	Software group: TeddySoft.
-	
-*/
-
 package teddySoft;
-
 import java.io.*;
 
 public class TestClass {

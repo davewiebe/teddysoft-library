@@ -1,14 +1,4 @@
-/*
-	DVD.java
-	Written by Jordan McMillan
-	Edited slightly by David Wiebe
-	
-	Software group: TeddySoft.
-	
-*/
-
 package teddySoft;
-
 public class DVD extends VHS {
 	
 	private boolean isWideScreen;
@@ -19,11 +9,6 @@ public class DVD extends VHS {
 		this.isWideScreen = isWideScreen;
 		this.format = format;
 		//implement search key
-	}
-	
-	// Constructor for only title, to create DVD object for use with Comparable class;
-	public DVD (String title){
-		super(title, "", "", "", "", 1);
 	}
 	
 	//Getters

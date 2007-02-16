@@ -1,12 +1,4 @@
-/*
-	VHS_R.java
-	Written by Jordan McMillan
-	
-	Software group: TeddySoft.
-	
-*/
 package teddySoft;
-
 public class VHS_R extends VHS {
 
 	private String timeStamp;

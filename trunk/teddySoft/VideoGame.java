@@ -1,14 +1,4 @@
-/*
-	VideoGame.java
-	Written by Jordan McMillan
-	
-	Software group: TeddySoft.
-	
-*/
-
-
 package teddySoft;
-
 import java.io.Serializable;
 
 public class VideoGame implements Serializable, Comparable  {
