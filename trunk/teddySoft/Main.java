@@ -1,3 +1,12 @@
+/*
+	Main.java
+	Written by Frankie Yan
+	Edited by Jordan McMillan & David Wiebe
+	
+	Software group: TeddySoft.
+	
+*/
+
 package teddySoft;
 import javax.swing.*;
 

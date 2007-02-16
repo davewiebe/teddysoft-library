@@ -1,5 +1,5 @@
 /*
-	KeyGen.java
+	TestClass.java
 	Written by Jordan McMillan
 	
 	Software group: TeddySoft.
