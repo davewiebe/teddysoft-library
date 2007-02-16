@@ -23,6 +23,10 @@ public class Books implements Comparable, Serializable{
 		if (rating < 1){ this.rating = 1;}
 	}
 	
+	public Books (String title){
+		this.title = title;
+	}
+	
 	//Getters
 	public String getTitle(){
 		return title;}

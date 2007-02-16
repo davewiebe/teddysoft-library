@@ -250,7 +250,7 @@ public class ViewBookGUI implements ActionListener {
 		}
 	}	
 	
-	private static void CreateGUI(){
+	public static void CreateGUI(){
 		setWindowsLook(); //Set windows decorations
 		
 		//Create and set up the window.

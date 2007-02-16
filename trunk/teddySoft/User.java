@@ -14,15 +14,13 @@ public class User implements Serializable{
 		media = new MediaDatabase();
 	}
 	
-	public String getKey(){
-		return key;
-	}
+	//Getters
+	public String getKey(){ 
+		return key;}
 	
 	public String getName(){
-		return name;
-	}
+		return name;}
 	
 	public MediaDatabase getDB(){
-		return media;
-	}
+		return media;}
 }

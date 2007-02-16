@@ -1,5 +1,4 @@
 package teddySoft;
-//newer
 
 public class UserDatabase {
 

@@ -63,13 +63,13 @@ public class RBTree implements Serializable{
 		if (current.data.compareTo(target) == 0) //if current node contains target data
 			return current.data;
 		else if (current.data.compareTo(target) < 0) //if data in current node is less than target data
-			return searchHelper(target, current.right);
+			return getObjHelper(target, current.right);
 		else //if data in current node is larger than target data
-			return searchHelper(target, current.left);
+			return getObjHelper(target, current.left);
 	}
 	public Comparable getObj(Comparable target){
 		if (size == 0) return null; //if tree is empty return false
-		else return searchHelper(target, root);
+		else return getObjHelper(target, root);
 	}
 	
 	///////////////////////////////////////////////////////////////////
