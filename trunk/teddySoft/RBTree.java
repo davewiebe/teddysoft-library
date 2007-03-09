@@ -110,14 +110,17 @@ public class RBTree implements Serializable{
 		RBnode temp = root; //temp RBnode
 		
 		if (root == null){ //if root does not exist
-			root = toInsert; //root is not node toInsert
+			root = toInsert; //root is now node toInsert
 			size++;
 			return toInsert;
 		}
 		
 		while ((temp.left != null) || (temp.right != null)){ //while temp's left or right child exist
-			if (temp.data.compareTo(toInsert.data) == 0) //if temp's data equals the data to insert in tree
+			if (temp.data.compareTo(toInsert.data) == 0){ //if temp's data equals the data to insert in tree
 				return null;
+				
+				//break; //for adding copies of objects
+			}
 			else if (temp.data.compareTo(toInsert.data) < 0){ //if temp's data is less than data toInsert
 				if (temp.right != null) //if temp has a right child
 					temp = temp.right; //temp is now equal to that right child
@@ -130,8 +133,17 @@ public class RBTree implements Serializable{
 			}
 		}
 		
-		if (temp.data.compareTo(toInsert.data) == 0) //if temp's data equals the data to insert in tree
+		if (temp.data.compareTo(toInsert.data) == 0){ //if temp's data equals the data to insert in tree
 			return null;
+			
+		/*	RBnode tempL = new RBnode(); //temp RBnode
+			RBnode tempR = new RBnode(); //temp RBnode
+			temp.left = toInsert;
+			temp.right = null;
+			toInsert.left = tempL;
+			toInsert.right = tempR;
+			return toInsert; //for adding coppies of objects */			
+		}
 		else if (temp.data.compareTo(toInsert.data) < 0){ //if temp's data is less than data toInsert
 			temp.right = toInsert; //temp's right child is equal to toInsert
 			toInsert.parent = temp; //sets toInsert's parent pointer
@@ -160,7 +172,7 @@ public class RBTree implements Serializable{
 		}
 		
 		toInsert.isBlack = false;
-		while(toInsert != root && toInsert.parent.isBlack == false){
+		while(toInsert != root && toInsert.parent.parent != null && toInsert.parent.isBlack == false){ //edited with "toInsert.parent.parent != null &&"
 			if (toInsert.parent == toInsert.parent.parent.left){ //parent is left
 				temp = toInsert.parent.parent.right; //uncle of toInsert
 				if (temp != null && temp.isBlack == false){ //same as toInsert.parent
@@ -363,6 +375,7 @@ public class RBTree implements Serializable{
 			toRemove.data = y.data; //replace toRemove with y
 		if (y.isBlack == true && x != null)
 			RBRemoveFix(x); //x could be null
+		size--;
 		return true;
 	}
 

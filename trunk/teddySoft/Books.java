@@ -38,9 +38,19 @@ public class Books implements Comparable, Serializable{
 		if (rating < 1){ this.rating = 1;}
 	}
 	
-	public Books (String title){
-		this.title = title;
+	public Books (){
+		this.title = null;
+		this.author = null;
+		this.edition = null;
+		this.pubDate = null;
+		this.pubLocation = null;
+		this.isbn = null;
+		this.genre = null;
+		this.rating = 0;
+		this.description = null;
+		this.review = null;
 	}
+	
 	
 	//Getters
 	public String getTitle(){
@@ -62,11 +72,10 @@ public class Books implements Comparable, Serializable{
 		return isbn;}
 	
 	public int getRating(){
-		return rating;
-	}
+		return rating;}
+	
 	public String getType(){
-		return "Book";
-	}
+		return "Book";}
 	
 	public String getGenre(){
 		return genre;}
@@ -78,7 +87,6 @@ public class Books implements Comparable, Serializable{
 		return description;}
 	
 	//Setters
-	
 	public void setAuthor(String author){
 		this.author = author;}
 	
@@ -95,9 +103,7 @@ public class Books implements Comparable, Serializable{
 		this.description = description;}
 	
 	public void setReview(String review){
-		this.review = review;
-	}
-	
+		this.review = review;}
 	
 	public void setTitle(String title){
 		this.title = title;}
@@ -114,6 +120,12 @@ public class Books implements Comparable, Serializable{
 	public void setIsbn(String isbn){
 		this.isbn = isbn;}
 	
+	//toString
+	public String toString(){
+		String dataDump = title+author+edition+pubDate+pubLocation+isbn+genre+description+review+rating;
+		return dataDump;
+	}
+	
 	//Comparable interface
 	public int compareTo(Object b) throws ClassCastException{
 		if (!(b instanceof Books))
@@ -121,9 +133,9 @@ public class Books implements Comparable, Serializable{
 		
 		int x;
 		Books bookToTest = ((Books) b);
-		if ((this.getTitle()).equals(bookToTest.getTitle())){
+		if ((this.toString()).equals(bookToTest.toString())){
 			x = 0;}
-		else if (this.getTitle().compareTo(bookToTest.getTitle()) > 0){
+		else if (this.toString().compareTo(bookToTest.toString()) > 0){
 			x = 1;}
 		else{
 			x=-1;}

@@ -110,12 +110,12 @@ public class Main implements ActionListener {
 		btnEdit.setMaximumSize(new Dimension(120, 23));
 		btnEdit.setActionCommand("Edit");
 		btnEdit.addActionListener(this);
-		/*//Delete Entry button
+		//Delete Entry button
 		btnDelete = new JButton("Delete Entry");
 		btnDelete.setMnemonic('d');
 		btnDelete.setMaximumSize(new Dimension(120, 23));
 		btnDelete.setActionCommand("Delete");
-		btnDelete.addActionListener(this);*/
+		btnDelete.addActionListener(this);
 		
 		//ComboBox Panel
 		JPanel combopanel = new JPanel();
@@ -181,7 +181,7 @@ public class Main implements ActionListener {
 		//Table
 		String[] columnNames = {"Title", "Type", "Rating"};
 		int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
-		data = new Object[BooksTreeLength][columnNames.length];
+		data = new Object[BooksTreeLength][columnNames.length + 1];
 		List = new Comparable[BooksTreeLength];
 		List = currentUser.getDB().getBooksTree().getTreeElements();
 		for(int i=0;i<BooksTreeLength;i++){
@@ -190,6 +190,7 @@ public class Main implements ActionListener {
 			data[i][1] = temp.getType();
 			Integer tempint = new Integer(temp.getRating());
 			data[i][2] = "" + tempint;
+			data[i][3] = temp;
 		}			
 		table = new JTable(data, columnNames);
 		
@@ -222,7 +223,7 @@ public class Main implements ActionListener {
 		topleftpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		topleftpanel.add(btnEdit);
 		topleftpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		//topleftpanel.add(btnDelete);
+		topleftpanel.add(btnDelete);
 		topleftpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		
 		combopanel.add(entrytypeList);
@@ -285,7 +286,6 @@ public class Main implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		//if ("disable".equals(e.getActionCommand()))
 		if (e.getActionCommand().equals("Exit")){
 			LoginGUI.CreateGUI();
 			this.close();
@@ -318,7 +318,8 @@ public class Main implements ActionListener {
 			//"Book", "Game", "Recipe", "Music", "Movie"
 	        if (temp.getSelectedIndex() == 1){
 	        	System.out.println("Add Book");
-	        	AddBookGUI.CreateGUI(currentUser);}
+	        	AddBookGUI.CreateGUI(currentUser);
+				}
 	        else if (temp.getSelectedIndex() == 2){
 	        	System.out.println("Add Game");}
 	        else if (temp.getSelectedIndex() == 3){
@@ -329,16 +330,17 @@ public class Main implements ActionListener {
 	        	System.out.println("Add Movie");}
 		}
 		else if (e.getActionCommand().equals("Delete")){
-			//currentUser.getDB().getBooksTree().RBTreeRemove(((Books)List[table.getSelectedRow()]));
+			currentUser.getDB().getBooksTree().RBTreeRemove(((Books) data[table.getSelectedRow()][3]));
 			System.out.println("Delete Entry");
+			Main.refreshJTable();
 		}
 		else if (e.getActionCommand().equals("Edit")){
-			EditBookGUI.CreateGUI((Books)List[table.getSelectedRow()]);
+			EditBookGUI.CreateGUI((Books) data[table.getSelectedRow()][3]);
 			System.out.println("Edit Entry");
 		}
 		else if (e.getActionCommand().equals("View")){
 			if(table.getSelectedRow() != -1){
-				ViewBookGUI.CreateGUI((Books)List[table.getSelectedRow()]);
+				ViewBookGUI.CreateGUI((Books) data[table.getSelectedRow()][3]);
 				System.out.println("View Entry");
 			}
 		}
