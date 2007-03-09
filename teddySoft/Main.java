@@ -41,43 +41,24 @@ public class Main implements ActionListener {
 		return false;
 	}
 		
-	public static void refreshJTable(){
-		String[] columnNames = {"Title", "Type", "Rating"};
-		int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
-		data = new Object[BooksTreeLength][columnNames.length];
-		List = new Comparable[BooksTreeLength];
-		List = currentUser.getDB().getBooksTree().getTreeElements();
-		for(int i=0;i<BooksTreeLength;i++){
-			Books temp = (Books)List[i];
-			data[i][0] = temp.getTitle();
-			data[i][1] = temp.getType();
-			Integer tempint = new Integer(temp.getRating());
-			data[i][2] = "" + tempint;
-		}	
-				
-		table = new JTable(data, columnNames);    
-		//table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		scrollPane = new JScrollPane(table);
+	public static void refreshJTable(){	
+        frame.dispose();
+        
+		//Create and set up the window.
+		frame = new JFrame("Media Library");
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+        Main app = new Main();
+        Component contents = app.mainWindowComponents();
+        frame.getContentPane().add(contents, BorderLayout.CENTER);
+		
+		//Display the window.
+		frame.pack();
+		frame.setVisible(true);
+		frame.setSize(640,460); // make frame 640x460
+		frame.setLocationRelativeTo(null); //centers window
+
 	}
-	
-/*	public void refreshJTable(User fromAddMedia){
-		String[] columnNames = {"Title", "Type", "Rating"};
-		int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
-		data = new Object[BooksTreeLength][columnNames.length];
-		List = new Comparable[BooksTreeLength];
-		List = currentUser.getDB().getBooksTree().getTreeElements();
-		for(int i=0;i<BooksTreeLength;i++){
-			Books temp = (Books)List[i];
-			data[i][0] = temp.getTitle();
-			data[i][1] = temp.getType();
-			Integer tempint = new Integer(temp.getRating());
-			data[i][2] = "" + tempint;
-		}	
-				
-		table = new JTable(data, columnNames);    
-		//table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		scrollPane = new JScrollPane(table);
-	}*/
 	
 	public void close(){
 		//write UserMedia.ser
@@ -198,8 +179,22 @@ public class Main implements ActionListener {
 		topleftpanel.setAlignmentX(Component.CENTER_ALIGNMENT);	
 		
 		//Table
-		refreshJTable();
-
+		String[] columnNames = {"Title", "Type", "Rating"};
+		int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
+		data = new Object[BooksTreeLength][columnNames.length];
+		List = new Comparable[BooksTreeLength];
+		List = currentUser.getDB().getBooksTree().getTreeElements();
+		for(int i=0;i<BooksTreeLength;i++){
+			Books temp = (Books)List[i];
+			data[i][0] = temp.getTitle();
+			data[i][1] = temp.getType();
+			Integer tempint = new Integer(temp.getRating());
+			data[i][2] = "" + tempint;
+		}			
+		table = new JTable(data, columnNames);
+		
+		//Scroll Pane
+		scrollPane = new JScrollPane(table);
 		
 		//Bottom Panel
 		JPanel bottompanel = new JPanel();
@@ -342,8 +337,10 @@ public class Main implements ActionListener {
 			System.out.println("Edit Entry");
 		}
 		else if (e.getActionCommand().equals("View")){
-			ViewBookGUI.CreateGUI((Books)List[table.getSelectedRow()]);
-			System.out.println("View Entry");
+			if(table.getSelectedRow() != -1){
+				ViewBookGUI.CreateGUI((Books)List[table.getSelectedRow()]);
+				System.out.println("View Entry");
+			}
 		}
 	}	
 	
@@ -365,6 +362,7 @@ public class Main implements ActionListener {
 		catch (ClassNotFoundException ex2){
 			System.out.println("User class not found.");
 		}
+		
 		//Create and set up the window.
 		frame = new JFrame("Media Library");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
