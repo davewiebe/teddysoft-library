@@ -334,7 +334,7 @@ public class EditBookGUI implements ActionListener {
 		}
 		else if(e.getSource() == btnSave){
 //			set rating from 1-5 when button is pressed.
-			int rating = 1;
+			int rating = -1; //throws error
 			if (oneButton.isSelected() == true){
 				rating = 1;
 			}

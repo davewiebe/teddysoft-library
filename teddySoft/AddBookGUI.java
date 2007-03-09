@@ -338,6 +338,7 @@ public class AddBookGUI implements ActionListener {
 		
 		// On button Close
 		if(e.getSource() == btnClose){
+			Main.refreshJTable();
 			frame.dispose();
 		}
 		
