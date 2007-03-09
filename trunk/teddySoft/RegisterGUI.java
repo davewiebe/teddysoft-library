@@ -190,7 +190,7 @@ public class RegisterGUI implements ActionListener {
 			String password2 = new String(rpw.getPassword());
 			
 			// if passwords match and username is not blank
-			if (password1.compareTo(password2) == 0 && username.getText().compareTo("") != 0 && password1.compareTo("") != 0){
+			if (password1.compareTo(password2) == 0 && username.getText().compareTo("") != 0){
 				//System.out.println("they match");
 				// add user
 				boolean addedUser = LoginGUI.getUserDB().addUser(username.getText(), password1);

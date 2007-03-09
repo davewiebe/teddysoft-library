@@ -353,7 +353,6 @@ public class AddBookGUI implements ActionListener {
 			// If "Add" was pressed
 			if (e.getSource() == btnAdd){
 				Main.refreshJTable();
-				//Main.CreateGUI(currentUser);
 				frame.dispose();
 			}
 			
