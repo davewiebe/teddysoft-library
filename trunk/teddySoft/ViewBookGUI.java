@@ -13,6 +13,7 @@
 
 package teddySoft;
 import javax.swing.*;
+import teddySoft.Books;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -48,9 +49,7 @@ public class ViewBookGUI implements ActionListener {
 		
 		//Genre LABEL
 		JLabel genre = new JLabel("Genre: " + books.getGenre());
-		//genrelabel.setMinimumSize(new Dimension(240, 20));
-		//genrelabel.setMaximumSize(new Dimension(240, 20));
-		//genrelabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		genre.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		//Information Panel: title, author, edition, pubDate, pubLocation, isbn
 		JPanel infopanel = new JPanel();
@@ -74,32 +73,39 @@ public class ViewBookGUI implements ActionListener {
 		
 		//Title
 		JLabel titlelabel = new JLabel("Title:");
+		System.out.println(titlelabel.getFont());
 		JLabel title = new JLabel(books.getTitle());
+		title.setFont(new Font("Tahoma", Font.BOLD, 11));
 		title.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Author
 		JLabel authorlabel = new JLabel("Author:");
 		JLabel author = new JLabel(books.getAuthor());
+		author.setFont(new Font("Tahoma", Font.BOLD, 11));
 		author.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Edition
 		JLabel editionlabel = new JLabel("Edition:");
 		JLabel edition = new JLabel(books.getEdition());
+		edition.setFont(new Font("Tahoma", Font.BOLD, 11));
 		edition.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Date
 		JLabel datelabel = new JLabel("Publishing date:");
 		JLabel date = new JLabel(books.getPubDate());
+		date.setFont(new Font("Tahoma", Font.BOLD, 11));
 		date.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Location
 		JLabel placelabel = new JLabel("Publishing place:");
 		JLabel place = new JLabel(books.getPubLocation());
+		place.setFont(new Font("Tahoma", Font.BOLD, 11));
 		place.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//ISBN
 		JLabel isbnlabel = new JLabel("ISBN number:");
 		JLabel isbn = new JLabel(books.getIsbn());
+		isbn.setFont(new Font("Tahoma", Font.BOLD, 11));
 		isbn.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Rating Panel
@@ -229,6 +235,7 @@ public class ViewBookGUI implements ActionListener {
 
 		genrepanel.add(genre);
 		
+		labelpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		labelpanel.add(titlelabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(authorlabel);
@@ -241,6 +248,7 @@ public class ViewBookGUI implements ActionListener {
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(isbnlabel);
 		
+		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(title);
 		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		textpanel.add(author);
@@ -252,9 +260,13 @@ public class ViewBookGUI implements ActionListener {
 		textpanel.add(place);
 		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		textpanel.add(isbn);
+		textpanel.add(Box.createRigidArea(new Dimension(0,5)));		
+		
+		infopanel.add(Box.createRigidArea(new Dimension(5,0)));		
 		infopanel.add(labelpanel);
 		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
 		infopanel.add(textpanel);
+		infopanel.add(Box.createRigidArea(new Dimension(5,0)));		
 		infopanel.add(Box.createHorizontalGlue());
 				
 		ratepanel.add(oneButton);
@@ -313,8 +325,9 @@ public class ViewBookGUI implements ActionListener {
 		frame.setLocationRelativeTo(null); //centers window
 
 	}	
-	/*
-	public static void Test(){
+	
+//	public static void Test(){
+/*	public static void main(String[] args){
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -329,3 +342,4 @@ public class ViewBookGUI implements ActionListener {
 		});
 	}*/
 }
+
