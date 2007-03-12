@@ -17,8 +17,8 @@ public class VHS_R extends VHS {
 	private String timeStamp;
 	private int index;
 	
-	public VHS_R (String title, String director, String year, String contentRated, String runningTime, String timeStamp, int index,  int rating){
-		super(title, director, year, contentRated, runningTime, rating);
+	public VHS_R (String title, String director, String year, String contentRated, String review, String runningTime, String timeStamp, int index,  int rating){
+		super(title, director, year, contentRated, runningTime, review, rating);
 		this.timeStamp = timeStamp;
 		this.index = index;
 		//implement search key
