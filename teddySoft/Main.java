@@ -123,7 +123,7 @@ public class Main implements ActionListener {
 		combopanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		//Add Entries combo box
-		String[] entryTypes = { "Add New Entry...", "Book"};//, "Game", "Recipe", "Music", "Movie" };
+		String[] entryTypes = { "Add New Entry...", "Book", "DVD"};//, "Game", "Recipe", "Music", "Movie" };
 		entrytypeList = new JComboBox(entryTypes);
 		entrytypeList.setSelectedIndex(0);
 		entrytypeList.setMaximumSize(new Dimension(160, 40));
@@ -321,7 +321,9 @@ public class Main implements ActionListener {
 	        	AddBookGUI.CreateGUI(currentUser);
 				}
 	        else if (temp.getSelectedIndex() == 2){
-	        	System.out.println("Add Game");}
+	        	System.out.println("Add DVD");
+	        	AddDVDGUI.CreateGUI(currentUser);
+			}
 	        else if (temp.getSelectedIndex() == 3){
 	        	System.out.println("Add Recipe");}
 	        else if (temp.getSelectedIndex() == 4){
