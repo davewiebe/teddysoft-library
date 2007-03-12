@@ -35,7 +35,7 @@ public class GenCitation {
 			apa = apa +
 				citeAuthor(author) + 
 				citeYear(year) + 
-				citeTitle(title) + 
+				citeTitle(title) + " " + 
 				citeEdition(edition) +
 				citePlace(place) + 
 				citePublisher(publisher);
@@ -233,7 +233,7 @@ public class GenCitation {
 	private String citePublisher(String publisher){
 		
 		if (publisher.compareTo("") != 0 || publisher.compareTo(" ") != 0){
-			return publisher+": ";
+			return ": " + publisher;
 		}
 		else{
 			return "";
@@ -242,7 +242,7 @@ public class GenCitation {
 
 	private String citeEdition(String edition){
 		if (edition.compareTo("") != 0 || edition.compareTo(" ") != 0){
-			return "("+edition+".). ";
+			return "("+edition+"). ";
 		}
 		else{
 			return "";
