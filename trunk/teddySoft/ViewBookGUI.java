@@ -24,6 +24,7 @@ public class ViewBookGUI implements ActionListener {
 	private static Books books;
 	private JButton btnClose;
 	private static JFrame frame;
+	private static GenCitation citation;
 	
 	public static void setWindowsLook(){
 	    try{
@@ -41,6 +42,7 @@ public class ViewBookGUI implements ActionListener {
 	}	
 	
 	private Component mainWindowComponents() {
+		citation = new GenCitation();
 		//Genre LABEL Panel
 		JPanel genrepanel = new JPanel();
 		genrepanel.setLayout(new BoxLayout(genrepanel, BoxLayout.PAGE_AXIS));	
@@ -219,10 +221,11 @@ public class ViewBookGUI implements ActionListener {
 		citepanel.setBorder(BorderFactory.createTitledBorder(
         "Citation"));
 				
-		JTextArea cite = new JTextArea(1, 20);
-		cite.setLineWrap(false);
-		cite.setRows(4);
-		cite.setText("Citation");
+		JTextArea cite = new JTextArea(1, 70);
+		cite.setLineWrap(true);
+		cite.setRows(3);
+		cite.setText(citation.genAPA(books.getAuthor(), books.getPubDate(),
+				books.getTitle(), books.getPubLocation(), "publisherHere", books.getEdition()));
 		JScrollPane citescroll = new JScrollPane(cite);		
 				
 		//Button panel
@@ -340,7 +343,7 @@ public class ViewBookGUI implements ActionListener {
 		
 		//Display the window.
         frame.pack();
-        frame.setSize(460,520); // make frame 640x460
+        frame.setSize(460,570); // 460 520 // make frame 640x460
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null); //centers window
 
