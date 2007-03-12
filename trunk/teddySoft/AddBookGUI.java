@@ -58,7 +58,6 @@ public class AddBookGUI implements ActionListener {
 		genreList = new JComboBox(genres);
 		genreList.setSelectedIndex(0);
 		genreList.setMaximumSize(new Dimension(240, 22));
-		genreList.setActionCommand("Genre");
 		genreList.addActionListener(this);
 		
 		//Information Panel: title, author, edition, pubDate, pubLocation, isbn
@@ -229,6 +228,7 @@ public class AddBookGUI implements ActionListener {
 
 		genrepanel.add(genreList);
 		
+		labelpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		labelpanel.add(titlelabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(authorlabel);
@@ -240,6 +240,7 @@ public class AddBookGUI implements ActionListener {
 		labelpanel.add(placelabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(isbnlabel);
+		
 		textpanel.add(title);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(author);
@@ -251,8 +252,12 @@ public class AddBookGUI implements ActionListener {
 		textpanel.add(place);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(isbn);
+		
+		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
 		infopanel.add(labelpanel);
+		infopanel.add(Box.createRigidArea(new Dimension(2,0)));
 		infopanel.add(textpanel);
+		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
 				
 		ratepanel.add(oneButton);
 		ratepanel.add(twoButton);
@@ -375,6 +380,7 @@ public class AddBookGUI implements ActionListener {
 	// PARAM: User information parameter, so window knows which user it is.
 	// POST: Creates window, will be able to edit users.
 	public static void CreateGUI(User user){
+	//public static void CreateGUI(){
 		setWindowsLook(); //Set windows decorations
 		currentUser = user;
 		//Create and set up the window.
@@ -393,7 +399,7 @@ public class AddBookGUI implements ActionListener {
 
 	}	
 	
-	/*public static void main(String[] args){
+/*	public static void main(String[] args){
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {

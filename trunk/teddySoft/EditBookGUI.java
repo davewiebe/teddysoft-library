@@ -271,6 +271,7 @@ public class EditBookGUI implements ActionListener {
 
 		genrepanel.add(genreList);
 		
+		labelpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		labelpanel.add(titlelabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(authorlabel);
@@ -282,6 +283,7 @@ public class EditBookGUI implements ActionListener {
 		labelpanel.add(placelabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(isbnlabel);
+		
 		textpanel.add(title);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(author);
@@ -293,8 +295,12 @@ public class EditBookGUI implements ActionListener {
 		textpanel.add(place);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(isbn);
+		
+		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
 		infopanel.add(labelpanel);
+		infopanel.add(Box.createRigidArea(new Dimension(2,0)));
 		infopanel.add(textpanel);
+		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
 				
 		ratepanel.add(oneButton);
 		ratepanel.add(twoButton);
