@@ -17,8 +17,8 @@ public class DVD extends VHS {
 	private boolean isWideScreen;
 	private String format;
 
-	public DVD (String title, String director, String year, String contentRated, String runningTime, String format, boolean isWideScreen,  int rating){
-		super(title, director, year, contentRated, runningTime, rating);
+	public DVD (String title, String director, String year, String contentRated, String runningTime, String review, String format, boolean isWideScreen, int rating){
+		super(title, director, year, contentRated, runningTime, review, rating);
 		this.isWideScreen = isWideScreen;
 		this.format = format;
 		//implement search key
@@ -31,12 +31,21 @@ public class DVD extends VHS {
 	public String getFormat(){
 		return format;}
 	
+	public String getType(){
+		return "DVD";}
+	
 	//Setters
 	public void setIsWideScreen(boolean isWideScreen){
 		this.isWideScreen = isWideScreen;}
 	
 	public void setFormat(String format){
 		this.format = format;}
+	
+	//toString
+	public String toString(){
+		String dataDump = title+director+year+contentRated+runningTime+format+isWideScreen+rating+review+rating;
+		return dataDump;
+	}
 	
 	//Comparable interface
 	public int compareTo(Object dvd) throws ClassCastException{
@@ -45,9 +54,9 @@ public class DVD extends VHS {
 		
 		int x;
 		DVD dvdToTest = ((DVD) dvd);
-		if ((this.getTitle()).equals(dvdToTest.getTitle())){
+		if ((this.toString()).equals(dvdToTest.toString())){
 			x = 0;}
-		else if (this.getTitle().compareTo(dvdToTest.getTitle()) > 0){
+		else if (this.toString().compareTo(dvdToTest.toString()) > 0){
 			x = 1;}
 		else{
 			x=-1;}

@@ -307,21 +307,21 @@ public class AddDVDGUI implements ActionListener {
 		}
 		
 		//Set rated when action happens
-		String rated = "";
+		String contentRated = "";
 		if (ratedList.getSelectedIndex() == 1){
-			rated = "G";
+			contentRated = "G";
 		}
 		else if(ratedList.getSelectedIndex() == 2){
-			rated = "PG";
+			contentRated = "PG";
 		}
 		else if(ratedList.getSelectedIndex() == 3){
-			rated = "PG-13";
+			contentRated = "PG-13";
 		}
 		else if(ratedList.getSelectedIndex() == 4){
-			rated = "R";
+			contentRated = "R";
 		}
 		else if(ratedList.getSelectedIndex() == 0){
-			rated = "Not Rated";
+			contentRated = "Not Rated";
 		}
 		
 		// On button Close
@@ -333,11 +333,11 @@ public class AddDVDGUI implements ActionListener {
 		// When Book is Added
 		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
 						
-/*			Books newBook = new Books(title.getText(),director.getText(), year.getText(),
-					runningtime.getText(), format.getText(), format.getText(), rated, 
-					rating, description.getText(), review.getText());
+			DVD newDVD = new DVD(title.getText(),director.getText(), year.getText(), contentRated,
+					runningtime.getText(), review.getText(), format.getText(), btnWidescreen.isEnabled(), rating);
+			
 					
-			currentUser.getDB().addBook(newBook);*/
+			currentUser.getDB().addDVD(newDVD);
 			
 			// If "Add" was pressed
 			if (e.getSource() == btnAdd){

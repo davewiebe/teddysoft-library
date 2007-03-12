@@ -14,6 +14,7 @@
 package teddySoft;
 import javax.swing.*;
 import javax.swing.table.TableColumn;
+import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -27,6 +28,7 @@ import java.io.ObjectOutputStream;
 
 public class Main implements ActionListener {
 	private
+		static String tableType;
 		static JTable table;
 		JButton btnView, btnEdit, btnDelete, btnAll, btnBooks, btnRecipes, btnGames,
 		btnMusic, btnMovies, btnExit, btnLogOut;
@@ -39,6 +41,40 @@ public class Main implements ActionListener {
 		
 	public boolean isCellEditable(int row, int column){
 		return false;
+	}
+	
+	public static void getTable(String type){
+		if(type.equals("All")){
+			String[] columnNames = {"Title", "Type", "Rating"};
+			int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
+			int DVDTreeLength = currentUser.getDB().getDVDTree().getSize();
+			int partition = 0;
+			
+			List = currentUser.getDB().getBooksTree().getTreeElements();
+			data = new Object[BooksTreeLength + DVDTreeLength][columnNames.length + 1];
+			for(int i=0;i<List.length;i++){
+				Books temp = (Books)List[i];
+				data[partition+i][0] = temp.getTitle();
+				data[partition+i][1] = temp.getType();
+				Integer tempint = new Integer(temp.getRating());
+				data[partition+i][2] = "" + tempint;
+				data[partition+i][3] = temp;
+			}
+			partition = List.length;
+			
+			List = currentUser.getDB().getDVDTree().getTreeElements();
+			for(int i=0;i<List.length;i++){
+				DVD temp = (DVD)List[i];
+				data[partition+i][0] = temp.getTitle();
+				data[partition+i][1] = temp.getType();
+				Integer tempint = new Integer(temp.getRating());
+				data[partition+i][2] = "" + tempint;
+				data[partition+i][3] = temp;
+			}
+			partition = List.length;
+			
+			table = new JTable(data, columnNames);
+		}
 	}
 		
 	public static void refreshJTable(){	
@@ -130,12 +166,12 @@ public class Main implements ActionListener {
 		entrytypeList.setActionCommand("EntryType");
 		entrytypeList.addActionListener(this);
 
-/*		//View Panel
+		//View Panel
 		JPanel viewpanel = new JPanel();
 		viewpanel.setLayout(new BoxLayout(viewpanel, BoxLayout.PAGE_AXIS));	
 		viewpanel.setBorder(BorderFactory.createTitledBorder(
         "View"));
-		viewpanel.setAlignmentX(Component.CENTER_ALIGNMENT);*/
+		viewpanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		//Show All button 
 		btnAll = new JButton("Show All");
@@ -179,20 +215,7 @@ public class Main implements ActionListener {
 		topleftpanel.setAlignmentX(Component.CENTER_ALIGNMENT);	
 		
 		//Table
-		String[] columnNames = {"Title", "Type", "Rating"};
-		int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
-		data = new Object[BooksTreeLength][columnNames.length + 1];
-		List = new Comparable[BooksTreeLength];
-		List = currentUser.getDB().getBooksTree().getTreeElements();
-		for(int i=0;i<BooksTreeLength;i++){
-			Books temp = (Books)List[i];
-			data[i][0] = temp.getTitle();
-			data[i][1] = temp.getType();
-			Integer tempint = new Integer(temp.getRating());
-			data[i][2] = "" + tempint;
-			data[i][3] = temp;
-		}			
-		table = new JTable(data, columnNames);
+		getTable(tableType);
 		
 		//Scroll Pane
 		scrollPane = new JScrollPane(table);
@@ -228,23 +251,24 @@ public class Main implements ActionListener {
 		
 		combopanel.add(entrytypeList);
 
-/*		viewpanel.add(btnAll);
+		viewpanel.add(btnAll);
 		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		viewpanel.add(btnBooks);
 		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		viewpanel.add(btnGames);
+		//viewpanel.add(btnGames);
+		//viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
+		//viewpanel.add(btnRecipes);
+		//viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
+		//viewpanel.add(btnMusic);
+		//viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
+		viewpanel.add(btnMovies);
 		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		viewpanel.add(btnRecipes);
-		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		viewpanel.add(btnMusic);
-		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		viewpanel.add(btnMovies);*/
 	
 		leftpanel.add(topleftpanel);
 		leftpanel.add(Box.createRigidArea(new Dimension(0,5)));			
 		leftpanel.add(combopanel);
 		leftpanel.add(Box.createRigidArea(new Dimension(0,5)));			
-		//leftpanel.add(viewpanel);
+		leftpanel.add(viewpanel);
 		leftpanel.add(Box.createVerticalGlue());
 		
 		//tablepanel.add(table.getTableHeader());
@@ -273,14 +297,14 @@ public class Main implements ActionListener {
                 20) //right
                 );	
 		
-//		topleftpanel.setBorder(BorderFactory.createRaisedBevelBorder());
-//		combopanel.setBorder(BorderFactory.createRaisedBevelBorder());
-//		viewpanel.setBorder(BorderFactory.createRaisedBevelBorder());
-//		leftpanel.setBorder(BorderFactory.createRaisedBevelBorder());
-//		tablepanel.setBorder(BorderFactory.createRaisedBevelBorder());
-//		bottompanel.setBorder(BorderFactory.createRaisedBevelBorder());
-//		rightpanel.setBorder(BorderFactory.createRaisedBevelBorder());
-//		mainpanel.setBorder(BorderFactory.createRaisedBevelBorder());
+/*		topleftpanel.setBorder(BorderFactory.createRaisedBevelBorder());
+		combopanel.setBorder(BorderFactory.createRaisedBevelBorder());
+		viewpanel.setBorder(BorderFactory.createRaisedBevelBorder());
+		leftpanel.setBorder(BorderFactory.createRaisedBevelBorder());
+		tablepanel.setBorder(BorderFactory.createRaisedBevelBorder());
+		bottompanel.setBorder(BorderFactory.createRaisedBevelBorder());
+		rightpanel.setBorder(BorderFactory.createRaisedBevelBorder());
+		mainpanel.setBorder(BorderFactory.createRaisedBevelBorder());*/
 		
 		return mainpanel;
 	}
@@ -297,6 +321,8 @@ public class Main implements ActionListener {
 		}
 		else if (e.getActionCommand().equals("All")){
 			System.out.println("Show All");
+			tableType = "All";
+			refreshJTable();
 		}
 		else if (e.getActionCommand().equals("Books")){
 			System.out.println("Show Books");
@@ -332,9 +358,18 @@ public class Main implements ActionListener {
 	        	System.out.println("Add Movie");}
 		}
 		else if (e.getActionCommand().equals("Delete")){
-			currentUser.getDB().getBooksTree().RBTreeRemove(((Books) data[table.getSelectedRow()][3]));
-			System.out.println("Delete Entry");
-			Main.refreshJTable();
+			String classType = "" + data[table.getSelectedRow()][3].getClass();
+			//System.out.println(classType);
+			if(classType.equals("class teddySoft.DVD")){
+				currentUser.getDB().getDVDTree().RBTreeRemove(((DVD) data[table.getSelectedRow()][3]));
+				System.out.println("Delete DVD");
+				Main.refreshJTable();
+			}
+			else if (classType.equals("class teddySoft.Books")){
+				currentUser.getDB().getBooksTree().RBTreeRemove(((Books) data[table.getSelectedRow()][3]));
+				System.out.println("Delete Book");
+				Main.refreshJTable();
+			}
 		}
 		else if (e.getActionCommand().equals("Edit")){
 			EditBookGUI.CreateGUI((Books) data[table.getSelectedRow()][3]);

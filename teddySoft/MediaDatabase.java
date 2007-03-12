@@ -50,12 +50,10 @@ public class MediaDatabase implements Serializable {
 	public RBTree getBooksTree(){
 		return BooksTree;}
 	
+	public RBTree getDVDTree(){
+		return DVDTree;}
 	
-	public Books getBook(String title){
-		Books b = (Books) BooksTree.getObj(title);
-		return b;
-	}
-	
+
 	// Setters
 	public void setBooksTree(RBTree BooksTree){
 		this.BooksTree = BooksTree;
