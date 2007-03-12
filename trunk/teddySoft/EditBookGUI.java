@@ -400,6 +400,8 @@ public class EditBookGUI implements ActionListener {
 			books.setRating(rating);
 			books.setDescription(description.getText());
 			books.setReview(review.getText());
+			
+			Main.refreshJTable();
 			frame.dispose();
 		}
 	}	
