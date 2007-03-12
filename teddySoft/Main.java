@@ -28,7 +28,7 @@ import java.io.ObjectOutputStream;
 
 public class Main implements ActionListener {
 	private
-		static String tableType;
+		static String tableType = "All"; //initialized to show all media
 		static JTable table;
 		JButton btnView, btnEdit, btnDelete, btnAll, btnBooks, btnRecipes, btnGames,
 		btnMusic, btnMovies, btnExit, btnLogOut;
@@ -70,6 +70,48 @@ public class Main implements ActionListener {
 				Integer tempint = new Integer(temp.getRating());
 				data[partition+i][2] = "" + tempint;
 				data[partition+i][3] = temp;
+			}
+			partition = List.length;
+			
+			table = new JTable(data, columnNames);
+		}
+		
+		else if(type.equals("Books")){
+			String[] columnNames = {"Title","Author","Genre", "Rating"};
+			int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
+			
+			List = currentUser.getDB().getBooksTree().getTreeElements();
+			data = new Object[BooksTreeLength][columnNames.length + 1];
+			for(int i=0;i<List.length;i++){
+				Books temp = (Books)List[i];
+				data[i][0] = temp.getTitle();
+				data[i][1] = temp.getAuthor();
+				data[i][2] = temp.getGenre();
+				Integer tempint = new Integer(temp.getRating());
+				data[i][3] = "" + tempint;
+				data[i][4] = temp;
+			}
+			table = new JTable(data, columnNames);
+		}
+		
+		else if(type.equals("Movies")){
+			String[] columnNames = {"Title","Director","Year","Type", "Rating"};
+			int DVDTreeLength = currentUser.getDB().getDVDTree().getSize();
+			
+			int partition = 0;
+			List = currentUser.getDB().getDVDTree().getTreeElements();
+			data = new Object[DVDTreeLength][columnNames.length + 1];
+			System.out.println(currentUser.getName());
+			System.out.println(List.length);
+			for(int i=0;i<List.length;i++){
+				DVD temp = (DVD)List[i];
+				data[partition+i][0] = temp.getTitle();
+				data[partition+i][1] = temp.getdirector();
+				data[partition+i][2] = temp.getyear();
+				data[partition+i][3] = temp.getType();
+				Integer tempint = new Integer(temp.getRating());
+				data[partition+i][4] = "" + tempint;
+				data[partition+i][5] = temp;
 			}
 			partition = List.length;
 			
@@ -326,6 +368,8 @@ public class Main implements ActionListener {
 		}
 		else if (e.getActionCommand().equals("Books")){
 			System.out.println("Show Books");
+			tableType = "Books";
+			refreshJTable();
 		}
 		else if (e.getActionCommand().equals("Games")){
 			System.out.println("Show Games");
@@ -338,6 +382,8 @@ public class Main implements ActionListener {
 		}
 		else if (e.getActionCommand().equals("Movies")){
 			System.out.println("Show Movies");
+			tableType = "Movies";
+			refreshJTable();
 		}
 		else if (e.getActionCommand().equals("EntryType")){
 			JComboBox temp = (JComboBox)e.getSource();
