@@ -194,6 +194,7 @@ public class ViewBookGUI implements ActionListener {
 		JTextArea description = new JTextArea(4, 20);
 		description.setLineWrap(true);
 		description.setText(books.getDescription());
+		description.setEditable(false);
 		JScrollPane descscroll = new JScrollPane(description);
 		
 		//Review Panel
@@ -207,7 +208,22 @@ public class ViewBookGUI implements ActionListener {
 		JTextArea review = new JTextArea(4, 20);
 		review.setLineWrap(true);
 		review.setText(books.getReview());
+		review.setEditable(false);
 		JScrollPane reviewscroll = new JScrollPane(review);
+		
+		//Citation Panel
+		JPanel citepanel = new JPanel();
+		citepanel.setLayout(new BoxLayout(citepanel, BoxLayout.PAGE_AXIS));	
+		citepanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		citepanel.setAlignmentY(Component.TOP_ALIGNMENT);	
+		citepanel.setBorder(BorderFactory.createTitledBorder(
+        "Citation"));
+				
+		JTextArea cite = new JTextArea(1, 20);
+		cite.setLineWrap(false);
+		cite.setRows(4);
+		cite.setText("Citation");
+		JScrollPane citescroll = new JScrollPane(cite);		
 				
 		//Button panel
 		JPanel buttonpanel = new JPanel();
@@ -281,6 +297,8 @@ public class ViewBookGUI implements ActionListener {
 		descpanel.add(descscroll);
 				
 		revpanel.add(reviewscroll);
+		
+		citepanel.add(citescroll);
 				
 		buttonpanel.add(Box.createHorizontalGlue());
 		buttonpanel.add(btnClose);
@@ -293,6 +311,8 @@ public class ViewBookGUI implements ActionListener {
 		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		mainpanel.add(revpanel);
 		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
+		mainpanel.add(citepanel);
+		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));		
 		mainpanel.add(buttonpanel);
 		
 		return mainpanel;
@@ -327,7 +347,7 @@ public class ViewBookGUI implements ActionListener {
 	}	
 	
 //	public static void Test(){
-	public static void main(String[] args){
+/*	public static void main(String[] args){
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -340,6 +360,6 @@ public class ViewBookGUI implements ActionListener {
 				);
 			}
 		});
-	}
+	}*/
 }
 
