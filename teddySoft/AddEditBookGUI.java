@@ -60,8 +60,6 @@ public class AddEditBookGUI implements ActionListener {
 		genreList = new JComboBox(genres);
 		
 		genreList.setSelectedIndex(0);
-		
-		
 		genreList.setMaximumSize(new Dimension(240, 22));
 		genreList.addActionListener(this);
 		
@@ -484,7 +482,7 @@ public class AddEditBookGUI implements ActionListener {
 		currentUser = user;
 		//Create and set up the window.
 		op = operation;
-		if (operation == 0){
+		if (op == 0){
 			frame = new JFrame("Add Book");
 		}else{
 			frame = new JFrame("Edit Book");
