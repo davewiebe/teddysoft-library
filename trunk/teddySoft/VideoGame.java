@@ -75,6 +75,12 @@ public class VideoGame implements Serializable, Comparable  {
 	public void setMaxPlayers(int maxPlayers){
 		this.maxPlayers = maxPlayers;}
 	
+	//toString
+	public String toString(){
+		String dataDump = title+developer+year+contentRated+platform+rating+maxPlayers;
+		return dataDump;
+	}
+	
 	//Comparable interface
 	public int compareTo(Object vg) throws ClassCastException{
 		if (!(vg instanceof VideoGame))
@@ -82,9 +88,9 @@ public class VideoGame implements Serializable, Comparable  {
 		
 		int x;
 		VideoGame vgToTest = ((VideoGame) vg);
-		if ((this.getTitle()).equals(vgToTest.getTitle())){
+		if ((this.toString()).equals(vgToTest.toString())){
 			x = 0;}
-		else if (this.getTitle().compareTo(vgToTest.getTitle()) > 0){
+		else if (this.toString().compareTo(vgToTest.toString()) > 0){
 			x = 1;}
 		else{
 			x=-1;}
