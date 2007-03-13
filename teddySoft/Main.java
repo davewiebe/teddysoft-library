@@ -422,9 +422,14 @@ public class Main implements ActionListener {
 		else if (e.getActionCommand().equals("Edit")){
 			//EditBookGUI.CreateGUI((Books) data[table.getSelectedRow()][3]);
 			
-			AddEditBookGUI.CreateGUI(currentUser,(Books) data[table.getSelectedRow()][3], 1);
-			//if DVD
-			//AddEditDVDGUI.CreateGUI(currentUser,(DVD) data[table.getSelectedRow()][3], 1);
+			String classType = "" + data[table.getSelectedRow()][3].getClass();
+			if(classType.equals("class teddySoft.DVD")){
+				AddEditDVDGUI.CreateGUI(currentUser,(DVD) data[table.getSelectedRow()][3], 1);
+			}
+			else if (classType.equals("class teddySoft.Books")){
+				AddEditBookGUI.CreateGUI(currentUser,(Books) data[table.getSelectedRow()][3], 1);
+			}
+			
 			System.out.println("Edit Entry");
 		}
 		else if (e.getActionCommand().equals("View")){
