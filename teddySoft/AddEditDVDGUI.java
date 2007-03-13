@@ -124,7 +124,7 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 		btnWidescreen = new JCheckBox("Widescreen");
 		btnWidescreen.setSelected(false);
 		isWideScreen = false;
-		btnWidescreen.addActionListener(this);
+		btnWidescreen.addItemListener(this);
 				
 		//Rating Panel
 		JPanel ratepanel = new JPanel();
