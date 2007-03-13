@@ -390,11 +390,13 @@ public class Main implements ActionListener {
 			//"Book", "Game", "Recipe", "Music", "Movie"
 	        if (temp.getSelectedIndex() == 1){
 	        	System.out.println("Add Book");
-	        	AddBookGUI.CreateGUI(currentUser);
+	        	//AddBookGUI.CreateGUI(currentUser);
+	        	AddEditBookGUI.CreateGUI(currentUser, (Books) null, 0);
 				}
 	        else if (temp.getSelectedIndex() == 2){
 	        	System.out.println("Add DVD");
-	        	AddDVDGUI.CreateGUI(currentUser);
+	        	//AddDVDGUI.CreateGUI(currentUser);
+	        	AddEditDVDGUI.CreateGUI(currentUser, (DVD) null, 0);
 			}
 	        else if (temp.getSelectedIndex() == 3){
 	        	System.out.println("Add Recipe");}
@@ -418,7 +420,11 @@ public class Main implements ActionListener {
 			}
 		}
 		else if (e.getActionCommand().equals("Edit")){
-			EditBookGUI.CreateGUI((Books) data[table.getSelectedRow()][3]);
+			//EditBookGUI.CreateGUI((Books) data[table.getSelectedRow()][3]);
+			
+			AddEditBookGUI.CreateGUI(currentUser,(Books) data[table.getSelectedRow()][3], 1);
+			//if DVD
+			//AddEditDVDGUI.CreateGUI(currentUser,(DVD) data[table.getSelectedRow()][3], 1);
 			System.out.println("Edit Entry");
 		}
 		else if (e.getActionCommand().equals("View")){
