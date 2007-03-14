@@ -66,31 +66,56 @@ public class ViewDVDGUI implements ActionListener{
 		//Information Panel: title, director, year, rated, runningtime, format, bool widescreen,rating
 		//Title
 		JLabel titlelabel = new JLabel("Title:");
-		JLabel title = new JLabel(dvds.getTitle());
+		JLabel title = new JLabel();
+		if (!dvds.getTitle().equals("")){
+			title.setText(dvds.getTitle());
+		}else{
+			title.setText("N/A");
+		}
 		title.setFont(new Font("Tahoma", Font.BOLD, 11));
 		title.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Director
 		JLabel directorlabel = new JLabel("Director:");
-		JLabel director = new JLabel(dvds.getdirector());
+		JLabel director = new JLabel();
+		if (!dvds.getdirector().equals("")){
+			director.setText(dvds.getdirector());
+		}else{
+			director.setText("N/A");
+		}
 		director.setFont(new Font("Tahoma", Font.BOLD, 11));
 		director.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Year
 		JLabel yearlabel = new JLabel("Year:");
-		JLabel year = new JLabel(dvds.getyear());
+		JLabel year = new JLabel();
+		if (!dvds.getyear().equals("")){
+			year.setText(dvds.getyear());
+		}else{
+			year.setText("N/A");
+		}
 		year.setFont(new Font("Tahoma", Font.BOLD, 11));
 		year.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//runningtime
 		JLabel runningtimelabel = new JLabel("Running Time:");
-		JLabel runningtime = new JLabel(dvds.getRunningTime());
+		JLabel runningtime = new JLabel();
+		if (!dvds.getTitle().equals("")){
+			runningtime.setText(dvds.getTitle());
+		}else{
+			runningtime.setText("N/A");
+		}
 		runningtime.setFont(new Font("Tahoma", Font.BOLD, 11));
 		runningtime.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//format
 		JLabel formatlabel = new JLabel("Format:");
-		JLabel format = new JLabel(dvds.getFormat());
+		JLabel format = new JLabel();
+		if (!dvds.getFormat().equals("")){
+			format.setText(dvds.getFormat());
+		}else{
+			format.setText("N/A");
+		}
 		format.setFont(new Font("Tahoma", Font.BOLD, 11));
 		format.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
