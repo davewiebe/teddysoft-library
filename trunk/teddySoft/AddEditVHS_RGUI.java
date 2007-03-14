@@ -353,15 +353,6 @@ public class AddEditVHS_RGUI implements ActionListener{
 		return mainpanel;
 	}
 	
-	public boolean isNumber(String string) {
-		for (int i = 0;i < string.length();i++) {
-			if (!Character.isDigit(string.charAt(i))) {
-		    	return false;
-		    }
-		}
-		return true;
-	}
-	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnCancel){
 			frame.dispose();
@@ -404,12 +395,6 @@ public class AddEditVHS_RGUI implements ActionListener{
 		else{
 			contentRated = "Not Rated";
 		}
-		int vhs_r_index = 0;
-		if (!isNumber(index.getText())){
-			vhs_r_index = 0;
-		}else{
-			vhs_r_index = new Integer(index.getText()).intValue();
-		}
 		
 		// On button Close
 		if(e.getSource() == btnClose){
@@ -419,7 +404,7 @@ public class AddEditVHS_RGUI implements ActionListener{
 		// When VHS_R is saved
 		else if(e.getSource() == btnSave){
 			VHS_R newVHS_R = new VHS_R(title.getText(),director.getText(), year.getText(), contentRated,
-					runningtime.getText(), review.getText(), description.getText(), timestamp.getText(), vhs_r_index, rating);
+					runningtime.getText(), review.getText(), description.getText(), timestamp.getText(), index.getText(), rating);
 			   
 		    vhs_r.setTitle(title.getText());
 		    vhs_r.setDirector(director.getText());
@@ -429,7 +414,7 @@ public class AddEditVHS_RGUI implements ActionListener{
 		    vhs_r.setDescription(description.getText());
 		    vhs_r.setReview(review.getText());
 		    vhs_r.setRating(rating);
-		    vhs_r.setIndex(vhs_r_index);
+		    vhs_r.setIndex(index.getText());
 		    vhs_r.setTimeStamp(timestamp.getText());
 			
 		    Main.refreshJTable();
@@ -440,7 +425,7 @@ public class AddEditVHS_RGUI implements ActionListener{
 		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
 						
 			VHS_R newVHS_R = new VHS_R(title.getText(),director.getText(), year.getText(), contentRated,
-					runningtime.getText(), review.getText(), description.getText(), timestamp.getText(), vhs_r_index, rating);
+					runningtime.getText(), review.getText(), description.getText(), timestamp.getText(), index.getText(), rating);
 					
 			currentUser.getDB().addVHS_R(newVHS_R);
 			
