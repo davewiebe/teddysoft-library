@@ -273,7 +273,9 @@ public class AddEditVHS_RGUI implements ActionListener{
 			year.setText(vhs_r.getyear()); 
 			runningtime.setText(vhs_r.getRunningTime()); 
 		    description.setText(vhs_r.getDescription());
-		    review.setText(vhs_r.getReview());				
+		    review.setText(vhs_r.getReview());		
+		    timestamp.setText(vhs_r.getTimeStamp());
+		    index.setText(""+vhs_r.getIndex());
 			
 		}
 
