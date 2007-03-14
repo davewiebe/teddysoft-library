@@ -49,18 +49,13 @@ public class AddEditBookGUI implements ActionListener {
 	}	
 	
 	private Component mainWindowComponents() {
-		//Genre Combobox Panel
-		JPanel genrepanel = new JPanel();
-		genrepanel.setLayout(new BoxLayout(genrepanel, BoxLayout.PAGE_AXIS));	
-		genrepanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		genrepanel.setAlignmentY(Component.TOP_ALIGNMENT);
-		
 		//Genre combo box
-		String[] genres = { "Select book genre...", "Action", "Adventure", "Children", "Comedy", "Fantasy", "Horror", "Mystery", "Romance", "Science Fiction" };
+		JLabel genrelabel = new JLabel("Genre:");
+		String[] genres = { "N/A", "Action", "Adventure", "Children", "Comedy", "Fantasy", "Horror", "Mystery", "Romance", "Science Fiction" };
 		genreList = new JComboBox(genres);
-		
 		genreList.setSelectedIndex(0);
-		genreList.setMaximumSize(new Dimension(240, 22));
+		genreList.setMaximumSize(new Dimension(160, 22));
+		genreList.setAlignmentX(Component.LEFT_ALIGNMENT);		
 		genreList.addActionListener(this);
 		
 		//Information Panel: title, author, edition, pubDate, pubLocation, isbn
@@ -96,6 +91,12 @@ public class AddEditBookGUI implements ActionListener {
 		author.setMinimumSize(new Dimension(160, 20));
 		author.setMaximumSize(new Dimension(160, 20));
 		author.setAlignmentX(Component.LEFT_ALIGNMENT);
+		JLabel authorhelp = new JLabel("For multiple authors, seperate");
+		JLabel authorhelp2 = new JLabel("authors with a semicolon (;).");
+		JLabel authorhelp3 = new JLabel("(Eg. Stephen A. Smith; John B. Jones)");
+		authorhelp.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		authorhelp2.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		authorhelp3.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		
 		//Edition
 		JLabel editionlabel = new JLabel("Edition:");
@@ -297,13 +298,13 @@ public class AddEditBookGUI implements ActionListener {
 		}
 
 
-		genrepanel.add(genreList);
-		
 		labelpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		labelpanel.add(titlelabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		labelpanel.add(authorlabel);
+		labelpanel.add(genrelabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
+		labelpanel.add(authorlabel);
+		labelpanel.add(Box.createRigidArea(new Dimension(0,45)));
 		labelpanel.add(editionlabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(publishlabel);
@@ -316,7 +317,13 @@ public class AddEditBookGUI implements ActionListener {
 		
 		textpanel.add(title);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
+		textpanel.add(genreList);
+		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(author);
+		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
+		textpanel.add(authorhelp);
+		textpanel.add(authorhelp2);
+		textpanel.add(authorhelp3);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(edition);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
@@ -360,8 +367,6 @@ public class AddEditBookGUI implements ActionListener {
 			buttonpanel.add(btnCancel);
 		}
 		
-		mainpanel.add(genrepanel);
-		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		mainpanel.add(midpanel);
 		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		mainpanel.add(descpanel);
@@ -506,7 +511,7 @@ public class AddEditBookGUI implements ActionListener {
 		
 		//Display the window.
 		frame.pack();
-		frame.setSize(460,520); // make frame 640x460
+		frame.setSize(460,580); // make frame 640x460
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null); //centers window
 
@@ -517,7 +522,7 @@ public class AddEditBookGUI implements ActionListener {
         //creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run(){
-				CreateGUI();
+				CreateGUI(null,null,0);
 			}
 		});
 	}*/
