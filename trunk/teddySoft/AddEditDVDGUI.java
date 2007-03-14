@@ -360,6 +360,7 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 		  	if (e.getStateChange() == ItemEvent.DESELECTED) {
 	    		isWideScreen = false;
 	     	}
+		  	System.out.println(isWideScreen);
 		}
 	}
 	

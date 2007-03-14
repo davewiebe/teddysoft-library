@@ -1,5 +1,5 @@
 	/*
-	 * 	ViewBookGUI.java
+	 * 	AddBookGUI.java
 	 * 	
 	 * 	Written by Frankie Yan
 	 * 	Edited by David Wiebe and Jordan McMillan
@@ -10,22 +10,21 @@
 	 * 	Jordan McMillan
 	 * 	Lisa Chen
 	 */
-
 package teddySoft;
 import javax.swing.*;
-import teddySoft.Books;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
-public class ViewBookGUI implements ActionListener {
-	
-	private static Books books;
+public class ViewDVDGUI implements ActionListener{
+	private static DVD dvds;
 	private JButton btnClose;
 	private static JFrame frame;
-	private static GenCitation citation;
-	
+		
 	public static void setWindowsLook(){
 	    try{
 	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -42,15 +41,15 @@ public class ViewBookGUI implements ActionListener {
 	}	
 	
 	private Component mainWindowComponents() {
-		citation = new GenCitation();
+		//String title, String director, String year, String contentRated, 
+		//String runningTime, String format, boolean isWideScreen,  int rating
 		
-		//Information Panel: title, author, edition, pubDate, pubLocation, isbn
 		JPanel infopanel = new JPanel();
 		infopanel.setLayout(new BoxLayout(infopanel, BoxLayout.LINE_AXIS));	
 		infopanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		infopanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		infopanel.setBorder(BorderFactory.createTitledBorder(
-        "Book Information"));
+        "DVD Information"));
 		
 		//Label Panel
 		JPanel labelpanel = new JPanel();
@@ -60,52 +59,56 @@ public class ViewBookGUI implements ActionListener {
 		
 		//Text Panel
 		JPanel textpanel = new JPanel();
-		textpanel.setLayout(new BoxLayout(textpanel, BoxLayout.PAGE_AXIS));
+		textpanel.setLayout(new BoxLayout(textpanel, BoxLayout.PAGE_AXIS));	
 		textpanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textpanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		
+		//Information Panel: title, director, year, rated, runningtime, format, bool widescreen,rating
 		//Title
 		JLabel titlelabel = new JLabel("Title:");
-		JLabel title = new JLabel(books.getTitle());
+		JLabel title = new JLabel(dvds.getTitle());
 		title.setFont(new Font("Tahoma", Font.BOLD, 11));
 		title.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
-		//Genre
-		JLabel genrelabel = new JLabel("Genre:");
-		JLabel genre = new JLabel(books.getGenre());
-		genre.setFont(new Font("Tahoma", Font.BOLD, 11));
-		genre.setAlignmentX(Component.LEFT_ALIGNMENT);		
+		//Director
+		JLabel directorlabel = new JLabel("Director:");
+		JLabel director = new JLabel(dvds.getdirector());
+		director.setFont(new Font("Tahoma", Font.BOLD, 11));
+		director.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
-		//Author
-		JLabel authorlabel = new JLabel("Author:");
-		JLabel author = new JLabel(books.getAuthor());
-		author.setFont(new Font("Tahoma", Font.BOLD, 11));
-		author.setAlignmentX(Component.LEFT_ALIGNMENT);
+		//Year
+		JLabel yearlabel = new JLabel("Year:");
+		JLabel year = new JLabel(dvds.getyear());
+		year.setFont(new Font("Tahoma", Font.BOLD, 11));
+		year.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
-		//Edition
-		JLabel editionlabel = new JLabel("Edition:");
-		JLabel edition = new JLabel(books.getEdition());
-		edition.setFont(new Font("Tahoma", Font.BOLD, 11));
-		edition.setAlignmentX(Component.LEFT_ALIGNMENT);
+		//runningtime
+		JLabel runningtimelabel = new JLabel("Running Time:");
+		JLabel runningtime = new JLabel(dvds.getRunningTime());
+		runningtime.setFont(new Font("Tahoma", Font.BOLD, 11));
+		runningtime.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
-		//Date
-		JLabel datelabel = new JLabel("Publishing date:");
-		JLabel date = new JLabel(books.getPubDate());
-		date.setFont(new Font("Tahoma", Font.BOLD, 11));
-		date.setAlignmentX(Component.LEFT_ALIGNMENT);
+		//format
+		JLabel formatlabel = new JLabel("Format:");
+		JLabel format = new JLabel(dvds.getFormat());
+		format.setFont(new Font("Tahoma", Font.BOLD, 11));
+		format.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
-		//Location
-		JLabel placelabel = new JLabel("Publishing place:");
-		JLabel place = new JLabel(books.getPubLocation());
-		place.setFont(new Font("Tahoma", Font.BOLD, 11));
-		place.setAlignmentX(Component.LEFT_ALIGNMENT);
+		//Rating combo box
+		JLabel ratedlabel = new JLabel("Rated:");
+		JLabel rated = new JLabel(dvds.getContentRated());
+		rated.setFont(new Font("Tahoma", Font.BOLD, 11));
+		rated.setAlignmentX(Component.LEFT_ALIGNMENT);	
 		
-		//ISBN
-		JLabel isbnlabel = new JLabel("ISBN number:");
-		JLabel isbn = new JLabel(books.getIsbn());
-		isbn.setFont(new Font("Tahoma", Font.BOLD, 11));
-		isbn.setAlignmentX(Component.LEFT_ALIGNMENT);
-		
+		//Widescreen checkbox
+		JLabel widelabel = new JLabel("Widescreen:");
+		JLabel widescreen = new JLabel("No");
+		if (dvds.getIsWideScreen()){
+			widescreen.setText("Yes");
+		}
+		widescreen.setFont(new Font("Tahoma", Font.BOLD, 11));
+		widescreen.setAlignmentX(Component.LEFT_ALIGNMENT);
+				
 		//Rating Panel
 		JPanel ratepanel = new JPanel();
 		ratepanel.setLayout(new BoxLayout(ratepanel, BoxLayout.PAGE_AXIS));	
@@ -121,10 +124,10 @@ public class ViewBookGUI implements ActionListener {
 		midpanel.setAlignmentY(Component.TOP_ALIGNMENT);
 				
 		//Radio Buttons
-	    JRadioButton oneButton = new JRadioButton("1 Star");
+		JRadioButton oneButton = new JRadioButton("1 Star");
 	    oneButton.setActionCommand("One");
 	    oneButton.addActionListener(this);
-
+	    
 	    JRadioButton twoButton = new JRadioButton("2 Stars");
 	    oneButton.setActionCommand("Two");
 	    oneButton.addActionListener(this);
@@ -141,39 +144,39 @@ public class ViewBookGUI implements ActionListener {
 	    oneButton.setActionCommand("Five");
 	    oneButton.addActionListener(this);
 	    
-	    
 	    //Check for Rating
-	    if (books.getRating() != 1){
+	    if (dvds.getRating() != 1){
 	    	oneButton.setEnabled(false);
 	    }	    
-	    if (books.getRating() != 2){
+	    if (dvds.getRating() != 2){
 	    	twoButton.setEnabled(false);
 	    }	    
-	    if (books.getRating() != 3){
+	    if (dvds.getRating() != 3){
 	    	threeButton.setEnabled(false);
 	    }
-	    if (books.getRating() != 4){
+	    if (dvds.getRating() != 4){
 	    	fourButton.setEnabled(false);
 	    }
-	    if (books.getRating() != 5){
+	    if (dvds.getRating() != 5){
 	    	fiveButton.setEnabled(false);
 	    }
 	    
-	    if (books.getRating() == 1){
+	    if (dvds.getRating() == 1){
 	    	oneButton.setSelected(true);
 	    }	    
-	    if (books.getRating() == 2){
+	    if (dvds.getRating() == 2){
 	    	twoButton.setSelected(true);
 	    }	    
-	    if (books.getRating() == 3){
+	    if (dvds.getRating() == 3){
 	    	threeButton.setSelected(true);
 	    }
-	    if (books.getRating() == 4){
+	    if (dvds.getRating() == 4){
 	    	fourButton.setSelected(true);
 	    }
-	    if (books.getRating() == 5){
+	    if (dvds.getRating() == 5){
 	    	fiveButton.setSelected(true);
 	    }
+	    
 	    ButtonGroup ratinggroup = new ButtonGroup();
 	    ratinggroup.add(oneButton);
 	    ratinggroup.add(twoButton);
@@ -189,10 +192,10 @@ public class ViewBookGUI implements ActionListener {
 		descpanel.setBorder(BorderFactory.createTitledBorder(
         "Description"));
 		
-		JTextArea description = new JTextArea(4, 20);
+		JTextArea description = new JTextArea(6, 20);
 		description.setLineWrap(true);
-		description.setText(books.getDescription());
-		description.setEditable(false);
+		//description.setText(dvds.getDescription());
+		description.setEditable(false);		
 		JScrollPane descscroll = new JScrollPane(description);
 		
 		//Review Panel
@@ -202,27 +205,12 @@ public class ViewBookGUI implements ActionListener {
 		revpanel.setAlignmentY(Component.TOP_ALIGNMENT);	
 		revpanel.setBorder(BorderFactory.createTitledBorder(
         "Review"));
-				
-		JTextArea review = new JTextArea(4, 20);
+
+		JTextArea review = new JTextArea(6, 20);
 		review.setLineWrap(true);
-		review.setText(books.getReview());
-		review.setEditable(false);
+		review.setText(dvds.getReview());
+		review.setEditable(false);		
 		JScrollPane reviewscroll = new JScrollPane(review);
-		
-		//Citation Panel
-		JPanel citepanel = new JPanel();
-		citepanel.setLayout(new BoxLayout(citepanel, BoxLayout.PAGE_AXIS));	
-		citepanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		citepanel.setAlignmentY(Component.TOP_ALIGNMENT);	
-		citepanel.setBorder(BorderFactory.createTitledBorder(
-        "Citation"));
-				
-		JTextArea cite = new JTextArea(1, 70);
-		cite.setLineWrap(true);
-		cite.setRows(3);
-		cite.setText(citation.genAPA(books.getAuthor(), books.getPubDate(),
-				books.getTitle(), books.getPubLocation(), "publisherHere", books.getEdition()));
-		JScrollPane citescroll = new JScrollPane(cite);		
 				
 		//Button panel
 		JPanel buttonpanel = new JPanel();
@@ -239,53 +227,53 @@ public class ViewBookGUI implements ActionListener {
 		//Main Panel
 		JPanel mainpanel = new JPanel();
 		mainpanel.setLayout(new BoxLayout(mainpanel, BoxLayout.PAGE_AXIS));	
-		mainpanel.setAlignmentX(Component.LEFT_ALIGNMENT);	
+		mainpanel.setAlignmentX(Component.CENTER_ALIGNMENT);	
 		mainpanel.setBorder(BorderFactory.createEmptyBorder(
                 20, //top
                 20, //left
                 20, //bottom
                 20) //right
                 );	
-
-
+		
 		labelpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		labelpanel.add(titlelabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		labelpanel.add(genrelabel);
+		labelpanel.add(directorlabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		labelpanel.add(authorlabel);
+		labelpanel.add(yearlabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		labelpanel.add(editionlabel);
+		labelpanel.add(runningtimelabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		labelpanel.add(datelabel);
+		labelpanel.add(formatlabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		labelpanel.add(placelabel);
+		labelpanel.add(ratedlabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		labelpanel.add(isbnlabel);
+		labelpanel.add(widelabel);
+		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(title);
 		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		textpanel.add(genre);
+		textpanel.add(director);
 		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		textpanel.add(author);
+		textpanel.add(year);
 		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		textpanel.add(edition);
+		textpanel.add(runningtime);
 		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		textpanel.add(date);
+		textpanel.add(format);
 		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		textpanel.add(place);
+		textpanel.add(rated);
 		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		textpanel.add(isbn);
-		textpanel.add(Box.createRigidArea(new Dimension(0,5)));		
+		textpanel.add(widescreen);
+		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		
-		infopanel.add(Box.createRigidArea(new Dimension(5,0)));		
-		infopanel.add(labelpanel);
 		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
+		infopanel.add(labelpanel);
+		infopanel.add(Box.createRigidArea(new Dimension(2,0)));
 		infopanel.add(textpanel);
-		infopanel.add(Box.createRigidArea(new Dimension(5,0)));		
+		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
 		infopanel.add(Box.createHorizontalGlue());
-				
+		
 		ratepanel.add(oneButton);
 		ratepanel.add(twoButton);
 		ratepanel.add(threeButton);
@@ -297,68 +285,61 @@ public class ViewBookGUI implements ActionListener {
 		
 		descpanel.add(descscroll);
 				
+		//revpanel.add(review);
 		revpanel.add(reviewscroll);
-		
-		citepanel.add(citescroll);
 				
 		buttonpanel.add(Box.createHorizontalGlue());
 		buttonpanel.add(btnClose);
 		
+		//mainpanel.add(Box.createRigidArea(new Dimension(0,100)));
 		mainpanel.add(midpanel);
 		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		mainpanel.add(descpanel);
 		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		mainpanel.add(revpanel);
 		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		mainpanel.add(citepanel);
-		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));		
 		mainpanel.add(buttonpanel);
 		
 		return mainpanel;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		
 		// if close button pressed
 		if(e.getSource() == btnClose){
 			frame.dispose();
 		}
 	}	
 	
-	public static void CreateGUI(Books book){
+	// PRE: need a user.
+	// PARAM: User information parameter, so window knows which user it is.
+	// POST: Creates window, will be able to edit users.
+	public static void CreateGUI(DVD currentdvd){
+	//public static void CreateGUI(){
 		setWindowsLook(); //Set windows decorations
-		books = book;
+		frame = new JFrame("View DVD");
+		dvds = currentdvd;
 		
-		//Create and set up the window.
-		frame = new JFrame("View Book");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-        ViewBookGUI app = new ViewBookGUI();
+        ViewDVDGUI app = new ViewDVDGUI();
         Component contents = app.mainWindowComponents();
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
-        frame.pack();
-        frame.setSize(460,570); // 460 520 // make frame 640x460
+		frame.pack();
+		frame.setSize(460,520); // make frame 640x460
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null); //centers window
 
 	}	
 	
-//	public static void Test(){
-/*	public static void main(String[] args){
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run(){
-				CreateGUI(new Books
-						("String title", "String author", "String edition", 
-								"String pubDate", "String pubLocation", 
-								"String isbn", "String genre", 
-								3, "String description", "String review")
-				);
-			}
-		});
-	}*/
+//	public static void main(String[] args){
+//        //Schedule a job for the event-dispatching thread:
+//        //creating and showing this application's GUI.
+//		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+//			public void run(){
+//				CreateGUI();
+//			}
+//		});
+//	}
 }
-
