@@ -43,15 +43,6 @@ public class ViewBookGUI implements ActionListener {
 	
 	private Component mainWindowComponents() {
 		citation = new GenCitation();
-		//Genre LABEL Panel
-		JPanel genrepanel = new JPanel();
-		genrepanel.setLayout(new BoxLayout(genrepanel, BoxLayout.PAGE_AXIS));	
-		genrepanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		genrepanel.setAlignmentY(Component.TOP_ALIGNMENT);
-		
-		//Genre LABEL
-		JLabel genre = new JLabel("Genre: " + books.getGenre());
-		genre.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		//Information Panel: title, author, edition, pubDate, pubLocation, isbn
 		JPanel infopanel = new JPanel();
@@ -75,11 +66,16 @@ public class ViewBookGUI implements ActionListener {
 		
 		//Title
 		JLabel titlelabel = new JLabel("Title:");
-		System.out.println(titlelabel.getFont());
 		JLabel title = new JLabel(books.getTitle());
 		title.setFont(new Font("Tahoma", Font.BOLD, 11));
 		title.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
+		//Genre
+		JLabel genrelabel = new JLabel("Genre:");
+		JLabel genre = new JLabel(books.getGenre());
+		genre.setFont(new Font("Tahoma", Font.BOLD, 11));
+		genre.setAlignmentX(Component.LEFT_ALIGNMENT);	
+				
 		//Author
 		JLabel authorlabel = new JLabel("Author:");
 		JLabel author = new JLabel(books.getAuthor());
@@ -252,10 +248,10 @@ public class ViewBookGUI implements ActionListener {
                 );	
 
 
-		genrepanel.add(genre);
-		
 		labelpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		labelpanel.add(titlelabel);
+		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
+		labelpanel.add(genrelabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(authorlabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
@@ -269,6 +265,8 @@ public class ViewBookGUI implements ActionListener {
 		
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(title);
+		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
+		textpanel.add(genre);
 		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		textpanel.add(author);
 		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
@@ -306,8 +304,6 @@ public class ViewBookGUI implements ActionListener {
 		buttonpanel.add(Box.createHorizontalGlue());
 		buttonpanel.add(btnClose);
 		
-		mainpanel.add(genrepanel);
-		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		mainpanel.add(midpanel);
 		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		mainpanel.add(descpanel);
