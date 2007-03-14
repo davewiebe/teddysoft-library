@@ -58,7 +58,7 @@ public class Main implements ActionListener {
 				data[partition+i][1] = temp.getType();
 				Integer tempint = new Integer(temp.getRating());
 				data[partition+i][2] = "" + tempint;
-				data[partition+i][3] = temp;
+				data[partition+i][3] = temp; //last column contains reference to object
 			}
 			partition = List.length;
 			
@@ -69,7 +69,7 @@ public class Main implements ActionListener {
 				data[partition+i][1] = temp.getType();
 				Integer tempint = new Integer(temp.getRating());
 				data[partition+i][2] = "" + tempint;
-				data[partition+i][3] = temp;
+				data[partition+i][3] = temp; //last column contains reference to object
 			}
 			partition = List.length;
 			
@@ -89,7 +89,7 @@ public class Main implements ActionListener {
 				data[i][2] = temp.getGenre();
 				Integer tempint = new Integer(temp.getRating());
 				data[i][3] = "" + tempint;
-				data[i][4] = temp;
+				data[i][4] = temp; //last column contains reference to object
 			}
 			table = new JTable(data, columnNames);
 		}
@@ -111,7 +111,7 @@ public class Main implements ActionListener {
 				data[partition+i][3] = temp.getType();
 				Integer tempint = new Integer(temp.getRating());
 				data[partition+i][4] = "" + tempint;
-				data[partition+i][5] = temp;
+				data[partition+i][5] = temp; //last column contains reference to object
 			}
 			partition = List.length;
 			
@@ -406,15 +406,15 @@ public class Main implements ActionListener {
 	        	System.out.println("Add Movie");}
 		}
 		else if (e.getActionCommand().equals("Delete")){
-			String classType = "" + data[table.getSelectedRow()][3].getClass();
+			String classType = "" + data[table.getSelectedRow()][table.getColumnCount()].getClass();
 			//System.out.println(classType);
 			if(classType.equals("class teddySoft.DVD")){
-				currentUser.getDB().getDVDTree().RBTreeRemove(((DVD) data[table.getSelectedRow()][3]));
+				currentUser.getDB().getDVDTree().RBTreeRemove(((DVD) data[table.getSelectedRow()][table.getColumnCount()]));
 				System.out.println("Delete DVD");
 				Main.refreshJTable();
 			}
 			else if (classType.equals("class teddySoft.Books")){
-				currentUser.getDB().getBooksTree().RBTreeRemove(((Books) data[table.getSelectedRow()][3]));
+				currentUser.getDB().getBooksTree().RBTreeRemove(((Books) data[table.getSelectedRow()][table.getColumnCount()]));
 				System.out.println("Delete Book");
 				Main.refreshJTable();
 			}
@@ -422,19 +422,20 @@ public class Main implements ActionListener {
 		else if (e.getActionCommand().equals("Edit")){
 			//EditBookGUI.CreateGUI((Books) data[table.getSelectedRow()][3]);
 			
-			String classType = "" + data[table.getSelectedRow()][3].getClass();
+			String classType = "" + data[table.getSelectedRow()][table.getColumnCount()].getClass();
 			if(classType.equals("class teddySoft.DVD")){
-				AddEditDVDGUI.CreateGUI(currentUser,(DVD) data[table.getSelectedRow()][3], 1);
+				//System.out.println(table.getColumnCount());
+				AddEditDVDGUI.CreateGUI(currentUser,(DVD) data[table.getSelectedRow()][table.getColumnCount()], 1);
 			}
 			else if (classType.equals("class teddySoft.Books")){
-				AddEditBookGUI.CreateGUI(currentUser,(Books) data[table.getSelectedRow()][3], 1);
+				AddEditBookGUI.CreateGUI(currentUser,(Books) data[table.getSelectedRow()][table.getColumnCount()], 1);
 			}
 			
 			System.out.println("Edit Entry");
 		}
 		else if (e.getActionCommand().equals("View")){
 			if(table.getSelectedRow() != -1){
-				ViewBookGUI.CreateGUI((Books) data[table.getSelectedRow()][3]);
+				ViewBookGUI.CreateGUI((Books) data[table.getSelectedRow()][table.getColumnCount()]);
 				System.out.println("View Entry");
 			}
 		}
