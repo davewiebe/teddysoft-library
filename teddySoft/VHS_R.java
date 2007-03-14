@@ -14,10 +14,9 @@
 package teddySoft;
 public class VHS_R extends VHS {
 
-	private String timeStamp;
-	private int index;
+	private String timeStamp, index;
 	
-	public VHS_R (String title, String director, String year, String contentRated, String review, String description, String runningTime, String timeStamp, int index,  int rating){
+	public VHS_R (String title, String director, String year, String contentRated, String review, String description, String runningTime, String timeStamp, String index,  int rating){
 		super(title, director, year, contentRated, runningTime, review, description, rating);
 		this.timeStamp = timeStamp;
 		this.index = index;
@@ -28,26 +27,32 @@ public class VHS_R extends VHS {
 	public String getTimeStamp(){
 		return timeStamp;}
 	
-	public int getIndex(){
+	public String getIndex(){
 		return index;}
 	
 	//Setters
 	public void setTimeStamp(String timeStamp){
 		this.timeStamp = timeStamp;}
 	
-	public void setIndex(int index){
-		this.index = index;} 
+	public void setIndex(String index){
+		this.index = index;}
+	
+	//toString
+	public String toString(){
+		String dataDump = title+director+year+contentRated+runningTime+rating+timeStamp+index;
+		return dataDump;
+	}
 	
 	//Comparable interface
 	public int compareTo(Object vr) throws ClassCastException{
-		if (!(vr instanceof Books))
+		if (!(vr instanceof VHS_R))
 			throw new ClassCastException("A VHS_R object expected.");
 		
 		int x;
 		VHS_R vhsrToTest = ((VHS_R) vr);
-		if ((this.getTitle()).equals(vhsrToTest.getTitle())){
+		if ((this.toString()).equals(vhsrToTest.toString())){
 			x = 0;}
-		else if (this.getTitle().compareTo(vhsrToTest.getTitle()) > 0){
+		else if (this.toString().compareTo(vhsrToTest.toString()) > 0){
 			x = 1;}
 		else{
 			x=-1;}

@@ -132,7 +132,7 @@ public class Books implements Comparable, Serializable{
 	
 	//toString
 	public String toString(){
-		String dataDump = title+author+edition+pubDate+pubLocation+isbn+genre+description+review+rating+publication;
+		String dataDump = title+author+edition+pubDate+pubLocation+isbn+genre+rating+publication;
 		return dataDump;
 	}
 	
