@@ -17,11 +17,10 @@ public class DVD extends VHS {
 	private boolean isWideScreen;
 	private String format;
 
-	public DVD (String title, String director, String year, String contentRated, String runningTime, String review, String format, boolean isWideScreen, int rating){
-		super(title, director, year, contentRated, runningTime, review, rating);
+	public DVD (String title, String director, String year, String contentRated, String runningTime, String review, String description, String format, boolean isWideScreen, int rating){
+		super(title, director, year, contentRated, runningTime, review, description, rating);
 		this.isWideScreen = isWideScreen;
 		this.format = format;
-		//implement search key
 	}
 	
 	//Getters

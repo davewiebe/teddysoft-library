@@ -435,12 +435,7 @@ public class Main implements ActionListener {
 		}
 		else if (e.getActionCommand().equals("View")){
 			if(table.getSelectedRow() != -1){
-				String classType = "" + data[table.getSelectedRow()][table.getColumnCount()].getClass();
-				if(classType.equals("class teddySoft.DVD")){
-					ViewDVDGUI.CreateGUI((DVD) data[table.getSelectedRow()][table.getColumnCount()]);
-				}else if (classType.equals("class teddySoft.Books")){
-					ViewBookGUI.CreateGUI((Books) data[table.getSelectedRow()][table.getColumnCount()]);
-				}
+				ViewBookGUI.CreateGUI((Books) data[table.getSelectedRow()][table.getColumnCount()]);
 				System.out.println("View Entry");
 			}
 		}
