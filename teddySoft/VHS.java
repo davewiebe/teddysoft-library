@@ -54,6 +54,9 @@ public class VHS implements Serializable, Comparable {
 		public String getDescription(){
 			return description;}
 		
+		public String getType(){
+			return "VHS";}
+		
 		public int getRating(){
 			return rating;}
 
@@ -83,16 +86,22 @@ public class VHS implements Serializable, Comparable {
 		public void setRating(int rating){
 			this.rating = rating;}
 		
+		//toString
+		public String toString(){
+			String dataDump = title+director+year+contentRated+runningTime+rating+review;
+			return dataDump;
+		}
+		
 		//Comparable interface
 		public int compareTo(Object v) throws ClassCastException{
-			if (!(v instanceof Books))
+			if (!(v instanceof VHS))
 				throw new ClassCastException("A VHS object expected.");
 			
 			int x;
 			VHS vhsToTest = ((VHS) v);
-			if ((this.getTitle()).equals(vhsToTest.getTitle())){
+			if ((this.toString()).equals(vhsToTest.toString())){
 				x = 0;}
-			else if (this.getTitle().compareTo(vhsToTest.getTitle()) > 0){
+			else if (this.toString().compareTo(vhsToTest.toString()) > 0){
 				x = 1;}
 			else{
 				x=-1;}
