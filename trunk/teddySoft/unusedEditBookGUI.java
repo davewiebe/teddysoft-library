@@ -389,7 +389,7 @@ public class unusedEditBookGUI implements ActionListener {
 			Books newBook = new Books(title.getText(),
 					author.getText(), edition.getText(),
 					date.getText(), place.getText(), isbn.getText(), genre, 
-					rating, description.getText(), review.getText());
+					rating, description.getText(), review.getText(), "publication place");
 			books.setTitle(title.getText());
 			books.setAuthor(author.getText());
 			books.setEdition(edition.getText());

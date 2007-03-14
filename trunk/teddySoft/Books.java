@@ -16,12 +16,12 @@ import java.io.Serializable;
 
 public class Books implements Comparable, Serializable{
 	private
-		String title, author, edition, pubDate, pubLocation, isbn, genre, description, review;
+		String title, author, edition, pubDate, pubLocation, isbn, genre, description, review, publication;
 		int rating;
 		
 	public Books (String title, String author, String edition, 
 			String pubDate, String pubLocation, String isbn, String genre, 
-			int rating, String description, String review){
+			int rating, String description, String review, String publication){
 		this.title = title;
 		this.author = author;
 		this.edition = edition;
@@ -32,6 +32,7 @@ public class Books implements Comparable, Serializable{
 		this.rating = rating;
 		this.description = description;
 		this.review = review;
+		this.publication = publication;
 		
 		//rating can only be between 1 and 5 inclusive.
 		if (rating > 5){ this.rating = 5;}
@@ -49,6 +50,7 @@ public class Books implements Comparable, Serializable{
 		this.rating = 0;
 		this.description = null;
 		this.review = null;
+		this.publication = null;
 	}
 	
 	
@@ -86,6 +88,10 @@ public class Books implements Comparable, Serializable{
 	public String getDescription(){
 		return description;}
 	
+	public String getPublication(){
+		return publication;
+	}
+	
 	//Setters
 	public void setAuthor(String author){
 		this.author = author;}
@@ -120,9 +126,13 @@ public class Books implements Comparable, Serializable{
 	public void setIsbn(String isbn){
 		this.isbn = isbn;}
 	
+	public void setPublication(String publication){
+		this.publication = publication;
+	}
+	
 	//toString
 	public String toString(){
-		String dataDump = title+author+edition+pubDate+pubLocation+isbn+genre+description+review+rating;
+		String dataDump = title+author+edition+pubDate+pubLocation+isbn+genre+description+review+rating+publication;
 		return dataDump;
 	}
 	
