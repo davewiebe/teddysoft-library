@@ -430,13 +430,15 @@ public class Main implements ActionListener {
 			else if (classType.equals("class teddySoft.Books")){
 				AddEditBookGUI.CreateGUI(currentUser,(Books) data[table.getSelectedRow()][table.getColumnCount()], 1);
 			}
-			
-			System.out.println("Edit Entry");
 		}
 		else if (e.getActionCommand().equals("View")){
 			if(table.getSelectedRow() != -1){
-				ViewBookGUI.CreateGUI((Books) data[table.getSelectedRow()][table.getColumnCount()]);
-				System.out.println("View Entry");
+				String classType = "" + data[table.getSelectedRow()][table.getColumnCount()].getClass();
+				if(classType.equals("class teddySoft.DVD")){
+					ViewDVDGUI.CreateGUI((DVD) data[table.getSelectedRow()][table.getColumnCount()]);
+				}else if (classType.equals("class teddySoft.Books")){
+					ViewBookGUI.CreateGUI((Books) data[table.getSelectedRow()][table.getColumnCount()]);
+				}
 			}
 		}
 	}	
