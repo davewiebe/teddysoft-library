@@ -422,7 +422,7 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 		    dvds.setContedRated(contentRated);
 		    dvds.setRunningTime(runningtime.getText());
 		    dvds.setFormat(format.getText());
-		    //dvds.setDescription(description.getText());
+		    dvds.setDescription(description.getText());
 		    dvds.setReview(review.getText());
 		    dvds.setIsWideScreen(isWideScreen);
 		    dvds.setRating(rating);
