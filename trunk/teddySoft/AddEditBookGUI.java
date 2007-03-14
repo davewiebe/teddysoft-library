@@ -113,7 +113,7 @@ public class AddEditBookGUI implements ActionListener {
 		publisher.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Date
-		JLabel datelabel = new JLabel("Publishing date:");
+		JLabel datelabel = new JLabel("Publishing year:");
 		date = new JTextField(20);
 		date.setMinimumSize(new Dimension(160, 20));
 		date.setMaximumSize(new Dimension(160, 20));
@@ -378,6 +378,16 @@ public class AddEditBookGUI implements ActionListener {
 		return mainpanel;
 	}
 	
+	public boolean isNumber(String string) {
+		if (string.equals("")) return false;
+		for (int i = 0;i < string.length();i++) {
+			if (!Character.isDigit(string.charAt(i))) {
+		    	return false;
+		    }
+		}
+		return true;
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnCancel){
 			frame.dispose();
@@ -436,16 +446,23 @@ public class AddEditBookGUI implements ActionListener {
 			frame.dispose();
 		}
 		
+		int year = 0;
+		if (!isNumber(date.getText())){
+			year = 0;
+		}else{
+			year = Integer.parseInt(date.getText());
+		}
+		
 		//Saves a book (edit book)
-		else if(e.getSource() == btnSave){
+		if(e.getSource() == btnSave){
 			Books newBook = new Books(title.getText(),
 					author.getText(), edition.getText(),
-					date.getText(), place.getText(), isbn.getText(), genre, 
+					String.valueOf(year), place.getText(), isbn.getText(), genre, 
 					rating, description.getText(), review.getText(), publisher.getText());
 			books.setTitle(title.getText());
 			books.setAuthor(author.getText());
 			books.setEdition(edition.getText());
-			books.setPubDate(date.getText());
+			books.setPubDate(String.valueOf(year));
 			books.setPubLocation(place.getText());
 			books.setIsbn(isbn.getText());
 			books.setGenre(genre);
@@ -462,7 +479,7 @@ public class AddEditBookGUI implements ActionListener {
 		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
 						
 			Books newBook = new Books(title.getText(),author.getText(), edition.getText(),
-					date.getText(), place.getText(), isbn.getText(), genre, 
+					String.valueOf(year), place.getText(), isbn.getText(), genre, 
 					rating, description.getText(), review.getText(), publisher.getText());
 					
 			currentUser.getDB().addBook(newBook);
