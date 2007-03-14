@@ -194,7 +194,7 @@ public class ViewDVDGUI implements ActionListener{
 		
 		JTextArea description = new JTextArea(6, 20);
 		description.setLineWrap(true);
-		//description.setText(dvds.getDescription());
+		description.setText(dvds.getDescription());
 		description.setEditable(false);		
 		JScrollPane descscroll = new JScrollPane(description);
 		

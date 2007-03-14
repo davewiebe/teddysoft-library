@@ -399,7 +399,10 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 		else if(ratedList.getSelectedIndex() == 4){
 			contentRated = "R";
 		}
-		else if(ratedList.getSelectedIndex() == 0){
+		else if(ratedList.getSelectedIndex() == 5){
+			contentRated = "NC-17";
+		}
+		else{
 			contentRated = "Not Rated";
 		}
 		
