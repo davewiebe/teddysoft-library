@@ -25,7 +25,7 @@ public class TreeTest {
 		//insert items
 		String[] st = {"1", "2", "3", "4", "5", "6", "7", "8"};
 		for(int t=0;t<st.length;t++){
-			tree.RBTreeInsert(new Books(st[t] , "Tolken", "1st", "Today", "middle earth", "12345", "SciFi", 5, "", ""));
+			tree.RBTreeInsert(new Books(st[t] , "Tolken", "1st", "Today", "middle earth", "12345", "SciFi", 5, "", "", "publication place"));
 		}
 		
 		//display inserted items
@@ -57,7 +57,7 @@ public class TreeTest {
 		//insert items
 		String[] st = {"a", "b", "c", "d"};
 		for(int t=0;t<st.length;t++){
-			tree.RBTreeInsert(new Books(st[t] , "", "", "", "", "", "", 1, "", ""));
+			tree.RBTreeInsert(new Books(st[t] , "", "", "", "", "", "", 1, "", "", "publication place"));
 		}
 		
 	}
