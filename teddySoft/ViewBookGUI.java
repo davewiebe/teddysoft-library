@@ -88,6 +88,12 @@ public class ViewBookGUI implements ActionListener {
 		edition.setFont(new Font("Tahoma", Font.BOLD, 11));
 		edition.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
+		//Publisher
+		JLabel publishlabel = new JLabel("Publisher:");
+		JLabel publish = new JLabel(books.getPublication());
+		publish.setFont(new Font("Tahoma", Font.BOLD, 11));
+		publish.setAlignmentX(Component.LEFT_ALIGNMENT);
+		
 		//Date
 		JLabel datelabel = new JLabel("Publishing date:");
 		JLabel date = new JLabel(books.getPubDate());
@@ -257,6 +263,8 @@ public class ViewBookGUI implements ActionListener {
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(editionlabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
+		labelpanel.add(publishlabel);
+		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(datelabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(placelabel);
@@ -271,6 +279,8 @@ public class ViewBookGUI implements ActionListener {
 		textpanel.add(author);
 		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		textpanel.add(edition);
+		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
+		textpanel.add(publish);
 		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		textpanel.add(date);
 		textpanel.add(Box.createRigidArea(new Dimension(0,10)));
