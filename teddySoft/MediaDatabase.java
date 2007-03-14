@@ -53,6 +53,15 @@ public class MediaDatabase implements Serializable {
 	public RBTree getDVDTree(){
 		return DVDTree;}
 	
+	public RBTree getVHSTree(){
+		return VHSTree;}
+	
+	public RBTree getVHS_RTree(){
+		return VHS_RTree;}
+	
+	public RBTree getVideoGameTree(){
+		return VideoGameTree;}
+	
 
 	// Setters
 	public void setBooksTree(RBTree BooksTree){
