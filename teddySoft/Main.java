@@ -13,11 +13,8 @@
 
 package teddySoft;
 import javax.swing.*;
-import javax.swing.table.TableColumn;
-import java.util.ArrayList;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -119,12 +116,19 @@ public class Main implements ActionListener {
 		}
 	}
 		
-	public static void refreshJTable(){	
-        frame.dispose();
+	public static void refreshJTable(){
+		if (frame != null)
+			frame.dispose();
         
 		//Create and set up the window.
 		frame = new JFrame("Media Library");
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+            	Main.close();
+            	}
+        });
 		
         Main app = new Main();
         Component contents = app.mainWindowComponents();
@@ -138,7 +142,7 @@ public class Main implements ActionListener {
 
 	}
 	
-	public void close(){
+	public static void close(){
 		//write UserMedia.ser
 		try{
 			FileOutputStream fileout = new FileOutputStream(currentUser.getName() +"-MediaDB.ser");
@@ -462,9 +466,17 @@ public class Main implements ActionListener {
 			System.out.println("User class not found.");
 		}
 		
-		//Create and set up the window.
+		refreshJTable();
+/*		//Create and set up the window.
 		frame = new JFrame("Media Library");
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+            	Main.close();
+            	System.exit(0);
+            	}
+        });
 		
         Main app = new Main();
         Component contents = app.mainWindowComponents();
@@ -475,7 +487,7 @@ public class Main implements ActionListener {
 		frame.setVisible(true);
 		frame.setSize(640,460); // make frame 640x460
 		frame.setLocationRelativeTo(null); //centers window
-
+*/
 	}	
 	
 }
