@@ -22,9 +22,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class AddEditVHSGUI implements ActionListener{
-	private static VHS vhs;
-	private JTextField title, director, year, runningtime;
+public class AddEditVHS_RGUI implements ActionListener{
+	private static VHS_R vhs_r;
+	private JTextField title, director, year, runningtime, index, timestamp;
 	private ButtonGroup ratinggroup;
 	private JComboBox ratedList; 
 	private JButton btnAdd, btnAnother, btnClose;
@@ -59,7 +59,7 @@ public class AddEditVHSGUI implements ActionListener{
 		infopanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		infopanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		infopanel.setBorder(BorderFactory.createTitledBorder(
-        "VHS Information"));
+        "VHS_R Information"));
 		
 		//Label Panel
 		JPanel labelpanel = new JPanel();
@@ -101,6 +101,20 @@ public class AddEditVHSGUI implements ActionListener{
 		runningtime.setMinimumSize(new Dimension(160, 20));
 		runningtime.setMaximumSize(new Dimension(160, 20));
 		runningtime.setAlignmentX(Component.LEFT_ALIGNMENT);
+		
+		//timestamp
+		JLabel timestamplabel = new JLabel("Time Stamp:");
+		timestamp = new JTextField(20);
+		timestamp.setMinimumSize(new Dimension(160, 20));
+		timestamp.setMaximumSize(new Dimension(160, 20));
+		timestamp.setAlignmentX(Component.LEFT_ALIGNMENT);
+		
+		//index
+		JLabel indexlabel = new JLabel("Index:");
+		index = new JTextField(20);
+		index.setMinimumSize(new Dimension(160, 20));
+		index.setMaximumSize(new Dimension(160, 20));
+		index.setAlignmentX(Component.LEFT_ALIGNMENT);		
 		
 		//Rating combo box
 		JLabel ratedlabel = new JLabel("Rated:");
@@ -227,39 +241,39 @@ public class AddEditVHSGUI implements ActionListener{
 		
 		if (op == 1){
 			
-		    if (vhs.getRating() == 1){
+		    if (vhs_r.getRating() == 1){
 		    	oneButton.setSelected(true);
-		    }else if (vhs.getRating() == 2){
+		    }else if (vhs_r.getRating() == 2){
 		    	twoButton.setSelected(true);
-		    }else if (vhs.getRating() == 3){
+		    }else if (vhs_r.getRating() == 3){
 		    	threeButton.setSelected(true);
-		    }else if (vhs.getRating() == 4){
+		    }else if (vhs_r.getRating() == 4){
 		    	fourButton.setSelected(true);
-		    }else if (vhs.getRating() == 5){
+		    }else if (vhs_r.getRating() == 5){
 		    	fiveButton.setSelected(true);
 		    }			
 
 		    //"Not Rated", "G", "PG", "PG-13", "R", "NC-17"
-			if (vhs.getContentRated().equals("G")){
+			if (vhs_r.getContentRated().equals("G")){
 				ratedList.setSelectedIndex(1);
-			}else if (vhs.getContentRated().equals("PG")){
+			}else if (vhs_r.getContentRated().equals("PG")){
 				ratedList.setSelectedIndex(2);
-			}else if (vhs.getContentRated().equals("PG-13")){
+			}else if (vhs_r.getContentRated().equals("PG-13")){
 				ratedList.setSelectedIndex(3);
-			}else if (vhs.getContentRated().equals("R")){
+			}else if (vhs_r.getContentRated().equals("R")){
 				ratedList.setSelectedIndex(4);
-			}else if (vhs.getContentRated().equals("NC-17")){
+			}else if (vhs_r.getContentRated().equals("NC-17")){
 				ratedList.setSelectedIndex(5);
 			}else{
 				ratedList.setSelectedIndex(0);
 			}	
 		    
-			title.setText(vhs.getTitle());
-			director.setText(vhs.getdirector()); 
-			year.setText(vhs.getyear()); 
-			runningtime.setText(vhs.getRunningTime()); 
-		    description.setText(vhs.getDescription());
-		    review.setText(vhs.getReview());				
+			title.setText(vhs_r.getTitle());
+			director.setText(vhs_r.getdirector()); 
+			year.setText(vhs_r.getyear()); 
+			runningtime.setText(vhs_r.getRunningTime()); 
+		    description.setText(vhs_r.getDescription());
+		    review.setText(vhs_r.getReview());				
 			
 		}
 
@@ -272,6 +286,10 @@ public class AddEditVHSGUI implements ActionListener{
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(runningtimelabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
+		labelpanel.add(timestamplabel);
+		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
+		labelpanel.add(indexlabel);
+		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(ratedlabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		
@@ -282,6 +300,10 @@ public class AddEditVHSGUI implements ActionListener{
 		textpanel.add(year);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(runningtime);
+		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
+		textpanel.add(timestamp);
+		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
+		textpanel.add(index);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(ratedList);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
@@ -329,6 +351,15 @@ public class AddEditVHSGUI implements ActionListener{
 		return mainpanel;
 	}
 	
+	public boolean isNumber(String string) {
+		for (int i = 0;i < string.length();i++) {
+			if (!Character.isDigit(string.charAt(i))) {
+		    	return false;
+		    }
+		}
+		return true;
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnCancel){
 			frame.dispose();
@@ -371,37 +402,45 @@ public class AddEditVHSGUI implements ActionListener{
 		else{
 			contentRated = "Not Rated";
 		}
+		int vhs_r_index = 0;
+		if (!isNumber(index.getText())){
+			vhs_r_index = 0;
+		}else{
+			vhs_r_index = new Integer(index.getText()).intValue();
+		}
 		
 		// On button Close
 		if(e.getSource() == btnClose){
 			Main.refreshJTable();
 			frame.dispose();
 		}
-		// When VHS is saved
+		// When VHS_R is saved
 		else if(e.getSource() == btnSave){
-			VHS newVHS = new VHS(title.getText(),director.getText(), year.getText(), contentRated,
-					runningtime.getText(), review.getText(), description.getText(), rating);
+			VHS_R newVHS_R = new VHS_R(title.getText(),director.getText(), year.getText(), contentRated,
+					runningtime.getText(), review.getText(), description.getText(), timestamp.getText(), vhs_r_index, rating);
 			   
-		    vhs.setTitle(title.getText());
-		    vhs.setDirector(director.getText());
-		    vhs.setYear(year.getText());
-		    vhs.setContedRated(contentRated);
-		    vhs.setRunningTime(runningtime.getText());
-		    vhs.setDescription(description.getText());
-		    vhs.setReview(review.getText());
-		    vhs.setRating(rating);
+		    vhs_r.setTitle(title.getText());
+		    vhs_r.setDirector(director.getText());
+		    vhs_r.setYear(year.getText());
+		    vhs_r.setContedRated(contentRated);
+		    vhs_r.setRunningTime(runningtime.getText());
+		    vhs_r.setDescription(description.getText());
+		    vhs_r.setReview(review.getText());
+		    vhs_r.setRating(rating);
+		    vhs_r.setIndex(vhs_r_index);
+		    vhs_r.setTimeStamp(timestamp.getText());
 			
 		    Main.refreshJTable();
 			frame.dispose();		    
 		}
 		
-		// When VHS is Added
+		// When VHS_R is Added
 		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
 						
-			VHS newVHS = new VHS(title.getText(),director.getText(), year.getText(), contentRated,
-					runningtime.getText(), review.getText(), description.getText(), rating);
+			VHS_R newVHS_R = new VHS_R(title.getText(),director.getText(), year.getText(), contentRated,
+					runningtime.getText(), review.getText(), description.getText(), timestamp.getText(), vhs_r_index, rating);
 					
-			currentUser.getDB().addVHS(newVHS);
+			currentUser.getDB().addVHS_R(newVHS_R);
 			
 			// If "Add" was pressed
 			if (e.getSource() == btnAdd){
@@ -418,27 +457,29 @@ public class AddEditVHSGUI implements ActionListener{
 			ratedList.setSelectedIndex(0);
 			description.setText("");
 			review.setText("");
+			timestamp.setText("");
+			index.setText("");
 		}
 	}	
 	
 	// PRE: need a user.
 	// PARAM: User information parameter, so window knows which user it is.
 	// POST: Creates window, will be able to edit users.
-	public static void CreateGUI(User user, VHS currentvhs, int operation){
+	public static void CreateGUI(User user, VHS_R currentvhs_r, int operation){
 	//public static void CreateGUI(){
 		setWindowsLook(); //Set windows decorations
 		currentUser = user;
 		op = operation;
 		//Create and set up the window.
 		if (op == 0){
-			frame = new JFrame("Add VHS");
+			frame = new JFrame("Add VHS_R");
 		}else{
-			frame = new JFrame("Edit VHS");
-			vhs = currentvhs;
+			frame = new JFrame("Edit VHS_R");
+			vhs_r = currentvhs_r;
 		}
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-        AddEditVHSGUI app = new AddEditVHSGUI();
+        AddEditVHS_RGUI app = new AddEditVHS_RGUI();
         Component contents = app.mainWindowComponents();
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
