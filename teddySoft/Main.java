@@ -198,6 +198,7 @@ public class Main implements ActionListener {
 		btnDelete.setMaximumSize(new Dimension(120, 23));
 		btnDelete.setActionCommand("Delete");
 		btnDelete.addActionListener(this);
+		btnDelete.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		//ComboBox Panel
 		JPanel combopanel = new JPanel();
@@ -292,9 +293,7 @@ public class Main implements ActionListener {
 		topleftpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		topleftpanel.add(btnEdit);
 		topleftpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		topleftpanel.add(btnDelete);
-		topleftpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		
+				
 		combopanel.add(entrytypeList);
 
 		viewpanel.add(btnAll);
@@ -316,6 +315,8 @@ public class Main implements ActionListener {
 		leftpanel.add(Box.createRigidArea(new Dimension(0,5)));			
 		leftpanel.add(viewpanel);
 		leftpanel.add(Box.createVerticalGlue());
+		leftpanel.add(btnDelete);
+		leftpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		
 		//tablepanel.add(table.getTableHeader());
 		//tablepanel.add(table);

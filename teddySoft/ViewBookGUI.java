@@ -66,49 +66,89 @@ public class ViewBookGUI implements ActionListener {
 		
 		//Title
 		JLabel titlelabel = new JLabel("Title:");
-		JLabel title = new JLabel(books.getTitle());
+		JLabel title = new JLabel();
+		if (!books.getTitle().equals("")){
+			title.setText(books.getTitle());
+		}else{
+			title.setText("N/A");
+		}
 		title.setFont(new Font("Tahoma", Font.BOLD, 11));
 		title.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Genre
 		JLabel genrelabel = new JLabel("Genre:");
-		JLabel genre = new JLabel(books.getGenre());
+		JLabel genre = new JLabel();
+		if (!books.getGenre().equals("")){
+			genre.setText(books.getGenre());
+		}else{
+			genre.setText("N/A");
+		}
 		genre.setFont(new Font("Tahoma", Font.BOLD, 11));
 		genre.setAlignmentX(Component.LEFT_ALIGNMENT);	
 				
 		//Author
 		JLabel authorlabel = new JLabel("Author:");
-		JLabel author = new JLabel(books.getAuthor());
+		JLabel author = new JLabel();
+		if (!books.getAuthor().equals("")){
+			author.setText(books.getAuthor());
+		}else{
+			author.setText("N/A");
+		}
 		author.setFont(new Font("Tahoma", Font.BOLD, 11));
 		author.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Edition
 		JLabel editionlabel = new JLabel("Edition:");
-		JLabel edition = new JLabel(books.getEdition());
+		JLabel edition = new JLabel();
+		if (!books.getEdition().equals("")){
+			edition.setText(books.getEdition());
+		}else{
+			edition.setText("N/A");
+		}
 		edition.setFont(new Font("Tahoma", Font.BOLD, 11));
 		edition.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Publisher
 		JLabel publishlabel = new JLabel("Publisher:");
-		JLabel publish = new JLabel(books.getPublication());
+		JLabel publish = new JLabel();
+		if (!books.getPublication().equals("")){
+			publish.setText(books.getPublication());
+		}else{
+			publish.setText("N/A");
+		}
 		publish.setFont(new Font("Tahoma", Font.BOLD, 11));
 		publish.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Date
 		JLabel datelabel = new JLabel("Publishing date:");
-		JLabel date = new JLabel(books.getPubDate());
+		JLabel date = new JLabel();
+		if (!books.getPubDate().equals("")){
+			date.setText(books.getPubDate());
+		}else{
+			date.setText("N/A");
+		}
 		date.setFont(new Font("Tahoma", Font.BOLD, 11));
 		date.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Location
 		JLabel placelabel = new JLabel("Publishing place:");
-		JLabel place = new JLabel(books.getPubLocation());
+		JLabel place = new JLabel();
+		if (!books.getPubLocation().equals("")){
+			place.setText(books.getPubLocation());
+		}else{
+			place.setText("N/A");
+		}
 		place.setFont(new Font("Tahoma", Font.BOLD, 11));
 		place.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//ISBN
 		JLabel isbnlabel = new JLabel("ISBN number:");
-		JLabel isbn = new JLabel(books.getIsbn());
+		JLabel isbn = new JLabel();
+		if (!books.getIsbn().equals("")){
+			isbn.setText(books.getIsbn());
+		}else{
+			isbn.setText("N/A");
+		}
 		isbn.setFont(new Font("Tahoma", Font.BOLD, 11));
 		isbn.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
@@ -362,10 +402,10 @@ public class ViewBookGUI implements ActionListener {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run(){
 				CreateGUI(new Books
-						("String title", "String author", "String edition", 
-								"String pubDate", "String pubLocation", 
-								"String isbn", "String genre", 
-								3, "String description", "String review")
+						("", "", "", 
+								"1", "", 
+								"", "", 
+								3, "", "1", "")
 				);
 			}
 		});
