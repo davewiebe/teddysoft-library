@@ -66,7 +66,7 @@ public class VHS implements Serializable, Comparable {
 			this.director = director;}
 		
 		public void setYear(String title){
-			this.title = title;}
+			this.year = year;}
 		
 		public void setContedRated(String contentRated){
 			this.contentRated = contentRated;}
