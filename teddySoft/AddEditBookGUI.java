@@ -22,7 +22,7 @@ import java.io.ObjectOutputStream;
 
 public class AddEditBookGUI implements ActionListener {
 	private static Books books;
-	private JTextField title, author, edition, date, place, isbn;
+	private JTextField title, author, edition, publisher, date, place, isbn;
 	private ButtonGroup ratinggroup;
 	private JComboBox genreList; 
 	private JButton btnAdd, btnAnother, btnClose;
@@ -103,6 +103,13 @@ public class AddEditBookGUI implements ActionListener {
 		edition.setMinimumSize(new Dimension(160, 20));
 		edition.setMaximumSize(new Dimension(160, 20));
 		edition.setAlignmentX(Component.LEFT_ALIGNMENT);
+		
+		//Publisher
+		JLabel publishlabel = new JLabel("Publisher:");
+		publisher = new JTextField(20);
+		publisher.setMinimumSize(new Dimension(160, 20));
+		publisher.setMaximumSize(new Dimension(160, 20));
+		publisher.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Date
 		JLabel datelabel = new JLabel("Publishing date:");
@@ -281,6 +288,7 @@ public class AddEditBookGUI implements ActionListener {
 		    title.setText(books.getTitle());
 		    author.setText(books.getAuthor());
 		    edition.setText(books.getEdition());
+		    publisher.setText(books.getPublication());
 		    date.setText(books.getPubDate());
 		    place.setText(books.getPubLocation());
 		    isbn.setText(books.getIsbn());
@@ -298,6 +306,8 @@ public class AddEditBookGUI implements ActionListener {
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(editionlabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
+		labelpanel.add(publishlabel);
+		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(datelabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(placelabel);
@@ -309,6 +319,8 @@ public class AddEditBookGUI implements ActionListener {
 		textpanel.add(author);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(edition);
+		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
+		textpanel.add(publisher);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(date);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
@@ -424,7 +436,7 @@ public class AddEditBookGUI implements ActionListener {
 			Books newBook = new Books(title.getText(),
 					author.getText(), edition.getText(),
 					date.getText(), place.getText(), isbn.getText(), genre, 
-					rating, description.getText(), review.getText());
+					rating, description.getText(), review.getText(), publisher.getText());
 			books.setTitle(title.getText());
 			books.setAuthor(author.getText());
 			books.setEdition(edition.getText());
@@ -435,6 +447,7 @@ public class AddEditBookGUI implements ActionListener {
 			books.setRating(rating);
 			books.setDescription(description.getText());
 			books.setReview(review.getText());
+			books.setPublication(publisher.getText());
 			
 			Main.refreshJTable();
 			frame.dispose();
@@ -445,7 +458,7 @@ public class AddEditBookGUI implements ActionListener {
 						
 			Books newBook = new Books(title.getText(),author.getText(), edition.getText(),
 					date.getText(), place.getText(), isbn.getText(), genre, 
-					rating, description.getText(), review.getText());
+					rating, description.getText(), review.getText(), publisher.getText());
 					
 			currentUser.getDB().addBook(newBook);
 			
@@ -466,6 +479,7 @@ public class AddEditBookGUI implements ActionListener {
 			genreList.setSelectedIndex(0);
 			description.setText("");
 			review.setText("");
+			publisher.setText("");
 		}
 	}	
 	
