@@ -16,17 +16,18 @@ import java.io.Serializable;
 
 public class VHS implements Serializable, Comparable {
 
-		protected String title, director, year, contentRated, runningTime, review;
+		protected String title, director, year, contentRated, runningTime, review, description;
 		protected int rating;
 		//implement search key
 	
-		public VHS (String title, String director, String year, String contentRated, String runningTime, String review, int rating){
+		public VHS (String title, String director, String year, String contentRated, String runningTime, String review, String description, int rating){
 			this.title = title;
 			this.director = director;
 			this.year = year;
 			this.contentRated = contentRated;
 			this.runningTime = runningTime;
 			this.review = review;
+			this.description = description;
 			this.rating = rating;
 			//implement search key
 			
@@ -50,8 +51,12 @@ public class VHS implements Serializable, Comparable {
 		public String getReview(){
 			return review;}
 		
+		public String getDescription(){
+			return description;}
+		
 		public int getRating(){
 			return rating;}
+
 		
 		//Setters for editing feature
 		public void setTitle(String title){
@@ -60,8 +65,8 @@ public class VHS implements Serializable, Comparable {
 		public void setDirector(String director){
 			this.director = director;}
 		
-		public void setYear(String year){
-			this.year = year;}
+		public void setYear(String title){
+			this.title = title;}
 		
 		public void setContedRated(String contentRated){
 			this.contentRated = contentRated;}
@@ -71,6 +76,9 @@ public class VHS implements Serializable, Comparable {
 		
 		public void setReview(String review){
 			this.review = review;}
+		
+		public void setDescription(String description){
+			this.description = description;}
 		
 		public void setRating(int rating){
 			this.rating = rating;}

@@ -334,7 +334,7 @@ public class AddDVDGUI implements ActionListener {
 		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
 						
 			DVD newDVD = new DVD(title.getText(),director.getText(), year.getText(), contentRated,
-					runningtime.getText(), review.getText(), format.getText(), btnWidescreen.isEnabled(), rating);
+					runningtime.getText(), review.getText(), description.getText(), format.getText(), btnWidescreen.isEnabled(), rating);
 					
 			currentUser.getDB().addDVD(newDVD);
 			
