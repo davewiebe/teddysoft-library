@@ -1,5 +1,5 @@
 	/*
-	 * 	EditBookGUI.java
+	 * 	AddBookGUI.java
 	 * 	
 	 * 	Written by Frankie Yan
 	 * 	Edited by David Wiebe and Jordan McMillan
@@ -10,23 +10,27 @@
 	 * 	Jordan McMillan
 	 * 	Lisa Chen
 	 */
-
 package teddySoft;
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
-public class EditBookGUI implements ActionListener {
-	private static Books books;
-	private JTextField title, author, edition, date, place, isbn;
+public class unusedAddDVDGUI implements ActionListener {
+	
+	private JTextField title, director, year, runningtime, format;
 	private ButtonGroup ratinggroup;
-	private JComboBox genreList; 
-	private JButton btnSave, btnCancel, btnGenCite;
+	private JComboBox ratedList; 
+	private JButton btnAdd, btnAnother, btnClose;
+	private JCheckBox btnWidescreen;
 	private static JFrame frame;
 	private JTextArea description, review;
 	private JRadioButton oneButton, twoButton, threeButton, fourButton, fiveButton;
+	private static User currentUser;
 	
 	public static void setWindowsLook(){
 	    try{
@@ -44,49 +48,15 @@ public class EditBookGUI implements ActionListener {
 	}	
 	
 	private Component mainWindowComponents() {
-		//Genre Combobox Panel
-		JPanel genrepanel = new JPanel();
-		genrepanel.setLayout(new BoxLayout(genrepanel, BoxLayout.PAGE_AXIS));	
-		genrepanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		genrepanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		//String title, String director, String year, String contentRated, 
+		//String runningTime, String format, boolean isWideScreen,  int rating
 		
-		//Genre combo box
-		String[] genres = { "Select book genre...", "Action", "Adventure", "Children", "Comedy", "Fantasy", "Horror", "Mystery", "Romance", "Science Fiction" };
-		genreList = new JComboBox(genres);
-
-		if (books.getGenre() == "Action"){
-			genreList.setSelectedIndex(1);
-		}else if (books.getGenre() == "Adventure"){
-			genreList.setSelectedIndex(2);
-		}else if (books.getGenre() == "Children"){
-			genreList.setSelectedIndex(3);
-		}else if (books.getGenre() == "Comedy"){
-			genreList.setSelectedIndex(4);
-		}else if (books.getGenre() == "Fantasy"){
-			genreList.setSelectedIndex(5);
-		}else if (books.getGenre() == "Horror"){
-			genreList.setSelectedIndex(6);
-		}else if (books.getGenre() == "Mystery"){
-			genreList.setSelectedIndex(7);
-		}else if (books.getGenre() == "Romance"){
-			genreList.setSelectedIndex(8);
-		}else if (books.getGenre() == "Science Fiction"){
-			genreList.setSelectedIndex(9);
-		}else{
-			genreList.setSelectedIndex(0);
-		}
-	
-		genreList.setMaximumSize(new Dimension(240, 22));
-		genreList.setActionCommand("Genre");
-		genreList.addActionListener(this);
-		
-		//Information Panel: title, author, edition, pubDate, pubLocation, isbn
 		JPanel infopanel = new JPanel();
 		infopanel.setLayout(new BoxLayout(infopanel, BoxLayout.LINE_AXIS));	
 		infopanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		infopanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		infopanel.setBorder(BorderFactory.createTitledBorder(
-        "Book Information"));
+        "DVD Information"));
 		
 		//Label Panel
 		JPanel labelpanel = new JPanel();
@@ -100,54 +70,55 @@ public class EditBookGUI implements ActionListener {
 		textpanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textpanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		
+		//Information Panel: title, director, year, rated, runningtime, format, bool widescreen,rating
 		//Title
 		JLabel titlelabel = new JLabel("Title:");
 		title = new JTextField(20);
 		title.setMinimumSize(new Dimension(160, 20));
 		title.setMaximumSize(new Dimension(160, 20));
 		title.setAlignmentX(Component.LEFT_ALIGNMENT);
-		title.setText(books.getTitle());
 		
-		//Author
-		JLabel authorlabel = new JLabel("Author:");
-		author = new JTextField(20);
-		author.setMinimumSize(new Dimension(160, 20));
-		author.setMaximumSize(new Dimension(160, 20));
-		author.setAlignmentX(Component.LEFT_ALIGNMENT);
-		author.setText(books.getAuthor());
+		//Director
+		JLabel directorlabel = new JLabel("Director:");
+		director = new JTextField(20);
+		director.setMinimumSize(new Dimension(160, 20));
+		director.setMaximumSize(new Dimension(160, 20));
+		director.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
-		//Edition
-		JLabel editionlabel = new JLabel("Edition:");
-		edition = new JTextField(20);
-		edition.setMinimumSize(new Dimension(160, 20));
-		edition.setMaximumSize(new Dimension(160, 20));
-		edition.setAlignmentX(Component.LEFT_ALIGNMENT);
-		edition.setText(books.getEdition());
+		//Year
+		JLabel yearlabel = new JLabel("Year:");
+		year = new JTextField(20);
+		year.setMinimumSize(new Dimension(160, 20));
+		year.setMaximumSize(new Dimension(160, 20));
+		year.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
-		//Date
-		JLabel datelabel = new JLabel("Publishing date:");
-		date = new JTextField(20);
-		date.setMinimumSize(new Dimension(160, 20));
-		date.setMaximumSize(new Dimension(160, 20));
-		date.setAlignmentX(Component.LEFT_ALIGNMENT);
-		date.setText(books.getPubDate());
+		//runningtime
+		JLabel runningtimelabel = new JLabel("Running Time:");
+		runningtime = new JTextField(20);
+		runningtime.setMinimumSize(new Dimension(160, 20));
+		runningtime.setMaximumSize(new Dimension(160, 20));
+		runningtime.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
-		//Location
-		JLabel placelabel = new JLabel("Publishing place:");
-		place = new JTextField(20);
-		place.setMinimumSize(new Dimension(160, 20));
-		place.setMaximumSize(new Dimension(160, 20));
-		place.setAlignmentX(Component.LEFT_ALIGNMENT);
-		place.setText(books.getPubLocation());
+		//format
+		JLabel formatlabel = new JLabel("Format:");
+		format = new JTextField(20);
+		format.setMinimumSize(new Dimension(160, 20));
+		format.setMaximumSize(new Dimension(160, 20));
+		format.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
-		//ISBN
-		JLabel isbnlabel = new JLabel("ISBN number:");
-		isbn = new JTextField(20);
-		isbn.setMinimumSize(new Dimension(160, 20));
-		isbn.setMaximumSize(new Dimension(160, 20));
-		isbn.setAlignmentX(Component.LEFT_ALIGNMENT);
-		isbn.setText(books.getIsbn());
+		//Rating combo box
+		JLabel ratedlabel = new JLabel("Rated:");
+		String[] rated = { "Not Rated", "G", "PG", "PG-13", "R", "NC-17" };
+		ratedList = new JComboBox(rated);
+		ratedList.setSelectedIndex(0);
+		ratedList.setMaximumSize(new Dimension(100, 20));
+		ratedList.addActionListener(this);
+		ratedList.setAlignmentX(Component.LEFT_ALIGNMENT);	
 		
+		//Widescreen checkbox
+		btnWidescreen = new JCheckBox("Widescreen");
+		btnWidescreen.addActionListener(this);
+				
 		//Rating Panel
 		JPanel ratepanel = new JPanel();
 		ratepanel.setLayout(new BoxLayout(ratepanel, BoxLayout.PAGE_AXIS));	
@@ -166,6 +137,7 @@ public class EditBookGUI implements ActionListener {
 	    oneButton = new JRadioButton("1 Star");
 	    oneButton.setActionCommand("One");
 	    oneButton.addActionListener(this);
+	    oneButton.setSelected(true);
 
 	    twoButton = new JRadioButton("2 Stars");
 	    oneButton.setActionCommand("Two");
@@ -182,22 +154,6 @@ public class EditBookGUI implements ActionListener {
 	    fiveButton = new JRadioButton("5 Stars");
 	    oneButton.setActionCommand("Five");
 	    oneButton.addActionListener(this);
-	    
-	    if (books.getRating() == 1){
-	    	oneButton.setSelected(true);
-	    }	    
-	    if (books.getRating() == 2){
-	    	twoButton.setSelected(true);
-	    }	    
-	    if (books.getRating() == 3){
-	    	threeButton.setSelected(true);
-	    }
-	    if (books.getRating() == 4){
-	    	fourButton.setSelected(true);
-	    }
-	    if (books.getRating() == 5){
-	    	fiveButton.setSelected(true);
-	    }
 	    
 	    ratinggroup = new ButtonGroup();
 	    ratinggroup.add(oneButton);
@@ -217,7 +173,6 @@ public class EditBookGUI implements ActionListener {
 		description = new JTextArea(6, 20);
 		description.setLineWrap(true);
 		JScrollPane descscroll = new JScrollPane(description);
-		description.setText(books.getDescription());
 		
 		//Review Panel
 		JPanel revpanel = new JPanel();
@@ -227,35 +182,33 @@ public class EditBookGUI implements ActionListener {
 		revpanel.setBorder(BorderFactory.createTitledBorder(
         "Review"));
 
-				
 		review = new JTextArea(6, 20);
 		review.setLineWrap(true);
 		JScrollPane reviewscroll = new JScrollPane(review);
-		review.setText(books.getReview());
-		
+				
 		//Button panel
 		JPanel buttonpanel = new JPanel();
 		buttonpanel.setLayout(new BoxLayout(buttonpanel, BoxLayout.LINE_AXIS));	
 		buttonpanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		buttonpanel.setAlignmentY(Component.TOP_ALIGNMENT);	
 		
-		btnGenCite = new JButton("Generate Citation");
-		btnGenCite.setMaximumSize(new Dimension(120, 23));
-		btnGenCite.setAlignmentX(Component.LEFT_ALIGNMENT);
-		btnGenCite.setActionCommand("GenCite");
-		btnGenCite.addActionListener(this);
+		btnAdd = new JButton("Add");
+		btnAdd.setMaximumSize(new Dimension(120, 23));
+		btnAdd.setAlignmentX(Component.LEFT_ALIGNMENT);
+		btnAdd.setActionCommand("Add");
+		btnAdd.addActionListener(this);
 		
-		btnSave = new JButton("Save");
-		btnSave.setMaximumSize(new Dimension(120, 23));
-		btnSave.setAlignmentX(Component.LEFT_ALIGNMENT);
-		btnSave.setActionCommand("Save");
-		btnSave.addActionListener(this);
+		btnAnother = new JButton("Add another");
+		btnAnother.setMaximumSize(new Dimension(120, 23));
+		btnAnother.setAlignmentX(Component.LEFT_ALIGNMENT);
+		btnAnother.setActionCommand("Another");
+		btnAnother.addActionListener(this);
 		
-		btnCancel = new JButton("Cancel");
-		btnCancel.setMaximumSize(new Dimension(120, 23));
-		btnCancel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		btnCancel.setActionCommand("Cancel");
-		btnCancel.addActionListener(this);
+		btnClose = new JButton("Close");
+		btnClose.setMaximumSize(new Dimension(120, 23));
+		btnClose.setAlignmentX(Component.LEFT_ALIGNMENT);
+		btnClose.setActionCommand("Close");
+		btnClose.addActionListener(this);
 		
 		//Main Panel
 		JPanel mainpanel = new JPanel();
@@ -268,33 +221,33 @@ public class EditBookGUI implements ActionListener {
                 20) //right
                 );	
 
-
-		genrepanel.add(genreList);
-		
 		labelpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		labelpanel.add(titlelabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		labelpanel.add(authorlabel);
+		labelpanel.add(directorlabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		labelpanel.add(editionlabel);
+		labelpanel.add(yearlabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		labelpanel.add(datelabel);
+		labelpanel.add(runningtimelabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		labelpanel.add(placelabel);
+		labelpanel.add(formatlabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		labelpanel.add(isbnlabel);
+		labelpanel.add(ratedlabel);
+		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		
 		textpanel.add(title);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		textpanel.add(author);
+		textpanel.add(director);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		textpanel.add(edition);
+		textpanel.add(year);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		textpanel.add(date);
+		textpanel.add(runningtime);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		textpanel.add(place);
+		textpanel.add(format);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		textpanel.add(isbn);
+		textpanel.add(ratedList);
+		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
+		textpanel.add(btnWidescreen);		
 		
 		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
 		infopanel.add(labelpanel);
@@ -317,12 +270,11 @@ public class EditBookGUI implements ActionListener {
 		revpanel.add(reviewscroll);
 				
 		buttonpanel.add(Box.createHorizontalGlue());
-		//buttonpanel.add(btnGenCite);
-		buttonpanel.add(btnSave);
-		buttonpanel.add(btnCancel);
+		buttonpanel.add(btnAdd);
+		buttonpanel.add(btnAnother);
+		buttonpanel.add(btnClose);
 		
-		mainpanel.add(genrepanel);
-		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
+		//mainpanel.add(Box.createRigidArea(new Dimension(0,100)));
 		mainpanel.add(midpanel);
 		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		mainpanel.add(descpanel);
@@ -335,85 +287,88 @@ public class EditBookGUI implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == btnCancel){
-			frame.dispose();
+		
+		//set rating from 1-5 when button is pressed.
+		int rating = 1;
+		if (oneButton.isSelected() == true){
+			rating = 1;
 		}
-		else if(e.getSource() == btnSave){
-//			set rating from 1-5 when button is pressed.
-			int rating = -1; //throws error
-			if (oneButton.isSelected() == true){
-				rating = 1;
-			}
-			else if(twoButton.isSelected() == true){
-				rating = 2;
-			}
-			else if(threeButton.isSelected() == true){
-				rating = 3;
-			}
-			else if(fourButton.isSelected() == true){
-				rating = 4;
-			}
-			else if(fiveButton.isSelected() == true){
-				rating = 5;
-			}
-			
-			//Set Genre when action happens
-			String genre = "";
-			if (genreList.getSelectedIndex() == 1){
-				genre = "Action";
-			}
-			else if(genreList.getSelectedIndex() == 2){
-				genre = "Adventure";
-			}
-			else if(genreList.getSelectedIndex() == 3){
-				genre = "Children";
-			}
-			else if(genreList.getSelectedIndex() == 4){
-				genre = "Comedy";
-			}
-			else if(genreList.getSelectedIndex() == 5){
-				genre = "Fantasy";
-			}
-			else if(genreList.getSelectedIndex() == 6){
-				genre = "Horror";
-			}
-			else if(genreList.getSelectedIndex() == 7){
-				genre = "Mystery";
-			}
-			else if(genreList.getSelectedIndex() == 8){
-				genre = "Romance";
-			}
-			else if(genreList.getSelectedIndex() == 9){
-				genre = "Science Fiction";
-			}
-			Books newBook = new Books(title.getText(),
-					author.getText(), edition.getText(),
-					date.getText(), place.getText(), isbn.getText(), genre, 
-					rating, description.getText(), review.getText());
-			books.setTitle(title.getText());
-			books.setAuthor(author.getText());
-			books.setEdition(edition.getText());
-			books.setPubDate(date.getText());
-			books.setPubLocation(place.getText());
-			books.setIsbn(isbn.getText());
-			books.setGenre(genre);
-			books.setRating(rating);
-			books.setDescription(description.getText());
-			books.setReview(review.getText());
-			
+		else if(twoButton.isSelected() == true){
+			rating = 2;
+		}
+		else if(threeButton.isSelected() == true){
+			rating = 3;
+		}
+		else if(fourButton.isSelected() == true){
+			rating = 4;
+		}
+		else if(fiveButton.isSelected() == true){
+			rating = 5;
+		}
+		
+		//Set rated when action happens
+		String contentRated = "";
+		if (ratedList.getSelectedIndex() == 1){
+			contentRated = "G";
+		}
+		else if(ratedList.getSelectedIndex() == 2){
+			contentRated = "PG";
+		}
+		else if(ratedList.getSelectedIndex() == 3){
+			contentRated = "PG-13";
+		}
+		else if(ratedList.getSelectedIndex() == 4){
+			contentRated = "R";
+		}
+		else if(ratedList.getSelectedIndex() == 0){
+			contentRated = "Not Rated";
+		}
+		
+		// On button Close
+		if(e.getSource() == btnClose){
 			Main.refreshJTable();
 			frame.dispose();
 		}
+		
+		// When Book is Added
+		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
+						
+			DVD newDVD = new DVD(title.getText(),director.getText(), year.getText(), contentRated,
+					runningtime.getText(), review.getText(), description.getText(), format.getText(), btnWidescreen.isEnabled(), rating);
+					
+			currentUser.getDB().addDVD(newDVD);
+			
+			// If "Add" was pressed
+			if (e.getSource() == btnAdd){
+				Main.refreshJTable();
+				frame.dispose();
+			}
+			
+			// If "Add another" was pressed, clear all information
+			title.setText("");
+			director.setText("");
+			runningtime.setText("");
+			year.setText("");
+			format.setText("");
+			oneButton.setSelected(true);
+			ratedList.setSelectedIndex(0);
+			description.setText("");
+			review.setText("");
+		}
 	}	
 	
-	public static void CreateGUI(Books book){
+	// PRE: need a user.
+	// PARAM: User information parameter, so window knows which user it is.
+	// POST: Creates window, will be able to edit users.
+	public static void CreateGUI(User user){
+	//public static void CreateGUI(){
 		setWindowsLook(); //Set windows decorations
-		books = book;
+		currentUser = user;
 		//Create and set up the window.
-		frame = new JFrame("Edit Book");
+		frame = new JFrame("Add DVD");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-        EditBookGUI app = new EditBookGUI();
+        unusedAddDVDGUI app = new unusedAddDVDGUI();
         Component contents = app.mainWindowComponents();
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
@@ -424,14 +379,14 @@ public class EditBookGUI implements ActionListener {
 		frame.setLocationRelativeTo(null); //centers window
 
 	}	
-	/*
-	public static void main(String[] args){
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run(){
-				CreateGUI();
-			}
-		});
-	}*/
+	
+//	public static void main(String[] args){
+//        //Schedule a job for the event-dispatching thread:
+//        //creating and showing this application's GUI.
+//		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+//			public void run(){
+//				CreateGUI();
+//			}
+//		});
+//	}
 }
