@@ -258,15 +258,15 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 		    isWideScreen = dvds.getIsWideScreen();
 
 		    //"Not Rated", "G", "PG", "PG-13", "R", "NC-17"
-			if (dvds.getContentRated() == "G"){
+			if (dvds.getContentRated().equals("G")){
 				ratedList.setSelectedIndex(1);
-			}else if (dvds.getContentRated() == "PG"){
+			}else if (dvds.getContentRated().equals("PG")){
 				ratedList.setSelectedIndex(2);
-			}else if (dvds.getContentRated() == "PG-13"){
+			}else if (dvds.getContentRated().equals("PG-13")){
 				ratedList.setSelectedIndex(3);
-			}else if (dvds.getContentRated() == "R"){
+			}else if (dvds.getContentRated().equals("R")){
 				ratedList.setSelectedIndex(4);
-			}else if (dvds.getContentRated() == "NC-17"){
+			}else if (dvds.getContentRated().equals("NC-17")){
 				ratedList.setSelectedIndex(5);
 			}else{
 				ratedList.setSelectedIndex(0);
@@ -276,7 +276,7 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 			director.setText(dvds.getdirector()); 
 			year.setText(dvds.getyear()); 
 			runningtime.setText(dvds.getRunningTime()); 
-			format.setText(dvds.getRunningTime());
+			format.setText(dvds.getFormat());
 		    description.setText("");
 		    review.setText(dvds.getReview());				
 			

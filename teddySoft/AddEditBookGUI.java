@@ -243,23 +243,23 @@ public class AddEditBookGUI implements ActionListener {
 		//Addbook op=0, Editbook op=1
 		if (op == 1){
 			//Genre
-			if (books.getGenre() == "Action"){
+			if (books.getGenre().equals("Action")){
 				genreList.setSelectedIndex(1);
-			}else if (books.getGenre() == "Adventure"){
+			}else if (books.getGenre().equals("Adventure")){
 				genreList.setSelectedIndex(2);
-			}else if (books.getGenre() == "Children"){
+			}else if (books.getGenre().equals("Children")){
 				genreList.setSelectedIndex(3);
-			}else if (books.getGenre() == "Comedy"){
+			}else if (books.getGenre().equals("Comedy")){
 				genreList.setSelectedIndex(4);
-			}else if (books.getGenre() == "Fantasy"){
+			}else if (books.getGenre().equals("Fantasy")){
 				genreList.setSelectedIndex(5);
-			}else if (books.getGenre() == "Horror"){
+			}else if (books.getGenre().equals("Horror")){
 				genreList.setSelectedIndex(6);
-			}else if (books.getGenre() == "Mystery"){
+			}else if (books.getGenre().equals("Mystery")){
 				genreList.setSelectedIndex(7);
-			}else if (books.getGenre() == "Romance"){
+			}else if (books.getGenre().equals("Romance")){
 				genreList.setSelectedIndex(8);
-			}else if (books.getGenre() == "Science Fiction"){
+			}else if (books.getGenre().equals("Science Fiction")){
 				genreList.setSelectedIndex(9);
 			}else{
 				genreList.setSelectedIndex(0);
