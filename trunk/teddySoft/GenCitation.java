@@ -158,6 +158,10 @@ public class GenCitation {
 			fname = mname;
 			mname = "";
 		}
+		if (lname.endsWith(",")){// fixes bug where David Wiebe, A.  == Wiebe,, D. A. 
+			lname = lname.substring(0, lname.length()-1);
+		}
+		
 		String name = "";
 		int period = 0;
 
@@ -208,6 +212,8 @@ public class GenCitation {
 		citeAuthorTest("F A Williamson Jr.        ");
 		citeAuthorTest("Williamson, F A.  Jr.     ");
 		citeAuthorTest("Williamson, A, jr F       ");
+		citeAuthorTest("David Wiebe, A. ");
+		citeAuthorTest("David Wiebe, A Jr.");
 	}
 	
 	private String citeYear(String year){
