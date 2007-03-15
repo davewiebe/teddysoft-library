@@ -455,10 +455,10 @@ public class AddEditBookGUI implements ActionListener {
 		
 		//Saves a book (edit book)
 		if(e.getSource() == btnSave){
-			Books newBook = new Books(title.getText(),
+/*			Books newBook = new Books(title.getText(),
 					author.getText(), edition.getText(),
 					String.valueOf(year), place.getText(), isbn.getText(), genre, 
-					rating, description.getText(), review.getText(), publisher.getText());
+					rating, description.getText(), review.getText(), publisher.getText());*/
 			books.setTitle(title.getText());
 			books.setAuthor(author.getText());
 			books.setEdition(edition.getText());
@@ -527,10 +527,10 @@ public class AddEditBookGUI implements ActionListener {
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
-		frame.pack();
 		frame.setSize(460,580); // make frame 640x460
-		frame.setVisible(true);
 		frame.setLocationRelativeTo(null); //centers window
+		frame.pack();
+		frame.setVisible(true);
 
 	}	
 	

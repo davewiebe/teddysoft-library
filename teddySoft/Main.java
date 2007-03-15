@@ -41,15 +41,17 @@ public class Main implements ActionListener {
 	}
 	
 	public static void getTable(String type){
+		int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
+		int DVDTreeLength = currentUser.getDB().getDVDTree().getSize();
+		int VHSTreeLength = currentUser.getDB().getVHSTree().getSize();
+		int VHS_RTreeLength = currentUser.getDB().getVHS_RTree().getSize();
+		
 		if(type.equals("All")){
 			String[] columnNames = {"Title", "Type", "Rating"};
-			int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
-			int DVDTreeLength = currentUser.getDB().getDVDTree().getSize();
-			int VHSTreeLength = currentUser.getDB().getVHSTree().getSize();
 			int partition = 0;
 			
 			List = currentUser.getDB().getBooksTree().getTreeElements();
-			data = new Object[BooksTreeLength + DVDTreeLength + VHSTreeLength][columnNames.length + 1];
+			data = new Object[BooksTreeLength + DVDTreeLength + VHSTreeLength + VHS_RTreeLength][columnNames.length + 1];
 			for(int i=0;i<List.length;i++){
 				Books temp = (Books)List[i];
 				data[partition+i][0] = temp.getTitle();
@@ -82,12 +84,22 @@ public class Main implements ActionListener {
 			}
 			partition = partition + List.length;
 			
+			List = currentUser.getDB().getVHS_RTree().getTreeElements();
+			for(int i=0;i<List.length;i++){
+				VHS_R temp = (VHS_R)List[i];
+				data[partition+i][0] = temp.getTitle();
+				data[partition+i][1] = temp.getType();
+				Integer tempint = new Integer(temp.getRating());
+				data[partition+i][2] = "" + tempint;
+				data[partition+i][3] = temp; //last column contains reference to object
+			}
+			partition = partition + List.length;
+			
 			table = new JTable(data, columnNames);
 		}
 		
 		else if(type.equals("Books")){
 			String[] columnNames = {"Title","Author","Genre", "Rating"};
-			int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
 			
 			List = currentUser.getDB().getBooksTree().getTreeElements();
 			data = new Object[BooksTreeLength][columnNames.length + 1];
@@ -105,14 +117,10 @@ public class Main implements ActionListener {
 		
 		else if(type.equals("Movies")){
 			String[] columnNames = {"Title","Director","Year","Type", "Rating"};
-			int DVDTreeLength = currentUser.getDB().getDVDTree().getSize();
-			int VHSTreeLength = currentUser.getDB().getVHSTree().getSize();
 			int partition = 0;
 			
 			List = currentUser.getDB().getDVDTree().getTreeElements();
-			data = new Object[DVDTreeLength + VHSTreeLength][columnNames.length + 1];
-			System.out.println(currentUser.getName());
-			System.out.println(List.length);
+			data = new Object[DVDTreeLength + VHSTreeLength+ VHS_RTreeLength][columnNames.length + 1];
 			for(int i=0;i<List.length;i++){
 				DVD temp = (DVD)List[i];
 				data[partition+i][0] = temp.getTitle();
@@ -126,10 +134,21 @@ public class Main implements ActionListener {
 			partition = partition + List.length;
 			
 			List = currentUser.getDB().getVHSTree().getTreeElements();
-			System.out.println(currentUser.getName());
-			System.out.println(List.length);
 			for(int i=0;i<List.length;i++){
 				VHS temp = (VHS)List[i];
+				data[partition+i][0] = temp.getTitle();
+				data[partition+i][1] = temp.getdirector();
+				data[partition+i][2] = temp.getyear();
+				data[partition+i][3] = temp.getType();
+				Integer tempint = new Integer(temp.getRating());
+				data[partition+i][4] = "" + tempint;
+				data[partition+i][5] = temp; //last column contains reference to object
+			}
+			partition = partition + List.length;
+			
+			List = currentUser.getDB().getVHS_RTree().getTreeElements();
+			for(int i=0;i<List.length;i++){
+				VHS_R temp = (VHS_R)List[i];
 				data[partition+i][0] = temp.getTitle();
 				data[partition+i][1] = temp.getdirector();
 				data[partition+i][2] = temp.getyear();
@@ -163,10 +182,10 @@ public class Main implements ActionListener {
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
-		frame.pack();
-		frame.setVisible(true);
 		frame.setSize(640,460); // make frame 640x460
 		frame.setLocationRelativeTo(null); //centers window
+		frame.pack();
+		frame.setVisible(true);
 
 	}
 	
@@ -234,7 +253,7 @@ public class Main implements ActionListener {
 		combopanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		//Add Entries combo box
-		String[] entryTypes = { "Add New Entry...", "Book", "DVD", "VHS"};//, "Game", "Recipe", "Music", "Movie" };
+		String[] entryTypes = { "Add New Entry...", "Book", "DVD", "VHS", "VHS_R"};//, "Game", "Recipe", "Music", "Movie" };
 		entrytypeList = new JComboBox(entryTypes);
 		entrytypeList.setSelectedIndex(0);
 		entrytypeList.setMaximumSize(new Dimension(160, 40));
@@ -436,6 +455,10 @@ public class Main implements ActionListener {
 	        	System.out.println("Add VHS");
 	        	AddEditVHSGUI.CreateGUI(currentUser, (VHS) null, 0);
 	        }
+	        else if (temp.getSelectedIndex() == 4){
+	        	System.out.println("Add VHS_R");
+	        	AddEditVHS_RGUI.CreateGUI(currentUser, (VHS_R) null, 0);
+	        }
 /*	        else if (temp.getSelectedIndex() == 3){
 	        	System.out.println("Add Recipe");}
 	        else if (temp.getSelectedIndex() == 4){
@@ -462,6 +485,12 @@ public class Main implements ActionListener {
 				System.out.println("Delete VHS");
 				Main.refreshJTable();
 			}
+			else if (classType.equals("class teddySoft.VHS_R")){
+				currentUser.getDB().getVHS_RTree().RBTreeRemove(((VHS_R) data[table.getSelectedRow()][table.getColumnCount()]));
+				System.out.println("Delete VHS_R");
+				Main.refreshJTable();
+			}
+			
 		}
 		//editing a medium from table
 		else if (e.getActionCommand().equals("Edit")){
@@ -476,6 +505,9 @@ public class Main implements ActionListener {
 			}
 			else if (classType.equals("class teddySoft.VHS")){
 				AddEditVHSGUI.CreateGUI(currentUser,(VHS) data[table.getSelectedRow()][table.getColumnCount()], 1);
+			}
+			else if (classType.equals("class teddySoft.VHS_R")){
+				AddEditVHS_RGUI.CreateGUI(currentUser,(VHS_R) data[table.getSelectedRow()][table.getColumnCount()], 1);
 			}
 			
 		}
@@ -492,6 +524,10 @@ public class Main implements ActionListener {
 				else if (classType.equals("class teddySoft.VHS")){
 					ViewVHSGUI.CreateGUI((VHS) data[table.getSelectedRow()][table.getColumnCount()]);
 				}
+				else if (classType.equals("class teddySoft.VHS_R")){
+					ViewVHS_RGUI.CreateGUI((VHS_R) data[table.getSelectedRow()][table.getColumnCount()]);
+				}
+				
 			}
 		}
 	}	

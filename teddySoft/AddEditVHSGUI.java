@@ -379,8 +379,8 @@ public class AddEditVHSGUI implements ActionListener{
 		}
 		// When VHS is saved
 		else if(e.getSource() == btnSave){
-			VHS newVHS = new VHS(title.getText(),director.getText(), year.getText(), contentRated,
-					runningtime.getText(), review.getText(), description.getText(), rating);
+/*			VHS newVHS = new VHS(title.getText(),director.getText(), year.getText(), contentRated,
+					runningtime.getText(), review.getText(), description.getText(), rating);*/
 			   
 		    vhs.setTitle(title.getText());
 		    vhs.setDirector(director.getText());
@@ -443,10 +443,10 @@ public class AddEditVHSGUI implements ActionListener{
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
-		frame.pack();
 		frame.setSize(460,520); // make frame 640x460
-		frame.setVisible(true);
 		frame.setLocationRelativeTo(null); //centers window
+		frame.pack();
+		frame.setVisible(true);
 
 	}	
 	

@@ -413,8 +413,8 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 		}
 		// When DVD is saved
 		else if(e.getSource() == btnSave){
-			DVD newDVD = new DVD(title.getText(),director.getText(), year.getText(), contentRated,
-					runningtime.getText(), review.getText(), description.getText(), format.getText(), isWideScreen, rating);
+/*			DVD newDVD = new DVD(title.getText(),director.getText(), year.getText(), contentRated,
+					runningtime.getText(), review.getText(), description.getText(), format.getText(), isWideScreen, rating);*/
 			   
 		    dvds.setTitle(title.getText());
 		    dvds.setDirector(director.getText());
@@ -482,10 +482,10 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
-		frame.pack();
 		frame.setSize(460,520); // make frame 640x460
-		frame.setVisible(true);
 		frame.setLocationRelativeTo(null); //centers window
+		frame.pack();
+		frame.setVisible(true);
 
 	}	
 	

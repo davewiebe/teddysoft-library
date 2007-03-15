@@ -47,6 +47,9 @@ public class VideoGame implements Serializable, Comparable  {
 	public String getPlatform(){
 		return platform;}
 	
+	public String getType(){
+		return "Video Game";}
+	
 	public int getRating(){
 		return rating;}
 	

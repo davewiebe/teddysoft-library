@@ -403,8 +403,8 @@ public class AddEditVHS_RGUI implements ActionListener{
 		}
 		// When VHS_R is saved
 		else if(e.getSource() == btnSave){
-			VHS_R newVHS_R = new VHS_R(title.getText(),director.getText(), year.getText(), contentRated,
-					runningtime.getText(), review.getText(), description.getText(), timestamp.getText(), index.getText(), rating);
+/*			VHS_R newVHS_R = new VHS_R(title.getText(),director.getText(), year.getText(), contentRated,
+					runningtime.getText(), review.getText(), description.getText(), timestamp.getText(), index.getText(), rating);*/
 			   
 		    vhs_r.setTitle(title.getText());
 		    vhs_r.setDirector(director.getText());
@@ -425,7 +425,7 @@ public class AddEditVHS_RGUI implements ActionListener{
 		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
 						
 			VHS_R newVHS_R = new VHS_R(title.getText(),director.getText(), year.getText(), contentRated,
-					runningtime.getText(), review.getText(), description.getText(), timestamp.getText(), index.getText(), rating);
+					 review.getText(), description.getText(), runningtime.getText(), timestamp.getText(), index.getText(), rating);
 					
 			currentUser.getDB().addVHS_R(newVHS_R);
 			
@@ -471,10 +471,10 @@ public class AddEditVHS_RGUI implements ActionListener{
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
-		frame.pack();
 		frame.setSize(460,520); // make frame 640x460
-		frame.setVisible(true);
 		frame.setLocationRelativeTo(null); //centers window
+		frame.pack();
+		frame.setVisible(true);
 
 	}	
 	
