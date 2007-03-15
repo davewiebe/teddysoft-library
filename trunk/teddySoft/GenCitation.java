@@ -67,24 +67,7 @@ public class GenCitation {
 		//}
 		String[] splitString = author.split(" ");
 		
-		/*run through name.
-		if jr. exists, remove it, and add 1 to junior.
-
-		else set first value to be first name, unless followed by a comma.
-		
-		if first value was first name:
-			set second value to be last name
-				if there is another value
-			 		set the middle to be the last name
-			 		set the third value to be the last name.
-			 		
-		if first value was followed by a comma,
-			set last name to be first value
-			remove the comma
-			set second value to be first name, unless followed by comma
-					
-		
-*/		int h = 0;
+		int h = 0;
 		String fname = "";
 		String mname = "";
 		String lname = "";
@@ -170,9 +153,6 @@ public class GenCitation {
 		}
 		name = name+" ";
 		return name;
-		
-		
-		
 		
 	}
 	
