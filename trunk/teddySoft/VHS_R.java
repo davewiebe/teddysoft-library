@@ -30,6 +30,9 @@ public class VHS_R extends VHS {
 	public String getIndex(){
 		return index;}
 	
+	public String getType(){
+		return "VHS_R";}
+	
 	//Setters
 	public void setTimeStamp(String timeStamp){
 		this.timeStamp = timeStamp;}

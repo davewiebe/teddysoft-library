@@ -388,10 +388,10 @@ public class ViewBookGUI implements ActionListener {
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
-        frame.pack();
         frame.setSize(460,570); // 460 520 // make frame 640x460
-		frame.setVisible(true);
 		frame.setLocationRelativeTo(null); //centers window
+        frame.pack();
+		frame.setVisible(true);
 
 	}	
 	

@@ -100,8 +100,8 @@ public class ViewVHS_RGUI implements ActionListener{
 		//runningtime
 		JLabel runningtimelabel = new JLabel("Running Time:");
 		JLabel runningtime = new JLabel();
-		if (!vhs_r.getTitle().equals("")){
-			runningtime.setText(vhs_r.getTitle());
+		if (!vhs_r.getRunningTime().equals("")){
+			runningtime.setText(vhs_r.getRunningTime());
 		}else{
 			runningtime.setText("N/A");
 		}
@@ -116,15 +116,19 @@ public class ViewVHS_RGUI implements ActionListener{
 		}else{
 			timestamp.setText("N/A");
 		}
-		runningtime.setFont(new Font("Tahoma", Font.BOLD, 11));
-		runningtime.setAlignmentX(Component.LEFT_ALIGNMENT);
+		timestamp.setFont(new Font("Tahoma", Font.BOLD, 11));
+		timestamp.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//index
 		JLabel indexlabel = new JLabel("Index:");
 		JLabel index = new JLabel();
-		runningtime.setText(""+vhs_r.getIndex());
-		runningtime.setFont(new Font("Tahoma", Font.BOLD, 11));
-		runningtime.setAlignmentX(Component.LEFT_ALIGNMENT);
+		if (!vhs_r.getIndex().equals("")){
+			index.setText(""+vhs_r.getIndex());
+		}else{
+			index.setText("N/A");
+		}
+		index.setFont(new Font("Tahoma", Font.BOLD, 11));
+		index.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Rating combo box
 		JLabel ratedlabel = new JLabel("Rated:");
@@ -349,10 +353,10 @@ public class ViewVHS_RGUI implements ActionListener{
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
-		frame.pack();
-		frame.setSize(460,520); // make frame 640x460
-		frame.setVisible(true);
+        frame.setSize(460,570); // 460 520 // make frame 640x460
 		frame.setLocationRelativeTo(null); //centers window
+        frame.pack();
+		frame.setVisible(true);
 
 	}	
 	

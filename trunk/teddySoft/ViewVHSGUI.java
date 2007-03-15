@@ -100,8 +100,8 @@ public class ViewVHSGUI implements ActionListener{
 		//runningtime
 		JLabel runningtimelabel = new JLabel("Running Time:");
 		JLabel runningtime = new JLabel();
-		if (!vhs.getTitle().equals("")){
-			runningtime.setText(vhs.getTitle());
+		if (!vhs.getRunningTime().equals("")){
+			runningtime.setText(vhs.getRunningTime());
 		}else{
 			runningtime.setText("N/A");
 		}
@@ -323,10 +323,10 @@ public class ViewVHSGUI implements ActionListener{
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
-		frame.pack();
-		frame.setSize(460,520); // make frame 640x460
-		frame.setVisible(true);
+        frame.setSize(460,570); // 460 520 // make frame 640x460
 		frame.setLocationRelativeTo(null); //centers window
+        frame.pack();
+		frame.setVisible(true);
 
 	}	
 	
