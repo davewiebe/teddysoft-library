@@ -267,7 +267,7 @@ public class ViewBookGUI implements ActionListener {
 		cite.setLineWrap(true);
 		cite.setRows(3);
 		cite.setText(citation.genAPA(books.getAuthor(), books.getPubDate(),
-				books.getTitle(), books.getPubLocation(), "publisherHere", books.getEdition()));
+				books.getTitle(), books.getPubLocation(), books.getPublication(), books.getEdition()));
 		JScrollPane citescroll = new JScrollPane(cite);		
 				
 		//Button panel
