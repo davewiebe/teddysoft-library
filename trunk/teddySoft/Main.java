@@ -493,7 +493,8 @@ public class Main implements ActionListener {
 			
 		}
 		//editing a medium from table
-		else if (e.getActionCommand().equals("Edit")){
+		else if (e.getActionCommand().equals("Edit") && table.getSelectedRow() != -1){
+
 			String classType = "" + data[table.getSelectedRow()][table.getColumnCount()].getClass();
 			
 			if(classType.equals("class teddySoft.DVD")){
