@@ -52,7 +52,7 @@ public class GenCitation {
 			if (i == multipleAuthors.length-1){
 				names += "& ";
 			}else{
-				names += ", ";
+				names = names.substring(0, names.length()-1) + ", ";
 			}
 			names += citeAuthorHelper(multipleAuthors[i]);
 		}
@@ -187,7 +187,7 @@ public class GenCitation {
 
 		citeAuthorTest("Fanna A. Williamson   Jr. ; David A Wiebe");
 		citeAuthorTest("Williamson, Fanna A jr; Dave Wiebe, A.    ");
-		citeAuthorTest("Fanna A JR. Williamson ; D Wiebe ");
+		citeAuthorTest("Fanna A JR. Williamson ; D Wiebe ; Mcmillan, Jordan");
 		citeAuthorTest("F A Williamson Jr.        ");
 		citeAuthorTest("Williamson, F A.  Jr.     ");
 		citeAuthorTest(" D Wiebe    ");
