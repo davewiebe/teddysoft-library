@@ -161,7 +161,7 @@ public class LoginGUI implements ActionListener {
 		
 		ImageIcon icon = createImageIcon("/teddy.jpg","splash");
 		JLabel logo = new JLabel(icon);
-		logo.setBorder(BorderFactory.createLoweredBevelBorder());
+		logo.setBorder(BorderFactory.createEtchedBorder());
 		
 		//Main Panel
 		JPanel mainpanel = new JPanel();
