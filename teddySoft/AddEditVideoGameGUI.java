@@ -535,9 +535,9 @@ public class AddEditVideoGameGUI implements ActionListener {
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
-		frame.setSize(460,580); // make frame 640x460
+		frame.setSize(460,520); // make frame 640x460
 		frame.setLocationRelativeTo(null); //centers window
-		frame.pack();
+		//frame.pack();
 		frame.setVisible(true);
 
 	}	

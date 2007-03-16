@@ -445,7 +445,7 @@ public class AddEditVHSGUI implements ActionListener{
 		//Display the window.
 		frame.setSize(460,520); // make frame 640x460
 		frame.setLocationRelativeTo(null); //centers window
-		frame.pack();
+		//frame.pack();
 		frame.setVisible(true);
 
 	}	
