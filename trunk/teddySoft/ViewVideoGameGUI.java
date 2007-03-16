@@ -48,7 +48,7 @@ public class ViewVideoGameGUI implements ActionListener {
 		infopanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		infopanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		infopanel.setBorder(BorderFactory.createTitledBorder(
-        "Book Information"));
+        "Video Game Information"));
 		
 		//Label Panel
 		JPanel labelpanel = new JPanel();
