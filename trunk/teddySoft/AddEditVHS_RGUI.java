@@ -1,12 +1,12 @@
 	/*
-	 * 	AddBookGUI.java
+	 * 	AddEditVHS_RGUI.java
 	 * 	
 	 * 	Written by Frankie Yan
 	 * 	Edited by David Wiebe and Jordan McMillan
 	 * 
 	 * 	Team TeddySoft is:
 	 * 	David Wiebe
-	 *  Frankie Yan
+	 * 	Frankie Yan
 	 * 	Jordan McMillan
 	 * 	Lisa Chen
 	 */
@@ -453,7 +453,6 @@ public class AddEditVHS_RGUI implements ActionListener{
 	// PARAM: User information parameter, so window knows which user it is.
 	// POST: Creates window, will be able to edit users.
 	public static void CreateGUI(User user, VHS_R currentvhs_r, int operation){
-	//public static void CreateGUI(){
 		setWindowsLook(); //Set windows decorations
 		currentUser = user;
 		op = operation;

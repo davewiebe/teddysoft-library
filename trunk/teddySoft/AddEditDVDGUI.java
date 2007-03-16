@@ -1,12 +1,12 @@
 	/*
-	 * 	AddBookGUI.java
+	 * 	AddEditDVDGUI.java
 	 * 	
 	 * 	Written by Frankie Yan
 	 * 	Edited by David Wiebe and Jordan McMillan
 	 * 
 	 * 	Team TeddySoft is:
 	 * 	David Wiebe
-	 *  Frankie Yan
+	 * 	Frankie Yan
 	 * 	Jordan McMillan
 	 * 	Lisa Chen
 	 */
@@ -464,7 +464,6 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 	// PARAM: User information parameter, so window knows which user it is.
 	// POST: Creates window, will be able to edit users.
 	public static void CreateGUI(User user, DVD currentdvd, int operation){
-	//public static void CreateGUI(){
 		setWindowsLook(); //Set windows decorations
 		currentUser = user;
 		op = operation;

@@ -6,7 +6,7 @@
 	 * 
 	 * 	Team TeddySoft is:
 	 * 	David Wiebe
-	 *  Frankie Yan
+	 * 	Frankie Yan
 	 * 	Jordan McMillan
 	 * 	Lisa Chen
 	 */
@@ -522,7 +522,6 @@ public class AddEditVideoGameGUI implements ActionListener {
 	// PARAM: User information parameter, so window knows which user it is.
 	// POST: Creates window, will be able to edit users.
 	public static void CreateGUI(User user, VideoGame currentgame, int operation){
-	//public static void CreateGUI(){
 		setWindowsLook(); //Set windows decorations
 		currentUser = user;
 		//Create and set up the window.

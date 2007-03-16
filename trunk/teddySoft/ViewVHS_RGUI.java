@@ -1,5 +1,5 @@
 	/*
-	 * 	AddBookGUI.java
+	 * 	ViewVHS_RGUI.java
 	 * 	
 	 * 	Written by Frankie Yan
 	 * 	Edited by David Wiebe and Jordan McMillan
@@ -341,7 +341,6 @@ public class ViewVHS_RGUI implements ActionListener{
 	// PARAM: User information parameter, so window knows which user it is.
 	// POST: Creates window, will be able to edit users.
 	public static void CreateGUI(VHS_R currentvhs_r){
-	//public static void CreateGUI(){
 		setWindowsLook(); //Set windows decorations
 		frame = new JFrame("View VHS_R");
 		vhs_r = currentvhs_r;
