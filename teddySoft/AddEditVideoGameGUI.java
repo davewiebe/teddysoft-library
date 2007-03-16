@@ -423,7 +423,7 @@ public class AddEditVideoGameGUI implements ActionListener {
 		else if(platform.getSelectedIndex() == 9){
 			stringplatform = "XBox";
 		}
-		else if(platform.getSelectedIndex() == 0){
+		else if(platform.getSelectedIndex() == 10){
 			stringplatform = "XBox 360";
 		}		
 		
