@@ -27,7 +27,7 @@ public class AddEditRecipeGUI implements ActionListener {
 	private JButton btnAdd, btnAnother, btnClose;
 	private JButton btnSave, btnCancel;
 	private static JFrame frame;
-	private JTextArea ingredients, notes, instructions, review;
+	private JTextArea ingredients, description, instructions, review;
 	private JRadioButton oneButton, twoButton, threeButton, fourButton, fiveButton;
 	private static User currentUser;
 	private static int op; //0=add, 1=edit
@@ -141,17 +141,17 @@ public class AddEditRecipeGUI implements ActionListener {
 		instructions.setLineWrap(true);
 		JScrollPane instructionsscroll = new JScrollPane(instructions);
 		
-		//notes Panel
-		JPanel notespanel = new JPanel();
-		notespanel.setLayout(new BoxLayout(notespanel, BoxLayout.PAGE_AXIS));	
-		notespanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		notespanel.setAlignmentY(Component.TOP_ALIGNMENT);
-		notespanel.setBorder(BorderFactory.createTitledBorder(
-        "Notes"));
+		//description Panel
+		JPanel descriptionpanel = new JPanel();
+		descriptionpanel.setLayout(new BoxLayout(descriptionpanel, BoxLayout.PAGE_AXIS));	
+		descriptionpanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		descriptionpanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		descriptionpanel.setBorder(BorderFactory.createTitledBorder(
+        "Description"));
 		
-		notes = new JTextArea(8, 10);
-		notes.setLineWrap(true);
-		JScrollPane notesscroll = new JScrollPane(notes);
+		description = new JTextArea(8, 10);
+		description.setLineWrap(true);
+		JScrollPane descriptionscroll = new JScrollPane(description);
 		
 		//Review Panel
 		JPanel revpanel = new JPanel();
@@ -231,7 +231,7 @@ public class AddEditRecipeGUI implements ActionListener {
 		    title.setText(recipes.getTitle());
 		    ingredients.setText(recipes.getIngredients());
 		    instructions.setText(recipes.getInstructions());
-		    notes.setText(recipes.getNotes());
+		    description.setText(recipes.getDescription());
 		    review.setText(recipes.getReview());		    
 		}
 
@@ -256,10 +256,10 @@ public class AddEditRecipeGUI implements ActionListener {
 		toppanel.add(ratepanel);
 		
 		instructionspanel.add(instructionsscroll);
-		notespanel.add(notesscroll);
+		descriptionpanel.add(descriptionscroll);
 		midpanel.add(instructionspanel);
 		midpanel.add(Box.createRigidArea(new Dimension(10,0)));
-		midpanel.add(notespanel);
+		midpanel.add(descriptionpanel);
 		
 		revpanel.add(reviewscroll);
 		
@@ -318,13 +318,13 @@ public class AddEditRecipeGUI implements ActionListener {
 		//Saves a recipe (edit recipe)
 		if(e.getSource() == btnSave){
 			//Recipe newRecipe = new Recipe(title.getText(),ingredients.getText(), instructions.getText(),
-			//		notes.getText(), review.getText(), rating);
+			//		description.getText(), review.getText(), rating);
 			
 			recipes.setTitle(title.getText());
 			recipes.setIngredients(ingredients.getText());
 			recipes.setRating(rating);
 			recipes.setInstructions(instructions.getText());
-			recipes.setNotes(notes.getText());
+			recipes.setDescription(description.getText());
 			recipes.setReview(review.getText());
 						
 			Main.refreshJTable();
@@ -335,7 +335,7 @@ public class AddEditRecipeGUI implements ActionListener {
 		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
 						
 			Recipe newRecipe = new Recipe(title.getText(),ingredients.getText(), instructions.getText(),
-					notes.getText(), review.getText(), rating);
+					description.getText(), review.getText(), rating);
 					
 			currentUser.getDB().addRecipe(newRecipe);
 			
@@ -350,7 +350,7 @@ public class AddEditRecipeGUI implements ActionListener {
 			title.setText("");
 			ingredients.setText("");
 			instructions.setText("");
-			notes.setText("");
+			description.setText("");
 			review.setText("");
 			oneButton.setSelected(true);
 		}
@@ -385,7 +385,7 @@ public class AddEditRecipeGUI implements ActionListener {
 
 	}	
 	
-	public static void main(String[] args){
+/*	public static void main(String[] args){
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -393,5 +393,5 @@ public class AddEditRecipeGUI implements ActionListener {
 				CreateGUI(0);
 			}
 		});
-	}
+	}*/
 }
