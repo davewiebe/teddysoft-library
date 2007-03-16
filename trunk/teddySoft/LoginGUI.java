@@ -159,7 +159,7 @@ public class LoginGUI implements ActionListener {
 		leftpanel.setLayout(new BoxLayout(leftpanel, BoxLayout.PAGE_AXIS));	
 		leftpanel.setAlignmentX(Component.LEFT_ALIGNMENT);	
 		
-		ImageIcon icon = createImageIcon("/teddy.jpg","splash");
+		ImageIcon icon = createImageIcon("teddy.jpg","splash");
 		JLabel logo = new JLabel(icon);
 		logo.setBorder(BorderFactory.createEtchedBorder());
 		
