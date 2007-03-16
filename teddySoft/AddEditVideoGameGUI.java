@@ -51,7 +51,7 @@ public class AddEditVideoGameGUI implements ActionListener {
 	private Component mainWindowComponents() {
 		//Platform
 		JLabel platformlabel = new JLabel("Platform:");
-		String[] platforms = { "N/A", "PC", "DS", "GameCube", "GBA", "Wii", "PSP", "PS2", "PS3", "XBox", "XBox 360" };
+		String[] platforms = { "N/A", "PC", "DS", "GameCube", "GBA", "Wii", "PSP", "PS2", "PS3", "XBox", "XBox 360", "Other" };
 		platform = new JComboBox(platforms);
 		platform.setSelectedIndex(0);
 		platform.setMaximumSize(new Dimension(160, 22));
@@ -252,7 +252,9 @@ public class AddEditVideoGameGUI implements ActionListener {
 			}else if (game.getPlatform().equals("XBox")){
 				platform.setSelectedIndex(9);
 			}else if (game.getPlatform().equals("XBox 360")){
-				platform.setSelectedIndex(10);				
+				platform.setSelectedIndex(10);			
+			}else if (game.getPlatform().equals("Other")){
+				platform.setSelectedIndex(11);						
 			}else{
 				platform.setSelectedIndex(0);
 			}	
@@ -426,6 +428,9 @@ public class AddEditVideoGameGUI implements ActionListener {
 		else if(platform.getSelectedIndex() == 10){
 			stringplatform = "XBox 360";
 		}		
+		else if(platform.getSelectedIndex() == 11){
+			stringplatform = "Other";
+		}	
 		
 		//"Not Rated", "EC: Early Childhood", "E: Everyone", "T: Teen", "M: Mature 17+", "AO: Adults Only 18+"
 		String stringrating = "";
