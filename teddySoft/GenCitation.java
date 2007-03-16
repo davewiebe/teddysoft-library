@@ -2,7 +2,7 @@
 	 * 	GenCitation.java
 	 * 	
 	 * 	Written by David Wiebe
-	 * 	
+	 * 	Edited by David Wiebe
 	 * 
 	 * 	Team TeddySoft is:
 	 * 	David Wiebe
