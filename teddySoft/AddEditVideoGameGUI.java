@@ -423,7 +423,7 @@ public class AddEditVideoGameGUI implements ActionListener {
 		else if(platform.getSelectedIndex() == 9){
 			stringplatform = "XBox";
 		}
-		else if(platform.getSelectedIndex() == 10){
+		else if(platform.getSelectedIndex() == 0){
 			stringplatform = "XBox 360";
 		}		
 		
@@ -535,14 +535,14 @@ public class AddEditVideoGameGUI implements ActionListener {
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
-		frame.setSize(460,520); // make frame 640x460
+		frame.setSize(460,580); // make frame 640x460
 		frame.setLocationRelativeTo(null); //centers window
-		//frame.pack();
+		frame.pack();
 		frame.setVisible(true);
 
 	}	
 	
-/*	public static void main(String[] args){
+	public static void main(String[] args){
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -550,5 +550,5 @@ public class AddEditVideoGameGUI implements ActionListener {
 				CreateGUI(null,null,0);
 			}
 		});
-	}*/
+	}
 }
