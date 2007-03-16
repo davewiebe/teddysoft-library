@@ -315,12 +315,11 @@ public class AddEditRecipeGUI implements ActionListener {
 			frame.dispose();
 		}
 			
-		//Saves a book (edit book)
+		//Saves a recipe (edit recipe)
 		if(e.getSource() == btnSave){
-			Books newBook = new Books(title.getText(),
-					author.getText(), edition.getText(),
-					String.valueOf(year), place.getText(), isbn.getText(), genre, 
-					rating, description.getText(), review.getText(), publisher.getText());
+			//Recipe newRecipe = new Recipe(title.getText(),ingredients.getText(), instructions.getText(),
+			//		notes.getText(), review.getText(), rating);
+			
 			recipes.setTitle(title.getText());
 			recipes.setIngredients(ingredients.getText());
 			recipes.setRating(rating);
@@ -335,7 +334,7 @@ public class AddEditRecipeGUI implements ActionListener {
 		// When Recipe is Added
 		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
 						
-			Recipe newRecipe = new Books(title.getText(),ingredients.getText(), instructions.getText(),
+			Recipe newRecipe = new Recipe(title.getText(),ingredients.getText(), instructions.getText(),
 					notes.getText(), review.getText(), rating);
 					
 			currentUser.getDB().addRecipe(newRecipe);
