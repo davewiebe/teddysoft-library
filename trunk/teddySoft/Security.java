@@ -18,20 +18,6 @@ public class Security{
 	//private KeyGen key;
 	private UserDatabase users;
 	
-/*	public boolean validateUser(String username, String password){		
-		return (users.findUser(username).getKey() == key.generateKey(username, password));
-	}*/
-/*	public Security(){
-		users = new UserDatabase();
-		users.addUser("JordanMc", "password"); //test
-	}*/
-	
-/*	public static String getKey(String username, String password){
-		key = new KeyGen();
-		System.out.println(key.generateKey(username, password));
-		return key.generateKey(username, password);
-	}*/
-	
 	// PARAM: username and password
 	// POST: Returns string of key generated from param.
 	public static String createKey(String username, String password){
@@ -52,16 +38,30 @@ public class Security{
 	}
 	
 	
-	//Helper function of validateKey
-	private boolean validateKeyHelper(String username, String password, String key){
+	//PRE: Helper function of validateKey
+	private static boolean validateKeyHelper(String username, String password, String key){
 		if(createKey(username, password).equals(key))
 			return true;
 		else return false;
 	}
 	
+	// test application
+	public static void main(String [] args){
+		testKeys();
+	}
+	
 	// Test functions
-	public void testKeys(){
-		String d = createKey("dave", "jordan");
-		String h = createKey("dave", "joddan");
+	private static void testKeys(){
+		System.out.println(createKey("", "jordan"));
+		System.out.println(createKey("", ""));
+		System.out.println(createKey("8765434546765ytwr5uytgr", " dsfkdsj fjdskl jfkdjs lfjsl"));
+		System.out.println(createKey("$*&#(&$#(%)", "-1"));
+		System.out.println(createKey("i love pudding", "oh, do you?"));
+		
+		System.out.println(validateKeyHelper("dave username", "daves password", createKey("dave username", "daves password")) + " - should be true");
+		System.out.println(validateKeyHelper("dave  username", "daves password", createKey("dave username", "daves password")) + " - should be false");
+		System.out.println(validateKeyHelper("dave username", "daves  password", createKey("dave username", "daves password")) + " - should be false");
+		System.out.println(validateKeyHelper("daveusername", "daves password", createKey("dave username", "daves password")) + " - should be false");
+		
 	}
 }
