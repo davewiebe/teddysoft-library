@@ -1,5 +1,5 @@
 	/*
-	 * 	AddDVDGUI.java
+	 * 	ViewDVDGUI.java
 	 * 	
 	 * 	Written by Frankie Yan
 	 * 	Edited by David Wiebe and Jordan McMillan
