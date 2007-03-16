@@ -184,7 +184,7 @@ public class Main implements ActionListener {
 		//Display the window.
 		frame.setSize(640,460); // make frame 640x460
 		frame.setLocationRelativeTo(null); //centers window
-		frame.pack();
+		//frame.pack();
 		frame.setVisible(true);
 
 	}
