@@ -38,6 +38,17 @@ public class LoginGUI implements ActionListener {
 		return userDB;
 	}
 
+	/** Returns an ImageIcon, or null if the path was invalid. (From Java Swing tutorial)*/
+	protected static ImageIcon createImageIcon(String path,
+	                                           String description) {
+	    java.net.URL imgURL = LoginGUI.class.getResource(path);
+	    if (imgURL != null) {
+	        return new ImageIcon(imgURL, description);
+	    } else {
+	        System.err.println("Couldn't find file: " + path);
+	        return null;
+	    }
+	}
 	
 	public static void setWindowsLook(){
 	    try{
@@ -148,15 +159,19 @@ public class LoginGUI implements ActionListener {
 		leftpanel.setLayout(new BoxLayout(leftpanel, BoxLayout.PAGE_AXIS));	
 		leftpanel.setAlignmentX(Component.LEFT_ALIGNMENT);	
 		
+		ImageIcon icon = createImageIcon("/teddy.jpg","splash");
+		JLabel logo = new JLabel(icon);
+		logo.setBorder(BorderFactory.createEtchedBorder());
+		
 		//Main Panel
 		JPanel mainpanel = new JPanel();
 		mainpanel.setLayout(new BoxLayout(mainpanel, BoxLayout.LINE_AXIS));	
 		mainpanel.setAlignmentX(Component.LEFT_ALIGNMENT);	
 		mainpanel.setBorder(BorderFactory.createEmptyBorder(
-                20, //top
-                20, //left
-                20, //bottom
-                20) //right
+                0, //top
+                0, //left
+                0, //bottom
+                40) //right
                 );	
 		
 		regpanel.add(reglabel);
@@ -188,15 +203,17 @@ public class LoginGUI implements ActionListener {
 		toprightpanel.add(textpanel);
 		toprightpanel.add(Box.createRigidArea(new Dimension(15,0)));
 		
-		rightpanel.add(Box.createRigidArea(new Dimension(0,80)));
+		rightpanel.add(Box.createRigidArea(new Dimension(0,100)));
 		rightpanel.add(toprightpanel);
 		rightpanel.add(Box.createRigidArea(new Dimension(0,20)));
 		rightpanel.add(bottomrightpanel);
 		rightpanel.add(Box.createVerticalGlue());
 				
-		leftpanel.add(Box.createRigidArea(new Dimension(300, 400)));
-		
+		leftpanel.add(logo);
+		leftpanel.add(Box.createHorizontalGlue());
+				
 		mainpanel.add(leftpanel);
+		//mainpanel.add(Box.createRigidArea(new Dimension(20, 0)));
 		mainpanel.add(rightpanel);
 		
 		return mainpanel;
@@ -280,7 +297,8 @@ public class LoginGUI implements ActionListener {
 		//Display the window.
 		frame.setSize(640,460); // make frame 640x460
 		frame.setLocationRelativeTo(null); //centers window
-        frame.pack();
+		frame.setResizable(false);
+        //frame.pack();
 		frame.setVisible(true);
 
 	}	
