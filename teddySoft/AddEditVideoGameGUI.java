@@ -423,7 +423,7 @@ public class AddEditVideoGameGUI implements ActionListener {
 		else if(platform.getSelectedIndex() == 9){
 			stringplatform = "XBox";
 		}
-		else if(platform.getSelectedIndex() == 0){
+		else if(platform.getSelectedIndex() == 10){
 			stringplatform = "XBox 360";
 		}		
 		
@@ -542,7 +542,7 @@ public class AddEditVideoGameGUI implements ActionListener {
 
 	}	
 	
-	public static void main(String[] args){
+/*	public static void main(String[] args){
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -550,5 +550,5 @@ public class AddEditVideoGameGUI implements ActionListener {
 				CreateGUI(null,null,0);
 			}
 		});
-	}
+	}*/
 }
