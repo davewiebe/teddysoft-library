@@ -24,20 +24,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class Main implements ActionListener {
-	private
-		static String tableType = "All"; //initialized to show all media
-		static JTable table;
-		JButton btnView, btnEdit, btnDelete, btnAll, btnBooks, btnRecipes, btnGames,
+	private static String tableType = "All"; //initialized to show all media
+	private static JTable table;
+	private JButton btnView, btnEdit, btnDelete, btnAll, btnBooks, btnRecipes, btnGames,
 		btnMusic, btnMovies, btnExit, btnLogOut;
 		JComboBox entrytypeList;
-		static User currentUser;
-		static JFrame frame;
-		static Object[][] data;
-		static Comparable List[];
-		static JScrollPane scrollPane;
+	private static User currentUser;
+	private static JFrame frame;
+	private static Object[][] data;
+	private static Comparable List[];
+	private static JScrollPane scrollPane;
 		
-	public boolean isCellEditable(int row, int column){
-		return false;
+	public static User getCurrentUser(){
+		return currentUser;
 	}
 	
 	public static void getTable(String type){
@@ -46,13 +45,14 @@ public class Main implements ActionListener {
 		int VHSTreeLength = currentUser.getDB().getVHSTree().getSize();
 		int VHS_RTreeLength = currentUser.getDB().getVHS_RTree().getSize();
 		int VideoGameTreeLength = currentUser.getDB().getVideoGameTree().getSize();
+		int RecipeTreeLength = currentUser.getDB().getRecipeTree().getSize();
 		
 		if(type.equals("All")){
 			String[] columnNames = {"Title", "Type", "Rating"};
 			int partition = 0;
 			
 			List = currentUser.getDB().getBooksTree().getTreeElements();
-			data = new Object[BooksTreeLength + DVDTreeLength + VHSTreeLength + VHS_RTreeLength + VideoGameTreeLength][columnNames.length + 1];
+			data = new Object[BooksTreeLength + DVDTreeLength + VHSTreeLength + VHS_RTreeLength + VideoGameTreeLength + RecipeTreeLength][columnNames.length + 1];
 			for(int i=0;i<List.length;i++){
 				Books temp = (Books)List[i];
 				data[partition+i][0] = temp.getTitle();
@@ -99,6 +99,17 @@ public class Main implements ActionListener {
 			List = currentUser.getDB().getVideoGameTree().getTreeElements();
 			for(int i=0;i<List.length;i++){
 				VideoGame temp = (VideoGame)List[i];
+				data[partition+i][0] = temp.getTitle();
+				data[partition+i][1] = temp.getType();
+				Integer tempint = new Integer(temp.getRating());
+				data[partition+i][2] = "" + tempint;
+				data[partition+i][3] = temp; //last column contains reference to object
+			}
+			partition = partition + List.length;
+			
+			List = currentUser.getDB().getRecipeTree().getTreeElements();
+			for(int i=0;i<List.length;i++){
+				Recipe temp = (Recipe)List[i];
 				data[partition+i][0] = temp.getTitle();
 				data[partition+i][1] = temp.getType();
 				Integer tempint = new Integer(temp.getRating());
@@ -191,6 +202,21 @@ public class Main implements ActionListener {
 			table = new JTable(data, columnNames);
 		}
 		
+		else if(type.equals("Recipies")){
+			String[] columnNames = {"Title","Rating"};
+			
+			List = currentUser.getDB().getRecipeTree().getTreeElements();
+			data = new Object[RecipeTreeLength][columnNames.length + 1];
+			for(int i=0;i<List.length;i++){
+				Recipe temp = (Recipe)List[i];
+				data[i][0] = temp.getTitle();
+				Integer tempint = new Integer(temp.getRating());
+				data[i][1] = "" + tempint;
+				data[i][2] = temp; //last column contains reference to object
+			}
+			table = new JTable(data, columnNames);
+		}
+		
 	}
 		
 	public static void refreshJTable(){
@@ -214,7 +240,7 @@ public class Main implements ActionListener {
 		//Display the window.
 		frame.setSize(640,460); // make frame 640x460
 		frame.setLocationRelativeTo(null); //centers window
-		//frame.pack();
+		frame.pack();
 		frame.setVisible(true);
 
 	}
@@ -283,7 +309,7 @@ public class Main implements ActionListener {
 		combopanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		//Add Entries combo box
-		String[] entryTypes = { "Add New Entry...", "Book", "DVD", "VHS", "VHS_R", "Video Game"};//, "Game", "Recipe", "Music", "Movie" };
+		String[] entryTypes = { "Add New Entry...", "Book", "DVD", "Recipe", "VHS", "VHS_R", "Video Game"};//, "Game", "Recipe", "Music", "Movie" };
 		entrytypeList = new JComboBox(entryTypes);
 		entrytypeList.setSelectedIndex(0);
 		entrytypeList.setMaximumSize(new Dimension(160, 40));
@@ -379,8 +405,8 @@ public class Main implements ActionListener {
 		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		viewpanel.add(btnGames);
 		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		//viewpanel.add(btnRecipes);
-		//viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
+		viewpanel.add(btnRecipes);
+		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		//viewpanel.add(btnMusic);
 		//viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		viewpanel.add(btnMovies);
@@ -460,6 +486,8 @@ public class Main implements ActionListener {
 		}
 		else if (e.getActionCommand().equals("Recipes")){
 			System.out.println("Show Recipes");
+			tableType = "Recipies";
+			refreshJTable();
 		}
 		else if (e.getActionCommand().equals("Music")){
 			System.out.println("Show Music");
@@ -484,19 +512,22 @@ public class Main implements ActionListener {
 	        	AddEditDVDGUI.CreateGUI(currentUser, (DVD) null, 0);
 			}
 	        else if (temp.getSelectedIndex() == 3){
+	        	System.out.println("Add Recipe");
+	        	AddEditRecipeGUI.CreateGUI(currentUser, (Recipe) null, 0);
+			}
+	        else if (temp.getSelectedIndex() == 4){
 	        	System.out.println("Add VHS");
 	        	AddEditVHSGUI.CreateGUI(currentUser, (VHS) null, 0);
 	        }
-	        else if (temp.getSelectedIndex() == 4){
+	        else if (temp.getSelectedIndex() == 5){
 	        	System.out.println("Add VHS_R");
 	        	AddEditVHS_RGUI.CreateGUI(currentUser, (VHS_R) null, 0);
 	        }
-	        else if (temp.getSelectedIndex() == 5){
+	        else if (temp.getSelectedIndex() == 6){
 	        	System.out.println("Add Video Game");
 	        	AddEditVideoGameGUI.CreateGUI(currentUser, (VideoGame) null, 0);
 	        }
-/*	        else if (temp.getSelectedIndex() == 3){
-	        	System.out.println("Add Recipe");}
+/*	        
 	        else if (temp.getSelectedIndex() == 4){
 	        	System.out.println("Add Music");}
 */
@@ -530,6 +561,11 @@ public class Main implements ActionListener {
 				System.out.println("Delete VideoGame");
 				Main.refreshJTable();
 			}
+			else if (classType.equals("class teddySoft.Recipe")){
+				currentUser.getDB().getRecipeTree().RBTreeRemove(((Recipe) data[table.getSelectedRow()][table.getColumnCount()]));
+				System.out.println("Delete Recipe");
+				Main.refreshJTable();
+			}
 			
 		}
 		//editing a medium from table
@@ -553,6 +589,9 @@ public class Main implements ActionListener {
 			else if (classType.equals("class teddySoft.VideoGame")){
 				AddEditVideoGameGUI.CreateGUI(currentUser,(VideoGame) data[table.getSelectedRow()][table.getColumnCount()], 1);
 			}
+			else if (classType.equals("class teddySoft.Recipe")){
+				AddEditRecipeGUI.CreateGUI(currentUser,(Recipe) data[table.getSelectedRow()][table.getColumnCount()], 1);
+			}
 			
 		}
 		//view a medium from table
@@ -573,6 +612,9 @@ public class Main implements ActionListener {
 				}
 				else if (classType.equals("class teddySoft.VideoGame")){
 					ViewVideoGameGUI.CreateGUI((VideoGame) data[table.getSelectedRow()][table.getColumnCount()]);
+				}
+				else if (classType.equals("class teddySoft.Recipe")){
+					ViewRecipeGUI.CreateGUI((Recipe) data[table.getSelectedRow()][table.getColumnCount()]);
 				}
 				
 			}

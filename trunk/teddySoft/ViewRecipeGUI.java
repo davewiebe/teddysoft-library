@@ -13,9 +13,7 @@
 
 package teddySoft;
 import javax.swing.*;
-
-import teddySoft.Books;
-
+import java.io.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -156,7 +154,7 @@ public class ViewRecipeGUI implements ActionListener {
 		
 		JTextArea ingredients = new JTextArea(4, 20);
 		ingredients.setLineWrap(true);
-		ingredients.setText(recipes.getDescription());
+		ingredients.setText(recipes.getIngredients());
 		ingredients.setEditable(false);
 		JScrollPane ingredientsscroll = new JScrollPane(ingredients);	    
 		
@@ -170,23 +168,23 @@ public class ViewRecipeGUI implements ActionListener {
 		
 		JTextArea instructions = new JTextArea(8, 20);
 		instructions.setLineWrap(true);
-		instructions.setText(recipes.getDescription());
+		instructions.setText(recipes.getInstructions());
 		instructions.setEditable(false);
 		JScrollPane instructionsscroll = new JScrollPane(instructions);
 		
-		//notes Panel
-		JPanel notespanel = new JPanel();
-		notespanel.setLayout(new BoxLayout(notespanel, BoxLayout.PAGE_AXIS));	
-		notespanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		notespanel.setAlignmentY(Component.TOP_ALIGNMENT);
-		notespanel.setBorder(BorderFactory.createTitledBorder(
-        "Notes"));
+		//description Panel
+		JPanel descriptionpanel = new JPanel();
+		descriptionpanel.setLayout(new BoxLayout(descriptionpanel, BoxLayout.PAGE_AXIS));	
+		descriptionpanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		descriptionpanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		descriptionpanel.setBorder(BorderFactory.createTitledBorder(
+        "Description"));
 		
-		JTextArea notes = new JTextArea(8, 20);
-		notes.setLineWrap(true);
-		notes.setText(recipes.getDescription());
-		notes.setEditable(false);
-		JScrollPane notesscroll = new JScrollPane(notes);
+		JTextArea description = new JTextArea(8, 20);
+		description.setLineWrap(true);
+		description.setText(recipes.getDescription());
+		description.setEditable(false);
+		JScrollPane descriptionscroll = new JScrollPane(description);
 		
 		//Review Panel
 		JPanel revpanel = new JPanel();
@@ -252,10 +250,10 @@ public class ViewRecipeGUI implements ActionListener {
 		toppanel.add(ratepanel);
 		
 		instructionspanel.add(instructionsscroll);
-		notespanel.add(notesscroll);
+		descriptionpanel.add(descriptionscroll);
 		midpanel.add(instructionspanel);
 		midpanel.add(Box.createRigidArea(new Dimension(10,0)));
-		midpanel.add(notespanel);
+		midpanel.add(descriptionpanel);
 		
 		revpanel.add(reviewscroll);
 		
@@ -281,11 +279,52 @@ public class ViewRecipeGUI implements ActionListener {
 		if(e.getSource() == btnClose){
 			frame.dispose();
 		}
+		else if(e.getSource() == btnFile){
+			try{
+			String[] lines;
+			BufferedWriter outputStream = new BufferedWriter(new FileWriter(Main.getCurrentUser().getName()+"-"+recipes.getTitle() + ".txt"));
+			outputStream.write(recipes.getTitle());
+			outputStream.newLine();
+			outputStream.newLine();
+			outputStream.write("Description:");
+			outputStream.newLine();
+			
+			lines = recipes.getDescription().split("\n");
+			for (int i=0;i<lines.length; i++){
+			outputStream.write(lines[i]);
+			outputStream.newLine();
+			}
+			outputStream.newLine();
+			
+			outputStream.write("Ingredients:");
+			outputStream.newLine();
+			
+			lines = recipes.getIngredients().split("\n");
+			for (int i=0;i<lines.length; i++){
+			outputStream.write("-"+lines[i]);
+			outputStream.newLine();
+			}
+			outputStream.newLine();
+			
+			outputStream.write("Instructions:");
+			outputStream.newLine();
+			
+			lines = recipes.getInstructions().split("\n");
+			for (int i=0;i<lines.length; i++){
+			outputStream.write(lines[i]);
+			outputStream.newLine();
+			}
+			outputStream.close();
+			}
+			catch(IOException IOe){
+				System.out.println("Error writeing "+ recipes.getTitle() + ".txt");
+			}
+		}
 	}	
 	
-	public static void CreateGUI(Recipes recipe){
+	public static void CreateGUI(Recipe recipe){
 		setWindowsLook(); //Set windows decorations
-		recipe = recipes;
+		recipes = recipe;
 		
 		//Create and set up the window.
 		frame = new JFrame("View Recipe");
@@ -309,8 +348,8 @@ public class ViewRecipeGUI implements ActionListener {
         //creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run(){
-				CreateGUI(new Recipes ("title", "ingredients",
-						"instructions", "notes", "review", 4)
+				CreateGUI(new Recipe ("title", "ingredients",
+						"instructions", "description", "review", 4)
 				);
 			}
 		});
