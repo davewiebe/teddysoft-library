@@ -223,7 +223,7 @@ public class GenCitation {
 		// if there is a first name, the first name follows the last.
 		if (fname.compareTo("") != 0){
 			name = name + ", "+fname.charAt(0)+".";
-		} else{
+		} else if (lname.compareTo("") != 0){
 			name += ".";
 		}
 		
@@ -317,6 +317,7 @@ public class GenCitation {
 	// POST: prints tests to console
 	// PARAM: None.
 	private static void testCiteAuthor(){
+		testCiteAuthorHelper("");
 		testCiteAuthorHelper("Fanna  Williamson   Jr.");
 		testCiteAuthorHelper("Williamson, Fanna  jr  ");
 		testCiteAuthorHelper("Fanna JR. Williamson   ");
