@@ -37,7 +37,7 @@ public class GenCitation {
 				apa += ". ";
 			}
 			// if a year was inputed
-			if (!citeYear(year).equalsIgnoreCase("")){
+			if (!citeYear(year).equalsIgnoreCase("") && !citeYear(year).equalsIgnoreCase("0")){
 				apa += "(" + citeYear(year) + "). ";
 			}
 		}
@@ -46,7 +46,7 @@ public class GenCitation {
 		else {
 			apa += citeAuthor + " ";
 			// year comes after author, if there is a year inputed.
-			if (!citeYear(year).equalsIgnoreCase("")){
+			if (!citeYear(year).equalsIgnoreCase("") && !citeYear(year).equalsIgnoreCase("0")){
 				apa += "(" + citeYear(year) + "). ";
 			}
 			// then title.
@@ -223,6 +223,8 @@ public class GenCitation {
 		// if there is a first name, the first name follows the last.
 		if (fname.compareTo("") != 0){
 			name = name + ", "+fname.charAt(0)+".";
+		} else{
+			name += ".";
 		}
 		
 		// if theres a middle name, the middle follows next.
@@ -250,7 +252,7 @@ public class GenCitation {
 	
 
 	public static void main(String []args){
-		//testCiteAuthor();
+		testCiteAuthor();
 		//testCiteEdition();
 		//testGenAPA();
 	}
@@ -344,6 +346,7 @@ public class GenCitation {
 		testCiteAuthorHelper(" Dave Wiebe, A.   ");
 		testCiteAuthorHelper(" Wiebe D A   ");
 		testCiteAuthorHelper(" Wiebe D   ");
+		testCiteAuthorHelper(" Wiebe    ");
 	}
 	
 	// PRE: 
