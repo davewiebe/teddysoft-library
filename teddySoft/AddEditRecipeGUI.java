@@ -1,5 +1,5 @@
 	/*
-	 * 	AddRecipeGUI.java
+	 * 	AddEditRecipeGUI.java
 	 * 	
 	 * 	Written by Frankie Yan
 	 * 	Edited by David Wiebe and Jordan McMillan
@@ -360,7 +360,6 @@ public class AddEditRecipeGUI implements ActionListener {
 	// PARAM: User information parameter, so window knows which user it is.
 	// POST: Creates window, will be able to edit users.
 	public static void CreateGUI(User user, Recipe currentrecipe, int operation){
-	//public static void CreateGUI(int operation){
 		setWindowsLook(); //Set windows decorations
 		currentUser = user;
 		//Create and set up the window.

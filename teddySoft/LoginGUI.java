@@ -6,7 +6,7 @@
 	 * 
 	 * 	Team TeddySoft is:
 	 * 	David Wiebe
-	 *  Frankie Yan
+	 * 	Frankie Yan
 	 * 	Jordan McMillan
 	 * 	Lisa Chen
 	 */

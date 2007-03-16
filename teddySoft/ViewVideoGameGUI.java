@@ -1,5 +1,5 @@
 	/*
-	 * 	ViewBookGUI.java
+	 * 	ViewVideoGameGUI.java
 	 * 	
 	 * 	Written by Frankie Yan
 	 * 	Edited by David Wiebe and Jordan McMillan

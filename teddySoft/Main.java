@@ -6,7 +6,7 @@
 	 * 
 	 * 	Team TeddySoft is:
 	 * 	David Wiebe
-	 *  Frankie Yan
+	 * 	Frankie Yan
 	 * 	Jordan McMillan
 	 * 	Lisa Chen
 	 */
@@ -462,16 +462,7 @@ public class Main implements ActionListener {
                 20, //bottom
                 20) //right
                 );	
-		
-/*		topleftpanel.setBorder(BorderFactory.createRaisedBevelBorder());
-		combopanel.setBorder(BorderFactory.createRaisedBevelBorder());
-		viewpanel.setBorder(BorderFactory.createRaisedBevelBorder());
-		leftpanel.setBorder(BorderFactory.createRaisedBevelBorder());
-		tablepanel.setBorder(BorderFactory.createRaisedBevelBorder());
-		bottompanel.setBorder(BorderFactory.createRaisedBevelBorder());
-		rightpanel.setBorder(BorderFactory.createRaisedBevelBorder());
-		mainpanel.setBorder(BorderFactory.createRaisedBevelBorder());*/
-		
+			
 		return mainpanel;
 	}
 	
@@ -548,7 +539,7 @@ public class Main implements ActionListener {
 	        	System.out.println("Add Music");}
 */
 		}
-		//deleteing a medium from table
+		//deleting a medium from table
 		else if (e.getActionCommand().equals("Delete")){
 			String classType = "" + data[table.getSelectedRow()][table.getColumnCount()].getClass();
 			//System.out.println(classType);

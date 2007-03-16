@@ -1,5 +1,5 @@
 	/*
-	 * 	AddBookGUI.java
+	 * 	ViewVHSGUI.java
 	 * 	
 	 * 	Written by Frankie Yan
 	 * 	Edited by David Wiebe and Jordan McMillan
@@ -311,7 +311,6 @@ public class ViewVHSGUI implements ActionListener{
 	// PARAM: User information parameter, so window knows which user it is.
 	// POST: Creates window, will be able to edit users.
 	public static void CreateGUI(VHS currentvhs){
-	//public static void CreateGUI(){
 		setWindowsLook(); //Set windows decorations
 		frame = new JFrame("View VHS");
 		vhs = currentvhs;

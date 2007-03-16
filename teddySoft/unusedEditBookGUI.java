@@ -1,12 +1,12 @@
 	/*
-	 * 	EditBookGUI.java
+	 * 	unusedEditBookGUI.java
 	 * 	
 	 * 	Written by Frankie Yan
 	 * 	Edited by David Wiebe and Jordan McMillan
 	 * 
 	 * 	Team TeddySoft is:
 	 * 	David Wiebe
-	 *  Frankie Yan
+	 * 	Frankie Yan
 	 * 	Jordan McMillan
 	 * 	Lisa Chen
 	 */
