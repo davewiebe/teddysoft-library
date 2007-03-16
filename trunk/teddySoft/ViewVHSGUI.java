@@ -197,7 +197,7 @@ public class ViewVHSGUI implements ActionListener{
 		descpanel.setBorder(BorderFactory.createTitledBorder(
         "Description"));
 		
-		JTextArea description = new JTextArea(6, 20);
+		JTextArea description = new JTextArea(6, 60);
 		description.setLineWrap(true);
 		description.setText(vhs.getDescription());
 		description.setEditable(false);		
@@ -211,7 +211,7 @@ public class ViewVHSGUI implements ActionListener{
 		revpanel.setBorder(BorderFactory.createTitledBorder(
         "Review"));
 
-		JTextArea review = new JTextArea(6, 20);
+		JTextArea review = new JTextArea(6, 60);
 		review.setLineWrap(true);
 		review.setText(vhs.getReview());
 		review.setEditable(false);		
@@ -323,9 +323,9 @@ public class ViewVHSGUI implements ActionListener{
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
-        frame.setSize(460,580); // 460 520 // make frame 640x460
+        frame.setSize(460,570); // 460 520 // make frame 640x460
 		frame.setLocationRelativeTo(null); //centers window
-        //frame.pack();
+        frame.pack();
 		frame.setVisible(true);
 
 	}	

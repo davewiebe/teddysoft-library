@@ -54,18 +54,6 @@ public class LoginGUI implements ActionListener {
 	    }		
 	}	
 	
-	/** Returns an ImageIcon, or null if the path was invalid. */
-	protected static ImageIcon createImageIcon(String path,
-	                                           String description) {
-	    java.net.URL imgURL = LoginGUI.class.getResource(path);
-	    if (imgURL != null) {
-	        return new ImageIcon(imgURL, description);
-	    } else {
-	        System.err.println("Couldn't find file: " + path);
-	        return null;
-	    }
-	}
-	
 	private Component mainWindowComponents() {
 		//Label Panel
 		JPanel labelpanel = new JPanel();
@@ -160,10 +148,6 @@ public class LoginGUI implements ActionListener {
 		leftpanel.setLayout(new BoxLayout(leftpanel, BoxLayout.PAGE_AXIS));	
 		leftpanel.setAlignmentX(Component.LEFT_ALIGNMENT);	
 		
-		ImageIcon logoimage = createImageIcon("/teddy.jpg", "Teddysoft Logo");
-		JLabel logo = new JLabel(logoimage);
-		logo.setBorder(BorderFactory.createLoweredBevelBorder());
-		
 		//Main Panel
 		JPanel mainpanel = new JPanel();
 		mainpanel.setLayout(new BoxLayout(mainpanel, BoxLayout.LINE_AXIS));	
@@ -210,11 +194,9 @@ public class LoginGUI implements ActionListener {
 		rightpanel.add(bottomrightpanel);
 		rightpanel.add(Box.createVerticalGlue());
 				
-		//leftpanel.add(Box.createRigidArea(new Dimension(300, 400)));
-		leftpanel.add(logo);
-				
+		leftpanel.add(Box.createRigidArea(new Dimension(300, 400)));
+		
 		mainpanel.add(leftpanel);
-		mainpanel.add(Box.createRigidArea(new Dimension(20, 0)));
 		mainpanel.add(rightpanel);
 		
 		return mainpanel;
@@ -298,7 +280,7 @@ public class LoginGUI implements ActionListener {
 		//Display the window.
 		frame.setSize(640,460); // make frame 640x460
 		frame.setLocationRelativeTo(null); //centers window
-        //frame.pack();
+        frame.pack();
 		frame.setVisible(true);
 
 	}	

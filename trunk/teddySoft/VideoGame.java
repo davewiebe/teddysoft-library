@@ -16,11 +16,11 @@ import java.io.Serializable;
 
 public class VideoGame implements Serializable, Comparable  {
 
-	private String title, developer, year, contentRated, platform;
+	private String title, developer, year, contentRated, platform, description, review;
 	private int rating, maxPlayers;
 	//implement search key
 
-	public VideoGame (String title, String developer, String year, String contentRated, String platform, int rating, int maxPlayers){
+	public VideoGame (String title, String developer, String year, String contentRated, String platform, String description, String review, int rating, int maxPlayers){
 		this.title = title;
 		this.developer = developer;
 		this.year = year;
@@ -28,6 +28,8 @@ public class VideoGame implements Serializable, Comparable  {
 		this.platform = platform;
 		this.rating = rating;
 		this.maxPlayers = maxPlayers;
+		this.description = description;
+		this.review = review;
 		//implement search key
 		
 	}
@@ -49,6 +51,12 @@ public class VideoGame implements Serializable, Comparable  {
 	
 	public String getType(){
 		return "Video Game";}
+	
+	public String getDescription(){
+		return description;}
+	
+	public String getReview(){
+		return review;}
 	
 	public int getRating(){
 		return rating;}
@@ -77,6 +85,12 @@ public class VideoGame implements Serializable, Comparable  {
 	
 	public void setMaxPlayers(int maxPlayers){
 		this.maxPlayers = maxPlayers;}
+	
+	public void setDescription(String description){
+		this.description = description;}
+	
+	public void setReview(String review){
+		this.review = review;}
 	
 	//toString
 	public String toString(){

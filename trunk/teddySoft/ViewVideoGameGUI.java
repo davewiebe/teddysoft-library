@@ -133,8 +133,7 @@ public class ViewVideoGameGUI implements ActionListener {
 		ratepanel.setLayout(new BoxLayout(ratepanel, BoxLayout.PAGE_AXIS));	
 		ratepanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		ratepanel.setAlignmentY(Component.TOP_ALIGNMENT);
-		ratepanel.setBorder(BorderFactory.createTitledBorder(
-        "Rating"));
+		ratepanel.setBorder(BorderFactory.createTitledBorder("Rating"));
 		
 		//Mid Panel
 		JPanel midpanel = new JPanel();
@@ -211,9 +210,9 @@ public class ViewVideoGameGUI implements ActionListener {
 		descpanel.setBorder(BorderFactory.createTitledBorder(
         "Description"));
 		
-		JTextArea description = new JTextArea(4, 20);
+		JTextArea description = new JTextArea(4, 60);
 		description.setLineWrap(true);
-		//description.setText(game.getDescription());
+		description.setText(game.getDescription());
 		description.setEditable(false);
 		JScrollPane descscroll = new JScrollPane(description);
 		
@@ -225,9 +224,9 @@ public class ViewVideoGameGUI implements ActionListener {
 		revpanel.setBorder(BorderFactory.createTitledBorder(
         "Review"));
 				
-		JTextArea review = new JTextArea(4, 20);
+		JTextArea review = new JTextArea(4, 60);
 		review.setLineWrap(true);
-		//review.setText(game.getReview());
+		review.setText(game.getReview());
 		review.setEditable(false);
 		JScrollPane reviewscroll = new JScrollPane(review);
 		
@@ -327,7 +326,7 @@ public class ViewVideoGameGUI implements ActionListener {
 	
 	public static void CreateGUI(VideoGame currentgame){
 		setWindowsLook(); //Set windows decorations
-		currentgame = game;
+		game = currentgame;
 		
 		//Create and set up the window.
 		frame = new JFrame("View Video Game");
@@ -338,13 +337,13 @@ public class ViewVideoGameGUI implements ActionListener {
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
-        frame.setSize(460,580); // 460 520 // make frame 640x460
+        frame.setSize(460,570); // 460 520 // make frame 640x460
 		frame.setLocationRelativeTo(null); //centers window
-        //frame.pack();
+        frame.pack();
 		frame.setVisible(true);
 
 	}	
-	
+/*	
 //	public static void Test(){
 	public static void main(String[] args){
         //Schedule a job for the event-dispatching thread:
@@ -358,6 +357,6 @@ public class ViewVideoGameGUI implements ActionListener {
 				);
 			}
 		});
-	}
+	}*/
 }
 
