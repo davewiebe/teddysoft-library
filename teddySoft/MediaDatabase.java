@@ -21,6 +21,7 @@ public class MediaDatabase implements Serializable {
 	private RBTree VHS_RTree;
 	private RBTree DVDTree;
 	private RBTree VideoGameTree;
+	private RBTree RecipeTree;
 	
 	public MediaDatabase(){
 		BooksTree = new RBTree();
@@ -28,6 +29,7 @@ public class MediaDatabase implements Serializable {
 		VHS_RTree = new RBTree();
 		DVDTree = new RBTree();
 		VideoGameTree = new RBTree();
+		RecipeTree = new RBTree();
 	}
 	
 	public void addBook(Books b){
@@ -46,6 +48,9 @@ public class MediaDatabase implements Serializable {
 	public void addVideoGame(VideoGame vg){
 		VideoGameTree.RBTreeInsert(vg);}
 	
+	public void addRecipe(Recipe r){
+		RecipeTree.RBTreeInsert(r);}
+	
 	// Getters
 	public RBTree getBooksTree(){
 		return BooksTree;}
@@ -62,9 +67,12 @@ public class MediaDatabase implements Serializable {
 	public RBTree getVideoGameTree(){
 		return VideoGameTree;}
 	
+	public RBTree getRecipeTree(){
+		return RecipeTree;}
+	
 
-	// Setters
+/*	// Setters
 	public void setBooksTree(RBTree BooksTree){
 		this.BooksTree = BooksTree;
-	}
+	}*/
 }
