@@ -71,8 +71,8 @@ public class VideoGame implements Serializable, Comparable  {
 	public void setDeveloper(String developer){
 		this.developer = developer;}
 	
-	public void setYear(String title){
-		this.title = title;}
+	public void setYear(String year){
+		this.year = year;}
 	
 	public void setContedRated(String contentRated){
 		this.contentRated = contentRated;}
