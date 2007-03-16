@@ -32,13 +32,15 @@ public class Main implements ActionListener {
 	private static User currentUser;
 	private static JFrame frame;
 	private static Object[][] data;
-	private static Comparable List[];
+	private static Comparable List[]; //array of comparable objects
 	private static JScrollPane scrollPane;
 		
 	public static User getCurrentUser(){
 		return currentUser;
 	}
 	
+	//PRE: A String with data "All", "Books", "Movies", "Video Games", or "Recipies"
+	//POST: JTable object is altered to include selected information from currentUser's database
 	public static void getTable(String type){
 		int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
 		int DVDTreeLength = currentUser.getDB().getDVDTree().getSize();
@@ -47,10 +49,11 @@ public class Main implements ActionListener {
 		int VideoGameTreeLength = currentUser.getDB().getVideoGameTree().getSize();
 		int RecipeTreeLength = currentUser.getDB().getRecipeTree().getSize();
 		
-		if(type.equals("All")){
+		if(type.equals("All")){ //create table of all objects
 			String[] columnNames = {"Title", "Type", "Rating"};
-			int partition = 0;
+			int partition = 0; //keeps track of how many rows of the Jtable are already occupied with data
 			
+			//Add book ojects to Table
 			List = currentUser.getDB().getBooksTree().getTreeElements();
 			data = new Object[BooksTreeLength + DVDTreeLength + VHSTreeLength + VHS_RTreeLength + VideoGameTreeLength + RecipeTreeLength][columnNames.length + 1];
 			for(int i=0;i<List.length;i++){
@@ -63,6 +66,7 @@ public class Main implements ActionListener {
 			}
 			partition = partition + List.length;
 			
+			//Add DVD objects to table
 			List = currentUser.getDB().getDVDTree().getTreeElements();
 			for(int i=0;i<List.length;i++){
 				DVD temp = (DVD)List[i];
@@ -74,6 +78,7 @@ public class Main implements ActionListener {
 			}
 			partition = partition + List.length;
 			
+			//Add VHS objects to table
 			List = currentUser.getDB().getVHSTree().getTreeElements();
 			for(int i=0;i<List.length;i++){
 				VHS temp = (VHS)List[i];
@@ -85,6 +90,7 @@ public class Main implements ActionListener {
 			}
 			partition = partition + List.length;
 			
+			//Add VHS_R objects to table
 			List = currentUser.getDB().getVHS_RTree().getTreeElements();
 			for(int i=0;i<List.length;i++){
 				VHS_R temp = (VHS_R)List[i];
@@ -96,6 +102,7 @@ public class Main implements ActionListener {
 			}
 			partition = partition + List.length;
 			
+			//Add Video Game objects to table
 			List = currentUser.getDB().getVideoGameTree().getTreeElements();
 			for(int i=0;i<List.length;i++){
 				VideoGame temp = (VideoGame)List[i];
@@ -107,6 +114,7 @@ public class Main implements ActionListener {
 			}
 			partition = partition + List.length;
 			
+			//Add Recipe objects to table
 			List = currentUser.getDB().getRecipeTree().getTreeElements();
 			for(int i=0;i<List.length;i++){
 				Recipe temp = (Recipe)List[i];
@@ -121,9 +129,10 @@ public class Main implements ActionListener {
 			table = new JTable(data, columnNames);
 		}
 		
-		else if(type.equals("Books")){
+		else if(type.equals("Books")){ //create table of books
 			String[] columnNames = {"Title","Author","Genre", "Rating"};
 			
+			//Add book objects to table
 			List = currentUser.getDB().getBooksTree().getTreeElements();
 			data = new Object[BooksTreeLength][columnNames.length + 1];
 			for(int i=0;i<List.length;i++){
@@ -138,10 +147,11 @@ public class Main implements ActionListener {
 			table = new JTable(data, columnNames);
 		}
 		
-		else if(type.equals("Movies")){
+		else if(type.equals("Movies")){ //create table of DVDs, VHSs, and VHS_Rs
 			String[] columnNames = {"Title","Director","Year","Type", "Rating"};
-			int partition = 0;
+			int partition = 0; //keeps track of how many rows of the Jtable are already occupied with data
 			
+			//Add DVD objects to table
 			List = currentUser.getDB().getDVDTree().getTreeElements();
 			data = new Object[DVDTreeLength + VHSTreeLength+ VHS_RTreeLength][columnNames.length + 1];
 			for(int i=0;i<List.length;i++){
@@ -156,6 +166,7 @@ public class Main implements ActionListener {
 			}
 			partition = partition + List.length;
 			
+			//Add VHS objects to table
 			List = currentUser.getDB().getVHSTree().getTreeElements();
 			for(int i=0;i<List.length;i++){
 				VHS temp = (VHS)List[i];
@@ -169,6 +180,7 @@ public class Main implements ActionListener {
 			}
 			partition = partition + List.length;
 			
+			//Add VHS_R objects to table
 			List = currentUser.getDB().getVHS_RTree().getTreeElements();
 			for(int i=0;i<List.length;i++){
 				VHS_R temp = (VHS_R)List[i];
@@ -185,9 +197,10 @@ public class Main implements ActionListener {
 			table = new JTable(data, columnNames);
 		}
 		
-		else if(type.equals("Video Games")){
+		else if(type.equals("Video Games")){ //create a table of VideoGame objects
 			String[] columnNames = {"Title","Platform","Max Players", "Rating"};
 			
+			//Add VideoGame objects to table
 			List = currentUser.getDB().getVideoGameTree().getTreeElements();
 			data = new Object[VideoGameTreeLength][columnNames.length + 1];
 			for(int i=0;i<List.length;i++){
@@ -202,9 +215,10 @@ public class Main implements ActionListener {
 			table = new JTable(data, columnNames);
 		}
 		
-		else if(type.equals("Recipies")){
+		else if(type.equals("Recipies")){ //create table of Recipe objects
 			String[] columnNames = {"Title","Rating"};
 			
+			//Add Recipe objects to table
 			List = currentUser.getDB().getRecipeTree().getTreeElements();
 			data = new Object[RecipeTreeLength][columnNames.length + 1];
 			for(int i=0;i<List.length;i++){
@@ -218,7 +232,8 @@ public class Main implements ActionListener {
 		}
 		
 	}
-		
+	
+	//POST: Creates Main Window with a Table that displays current data in currentUser's media database
 	public static void refreshJTable(){
 		if (frame != null)
 			frame.dispose();
@@ -227,7 +242,7 @@ public class Main implements ActionListener {
 		frame = new JFrame("Media Library");
 		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
-        frame.addWindowListener(new WindowAdapter() {
+        frame.addWindowListener(new WindowAdapter() {//add Window closing handler
             public void windowClosing(WindowEvent e) {
             	Main.close();
             	}
@@ -245,6 +260,7 @@ public class Main implements ActionListener {
 
 	}
 	
+	//POST: Writes currentUser's media database to a serializable file and closes Main window
 	public static void close(){
 		//write UserMedia.ser
 		try{
