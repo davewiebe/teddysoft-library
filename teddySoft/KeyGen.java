@@ -23,9 +23,7 @@ public class KeyGen {
 	// PARAM: username and password
 	// POST: Returns randomized key based on username and password.
 	public String generateKey(String username, String password){
-		
-		
-		
+				
 		// generate key based on username and password.
 		String key = "";
 		int u = 0;
