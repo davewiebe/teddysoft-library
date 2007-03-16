@@ -157,8 +157,7 @@ public class ViewBookGUI implements ActionListener {
 		ratepanel.setLayout(new BoxLayout(ratepanel, BoxLayout.PAGE_AXIS));	
 		ratepanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		ratepanel.setAlignmentY(Component.TOP_ALIGNMENT);
-		ratepanel.setBorder(BorderFactory.createTitledBorder(
-        "Rating"));
+		ratepanel.setBorder(BorderFactory.createTitledBorder("Rating"));
 		
 		//Mid Panel
 		JPanel midpanel = new JPanel();
@@ -235,7 +234,7 @@ public class ViewBookGUI implements ActionListener {
 		descpanel.setBorder(BorderFactory.createTitledBorder(
         "Description"));
 		
-		JTextArea description = new JTextArea(4, 20);
+		JTextArea description = new JTextArea(4, 60);
 		description.setLineWrap(true);
 		description.setText(books.getDescription());
 		description.setEditable(false);
@@ -249,7 +248,7 @@ public class ViewBookGUI implements ActionListener {
 		revpanel.setBorder(BorderFactory.createTitledBorder(
         "Review"));
 				
-		JTextArea review = new JTextArea(4, 20);
+		JTextArea review = new JTextArea(4, 60);
 		review.setLineWrap(true);
 		review.setText(books.getReview());
 		review.setEditable(false);
@@ -263,7 +262,7 @@ public class ViewBookGUI implements ActionListener {
 		citepanel.setBorder(BorderFactory.createTitledBorder(
         "Citation"));
 				
-		JTextArea cite = new JTextArea(1, 70);
+		JTextArea cite = new JTextArea(1, 60);
 		cite.setLineWrap(true);
 		cite.setRows(3);
 		cite.setText(citation.genAPA(books.getAuthor(), books.getPubDate(),
@@ -388,9 +387,9 @@ public class ViewBookGUI implements ActionListener {
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
-        frame.setSize(460,580); // 460 520 // make frame 640x460
+        frame.setSize(460,570); // 460 520 // make frame 640x460
 		frame.setLocationRelativeTo(null); //centers window
-        //frame.pack();
+        frame.pack();
 		frame.setVisible(true);
 
 	}	

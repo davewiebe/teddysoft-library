@@ -1,5 +1,5 @@
 	/*
-	 * 	AddBookGUI.java
+	 * 	AddEditVideoGameGUI.java
 	 * 	
 	 * 	Written by Frankie Yan
 	 * 	Edited by David Wiebe and Jordan McMillan
@@ -16,26 +16,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class AddEditDVDGUI implements ActionListener, ItemListener{
-	private static DVD dvds;
-	private JTextField title, director, year, runningtime, format;
+public class AddEditVideoGameGUI implements ActionListener {
+	private static VideoGame game;
+	private JTextField title, developer, year, maxPlayers;
 	private ButtonGroup ratinggroup;
-	private JComboBox ratedList; 
+	private JComboBox ratedList, platform; 
 	private JButton btnAdd, btnAnother, btnClose;
 	private JButton btnSave, btnCancel;
-	private JCheckBox btnWidescreen;
 	private static JFrame frame;
 	private JTextArea description, review;
 	private JRadioButton oneButton, twoButton, threeButton, fourButton, fiveButton;
 	private static User currentUser;
 	private static int op; //0=add, 1=edit
-	private boolean isWideScreen;
 	
 	public static void setWindowsLook(){
 	    try{
@@ -53,15 +49,31 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 	}	
 	
 	private Component mainWindowComponents() {
-		//String title, String director, String year, String contentRated, 
-		//String runningTime, String format, boolean isWideScreen,  int rating
+		//Platform
+		JLabel platformlabel = new JLabel("Platform:");
+		String[] platforms = { "N/A", "PC", "DS", "GameCube", "GBA", "Wii", "PSP", "PS2", "PS3", "XBox", "XBox 360" };
+		platform = new JComboBox(platforms);
+		platform.setSelectedIndex(0);
+		platform.setMaximumSize(new Dimension(160, 22));
+		platform.setAlignmentX(Component.LEFT_ALIGNMENT);		
+		platform.addActionListener(this);
 		
+		//Rating combo box
+		JLabel ratedlabel = new JLabel("Rated:");
+		String[] rated = { "Not Rated", "EC: Early Childhood", "E: Everyone", "T: Teen", "M: Mature 17+", "AO: Adults Only 18+" };
+		ratedList = new JComboBox(rated);
+		ratedList.setSelectedIndex(0);
+		ratedList.setMaximumSize(new Dimension(160, 22));
+		ratedList.addActionListener(this);
+		ratedList.setAlignmentX(Component.LEFT_ALIGNMENT);	
+		
+		//Information Panel: title, developer, year, maxPlayers;
 		JPanel infopanel = new JPanel();
 		infopanel.setLayout(new BoxLayout(infopanel, BoxLayout.LINE_AXIS));	
 		infopanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		infopanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		infopanel.setBorder(BorderFactory.createTitledBorder(
-        "DVD Information"));
+        "Video Game Information"));
 		
 		//Label Panel
 		JPanel labelpanel = new JPanel();
@@ -75,7 +87,6 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 		textpanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textpanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		
-		//Information Panel: title, director, year, rated, runningtime, format, bool widescreen,rating
 		//Title
 		JLabel titlelabel = new JLabel("Title:");
 		title = new JTextField(20);
@@ -83,49 +94,27 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 		title.setMaximumSize(new Dimension(160, 20));
 		title.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
-		//Director
-		JLabel directorlabel = new JLabel("Director:");
-		director = new JTextField(20);
-		director.setMinimumSize(new Dimension(160, 20));
-		director.setMaximumSize(new Dimension(160, 20));
-		director.setAlignmentX(Component.LEFT_ALIGNMENT);
+		//Developer
+		JLabel developerlabel = new JLabel("Developer:");
+		developer = new JTextField(20);
+		developer.setMinimumSize(new Dimension(160, 20));
+		developer.setMaximumSize(new Dimension(160, 20));
+		developer.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
 		//Year
-		JLabel yearlabel = new JLabel("Year:");
+		JLabel yearlabel = new JLabel("Publishing year:");
 		year = new JTextField(20);
 		year.setMinimumSize(new Dimension(160, 20));
 		year.setMaximumSize(new Dimension(160, 20));
 		year.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
-		//runningtime
-		JLabel runningtimelabel = new JLabel("Running Time:");
-		runningtime = new JTextField(20);
-		runningtime.setMinimumSize(new Dimension(160, 20));
-		runningtime.setMaximumSize(new Dimension(160, 20));
-		runningtime.setAlignmentX(Component.LEFT_ALIGNMENT);
+		//Max players
+		JLabel playerslabel = new JLabel("Max players:");
+		maxPlayers = new JTextField(20);
+		maxPlayers.setMinimumSize(new Dimension(160, 20));
+		maxPlayers.setMaximumSize(new Dimension(160, 20));
+		maxPlayers.setAlignmentX(Component.LEFT_ALIGNMENT);
 		
-		//format
-		JLabel formatlabel = new JLabel("Format:");
-		format = new JTextField(20);
-		format.setMinimumSize(new Dimension(160, 20));
-		format.setMaximumSize(new Dimension(160, 20));
-		format.setAlignmentX(Component.LEFT_ALIGNMENT);
-		
-		//Rating combo box
-		JLabel ratedlabel = new JLabel("Rated:");
-		String[] rated = { "Not Rated", "G", "PG", "PG-13", "R", "NC-17" };
-		ratedList = new JComboBox(rated);
-		ratedList.setSelectedIndex(0);
-		ratedList.setMaximumSize(new Dimension(100, 20));
-		ratedList.addActionListener(this);
-		ratedList.setAlignmentX(Component.LEFT_ALIGNMENT);	
-		
-		//Widescreen checkbox
-		btnWidescreen = new JCheckBox("Widescreen");
-		btnWidescreen.setSelected(false);
-		isWideScreen = false;
-		btnWidescreen.addItemListener(this);
-				
 		//Rating Panel
 		JPanel ratepanel = new JPanel();
 		ratepanel.setLayout(new BoxLayout(ratepanel, BoxLayout.PAGE_AXIS));	
@@ -189,6 +178,7 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 		revpanel.setBorder(BorderFactory.createTitledBorder(
         "Review"));
 
+				
 		review = new JTextArea(6, 20);
 		review.setLineWrap(true);
 		JScrollPane reviewscroll = new JScrollPane(review);
@@ -227,7 +217,7 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 		btnCancel.setMaximumSize(new Dimension(120, 23));
 		btnCancel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		btnCancel.setActionCommand("Cancel");
-		btnCancel.addActionListener(this);				
+		btnCancel.addActionListener(this);		
 		
 		//Main Panel
 		JPanel mainpanel = new JPanel();
@@ -240,76 +230,95 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
                 20) //right
                 );	
 		
+		//AddVideoGame op=0, EditVideoGame op=1
 		if (op == 1){
+			//"N/A", "PC", "DS", "GameCube", "GBA", "Wii", "PSP", "PS2", "PS3", "XBox", "XBox 360"
+			if (game.getPlatform().equals("PC")){
+				platform.setSelectedIndex(1);
+			}else if (game.getPlatform().equals("DS")){
+				platform.setSelectedIndex(2);
+			}else if (game.getPlatform().equals("GameCube")){
+				platform.setSelectedIndex(3);
+			}else if (game.getPlatform().equals("GBA")){
+				platform.setSelectedIndex(4);
+			}else if (game.getPlatform().equals("Wii")){
+				platform.setSelectedIndex(5);
+			}else if (game.getPlatform().equals("PSP")){
+				platform.setSelectedIndex(6);
+			}else if (game.getPlatform().equals("PS2")){
+				platform.setSelectedIndex(7);
+			}else if (game.getPlatform().equals("PS3")){
+				platform.setSelectedIndex(8);
+			}else if (game.getPlatform().equals("XBox")){
+				platform.setSelectedIndex(9);
+			}else if (game.getPlatform().equals("XBox 360")){
+				platform.setSelectedIndex(10);				
+			}else{
+				platform.setSelectedIndex(0);
+			}	
 			
-		    if (dvds.getRating() == 1){
-		    	oneButton.setSelected(true);
-		    }else if (dvds.getRating() == 2){
-		    	twoButton.setSelected(true);
-		    }else if (dvds.getRating() == 3){
-		    	threeButton.setSelected(true);
-		    }else if (dvds.getRating() == 4){
-		    	fourButton.setSelected(true);
-		    }else if (dvds.getRating() == 5){
-		    	fiveButton.setSelected(true);
-		    }			
-		    
-		    btnWidescreen.setSelected(dvds.getIsWideScreen());
-		    isWideScreen = dvds.getIsWideScreen();
-
-		    //"Not Rated", "G", "PG", "PG-13", "R", "NC-17"
-			if (dvds.getContentRated().equals("G")){
+			//"Not Rated", "EC: Early Childhood", "E: Everyone", "T: Teen", "M: Mature 17+", "AO: Adults Only 18+"
+			if (game.getContentRated().equals("EC: Early Childhood")){
 				ratedList.setSelectedIndex(1);
-			}else if (dvds.getContentRated().equals("PG")){
+			}else if (game.getContentRated().equals("E: Everyone")){
 				ratedList.setSelectedIndex(2);
-			}else if (dvds.getContentRated().equals("PG-13")){
+			}else if (game.getContentRated().equals("T: Teen")){
 				ratedList.setSelectedIndex(3);
-			}else if (dvds.getContentRated().equals("R")){
+			}else if (game.getContentRated().equals("M: Mature 17+")){
 				ratedList.setSelectedIndex(4);
-			}else if (dvds.getContentRated().equals("NC-17")){
+			}else if (game.getContentRated().equals("AO: Adults Only 18+")){
 				ratedList.setSelectedIndex(5);
 			}else{
 				ratedList.setSelectedIndex(0);
 			}	
-		    
-			title.setText(dvds.getTitle());
-			director.setText(dvds.getdirector()); 
-			year.setText(dvds.getyear()); 
-			runningtime.setText(dvds.getRunningTime()); 
-			format.setText(dvds.getFormat());
-		    description.setText(dvds.getDescription());
-		    review.setText(dvds.getReview());				
 			
+			//Rating
+		    if (game.getRating() == 1){
+		    	oneButton.setSelected(true);
+		    }else if (game.getRating() == 2){
+		    	twoButton.setSelected(true);
+		    }else if (game.getRating() == 3){
+		    	threeButton.setSelected(true);
+		    }else if (game.getRating() == 4){
+		    	fourButton.setSelected(true);
+		    }else if (game.getRating() == 5){
+		    	fiveButton.setSelected(true);
+		    }
+		    
+		    title.setText(game.getTitle());
+		    developer.setText(game.getdeveloper());
+		    year.setText(game.getyear());
+		    maxPlayers.setText(String.valueOf(game.getMaxPlayers()));
+		    description.setText(game.getDescription());
+		    review.setText(game.getReview());		    
 		}
+
 
 		labelpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		labelpanel.add(titlelabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		labelpanel.add(directorlabel);
+		labelpanel.add(developerlabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(yearlabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		labelpanel.add(runningtimelabel);
+		labelpanel.add(playerslabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
-		labelpanel.add(formatlabel);
+		labelpanel.add(platformlabel);
 		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		labelpanel.add(ratedlabel);
-		labelpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		
 		textpanel.add(title);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		textpanel.add(director);
+		textpanel.add(developer);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(year);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		textpanel.add(runningtime);
+		textpanel.add(maxPlayers);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		textpanel.add(format);
+		textpanel.add(platform);
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(ratedList);
-		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		textpanel.add(btnWidescreen);		
-		
+				
 		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
 		infopanel.add(labelpanel);
 		infopanel.add(Box.createRigidArea(new Dimension(2,0)));
@@ -331,6 +340,7 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 		revpanel.add(reviewscroll);
 				
 		buttonpanel.add(Box.createHorizontalGlue());
+		
 		if (op == 0){
 			buttonpanel.add(btnAdd);
 			buttonpanel.add(btnAnother);
@@ -341,7 +351,6 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 			buttonpanel.add(btnCancel);
 		}
 		
-		//mainpanel.add(Box.createRigidArea(new Dimension(0,100)));
 		mainpanel.add(midpanel);
 		mainpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		mainpanel.add(descpanel);
@@ -353,20 +362,20 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 		return mainpanel;
 	}
 	
-	public void itemStateChanged(ItemEvent e) {
-		Object source = e.getItemSelectable();
-		if (source == btnWidescreen) {
-			isWideScreen = true;
-		  	if (e.getStateChange() == ItemEvent.DESELECTED) {
-	    		isWideScreen = false;
-	     	}
+	public boolean isNumber(String string) {
+		if (string.equals("")) return false;
+		for (int i = 0;i < string.length();i++) {
+			if (!Character.isDigit(string.charAt(i))) {
+		    	return false;
+		    }
 		}
+		return true;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnCancel){
 			frame.dispose();
-		}		
+		}
 		//set rating from 1-5 when button is pressed.
 		int rating = 1;
 		if (oneButton.isSelected() == true){
@@ -385,25 +394,55 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 			rating = 5;
 		}
 		
-		//Set rated when action happens
-		String contentRated = "";
+		////"N/A", "PC", "DS", "GameCube", "GBA", "Wii", "PSP", "PS2", "PS3", "XBox", "XBox 360"
+		String stringplatform = "";
+		if (platform.getSelectedIndex() == 1){
+			stringplatform = "PC";
+		}
+		else if(platform.getSelectedIndex() == 2){
+			stringplatform = "DS";
+		}
+		else if(platform.getSelectedIndex() == 3){
+			stringplatform = "GameCube";
+		}
+		else if(platform.getSelectedIndex() == 4){
+			stringplatform = "GBA";
+		}
+		else if(platform.getSelectedIndex() == 5){
+			stringplatform = "Wii";
+		}
+		else if(platform.getSelectedIndex() == 6){
+			stringplatform = "PSP";
+		}
+		else if(platform.getSelectedIndex() == 7){
+			stringplatform = "PS2";
+		}
+		else if(platform.getSelectedIndex() == 8){
+			stringplatform = "PS3";
+		}
+		else if(platform.getSelectedIndex() == 9){
+			stringplatform = "XBox";
+		}
+		else if(platform.getSelectedIndex() == 0){
+			stringplatform = "XBox 360";
+		}		
+		
+		//"Not Rated", "EC: Early Childhood", "E: Everyone", "T: Teen", "M: Mature 17+", "AO: Adults Only 18+"
+		String stringrating = "";
 		if (ratedList.getSelectedIndex() == 1){
-			contentRated = "G";
+			stringrating = "EC: Early Childhood";
 		}
 		else if(ratedList.getSelectedIndex() == 2){
-			contentRated = "PG";
+			stringrating = "E: Everyone";
 		}
 		else if(ratedList.getSelectedIndex() == 3){
-			contentRated = "PG-13";
+			stringrating = "T: Teen";
 		}
 		else if(ratedList.getSelectedIndex() == 4){
-			contentRated = "R";
+			stringrating = "M: Mature 17+";
 		}
 		else if(ratedList.getSelectedIndex() == 5){
-			contentRated = "NC-17";
-		}
-		else{
-			contentRated = "Not Rated";
+			stringrating = "AO: Adults Only 18+";
 		}
 		
 		// On button Close
@@ -411,33 +450,48 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 			Main.refreshJTable();
 			frame.dispose();
 		}
-		// When DVD is saved
-		else if(e.getSource() == btnSave){
-/*			DVD newDVD = new DVD(title.getText(),director.getText(), year.getText(), contentRated,
-					runningtime.getText(), review.getText(), description.getText(), format.getText(), isWideScreen, rating);*/
-			   
-		    dvds.setTitle(title.getText());
-		    dvds.setDirector(director.getText());
-		    dvds.setYear(year.getText());
-		    dvds.setContedRated(contentRated);
-		    dvds.setRunningTime(runningtime.getText());
-		    dvds.setFormat(format.getText());
-		    dvds.setDescription(description.getText());
-		    dvds.setReview(review.getText());
-		    dvds.setIsWideScreen(isWideScreen);
-		    dvds.setRating(rating);
-			
-		    Main.refreshJTable();
-			frame.dispose();		    
+		
+		int date = 0;
+		if (!isNumber(year.getText())){
+			date = 0;
+		}else{
+			date = Integer.parseInt(year.getText());
 		}
 		
-		// When DVD is Added
+		int players = 0;
+		if (!isNumber(maxPlayers.getText())){
+			players = 0;
+		}else{
+			players = Integer.parseInt(maxPlayers.getText());
+		}
+		
+		//Saves a game (edit game)
+		if(e.getSource() == btnSave){
+/*			VideoGame newGame = new VideoGame(title.getText(),
+					developer.getText(), String.valueOf(date),
+					stringrating, stringplatform, rating, players);*/
+			game.setTitle(title.getText());
+			game.setDeveloper(developer.getText());
+			game.setYear(String.valueOf(date));
+			game.setContedRated(stringrating);
+			game.setPlatform(stringplatform);
+			game.setMaxPlayers(players);
+			game.setRating(rating);
+			game.setDescription(description.getText());
+			game.setReview(review.getText());
+						
+			Main.refreshJTable();
+			frame.dispose();
+		}		
+		
+		// When game is Added
 		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
 						
-			DVD newDVD = new DVD(title.getText(),director.getText(), year.getText(), contentRated,
-					runningtime.getText(), review.getText(), description.getText(), format.getText(), isWideScreen, rating);
+			VideoGame newGame = new VideoGame(title.getText(),
+					developer.getText(), String.valueOf(date),
+					stringrating, stringplatform, description.getText(), review.getText(), rating, players);
 					
-			currentUser.getDB().addDVD(newDVD);
+			currentUser.getDB().addVideoGame(newGame);
 			
 			// If "Add" was pressed
 			if (e.getSource() == btnAdd){
@@ -447,55 +501,54 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 			
 			// If "Add another" was pressed, clear all information
 			title.setText("");
-			director.setText("");
-			runningtime.setText("");
+			developer.setText("");
+			maxPlayers.setText("");
 			year.setText("");
-			format.setText("");
+			maxPlayers.setText("");
 			oneButton.setSelected(true);
 			ratedList.setSelectedIndex(0);
+			platform.setSelectedIndex(0);
 			description.setText("");
 			review.setText("");
-			btnWidescreen.setSelected(false);
-			isWideScreen = false; 
 		}
 	}	
 	
 	// PRE: need a user.
 	// PARAM: User information parameter, so window knows which user it is.
 	// POST: Creates window, will be able to edit users.
-	public static void CreateGUI(User user, DVD currentdvd, int operation){
+	public static void CreateGUI(User user, VideoGame currentgame, int operation){
 	//public static void CreateGUI(){
 		setWindowsLook(); //Set windows decorations
 		currentUser = user;
-		op = operation;
 		//Create and set up the window.
+		op = operation;
 		if (op == 0){
-			frame = new JFrame("Add DVD");
+			frame = new JFrame("Add Video Game");
 		}else{
-			frame = new JFrame("Edit DVD");
-			dvds = currentdvd;
+			frame = new JFrame("Edit Video Game");
+			game = currentgame;
 		}
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-        AddEditDVDGUI app = new AddEditDVDGUI();
+        AddEditVideoGameGUI app = new AddEditVideoGameGUI();
         Component contents = app.mainWindowComponents();
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
-		frame.setSize(460,520); // make frame 640x460
+		frame.setSize(460,580); // make frame 640x460
 		frame.setLocationRelativeTo(null); //centers window
 		frame.pack();
 		frame.setVisible(true);
 
 	}	
 	
-//	public static void main(String[] args){
-//        //Schedule a job for the event-dispatching thread:
-//        //creating and showing this application's GUI.
-//		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-//			public void run(){
-//				CreateGUI();
-//			}
-//		});
-//	}
+	public static void main(String[] args){
+        //Schedule a job for the event-dispatching thread:
+        //creating and showing this application's GUI.
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run(){
+				CreateGUI(null,null,0);
+			}
+		});
+	}
 }

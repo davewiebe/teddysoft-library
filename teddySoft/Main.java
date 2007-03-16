@@ -45,13 +45,14 @@ public class Main implements ActionListener {
 		int DVDTreeLength = currentUser.getDB().getDVDTree().getSize();
 		int VHSTreeLength = currentUser.getDB().getVHSTree().getSize();
 		int VHS_RTreeLength = currentUser.getDB().getVHS_RTree().getSize();
+		int VideoGameTreeLength = currentUser.getDB().getVideoGameTree().getSize();
 		
 		if(type.equals("All")){
 			String[] columnNames = {"Title", "Type", "Rating"};
 			int partition = 0;
 			
 			List = currentUser.getDB().getBooksTree().getTreeElements();
-			data = new Object[BooksTreeLength + DVDTreeLength + VHSTreeLength + VHS_RTreeLength][columnNames.length + 1];
+			data = new Object[BooksTreeLength + DVDTreeLength + VHSTreeLength + VHS_RTreeLength + VideoGameTreeLength][columnNames.length + 1];
 			for(int i=0;i<List.length;i++){
 				Books temp = (Books)List[i];
 				data[partition+i][0] = temp.getTitle();
@@ -87,6 +88,17 @@ public class Main implements ActionListener {
 			List = currentUser.getDB().getVHS_RTree().getTreeElements();
 			for(int i=0;i<List.length;i++){
 				VHS_R temp = (VHS_R)List[i];
+				data[partition+i][0] = temp.getTitle();
+				data[partition+i][1] = temp.getType();
+				Integer tempint = new Integer(temp.getRating());
+				data[partition+i][2] = "" + tempint;
+				data[partition+i][3] = temp; //last column contains reference to object
+			}
+			partition = partition + List.length;
+			
+			List = currentUser.getDB().getVideoGameTree().getTreeElements();
+			for(int i=0;i<List.length;i++){
+				VideoGame temp = (VideoGame)List[i];
 				data[partition+i][0] = temp.getTitle();
 				data[partition+i][1] = temp.getType();
 				Integer tempint = new Integer(temp.getRating());
@@ -161,6 +173,24 @@ public class Main implements ActionListener {
 			
 			table = new JTable(data, columnNames);
 		}
+		
+		else if(type.equals("Video Games")){
+			String[] columnNames = {"Title","Platform","Max Players", "Rating"};
+			
+			List = currentUser.getDB().getVideoGameTree().getTreeElements();
+			data = new Object[VideoGameTreeLength][columnNames.length + 1];
+			for(int i=0;i<List.length;i++){
+				VideoGame temp = (VideoGame)List[i];
+				data[i][0] = temp.getTitle();
+				data[i][1] = temp.getPlatform();
+				data[i][2] = temp.getMaxPlayers();
+				Integer tempint = new Integer(temp.getRating());
+				data[i][3] = "" + tempint;
+				data[i][4] = temp; //last column contains reference to object
+			}
+			table = new JTable(data, columnNames);
+		}
+		
 	}
 		
 	public static void refreshJTable(){
@@ -184,7 +214,7 @@ public class Main implements ActionListener {
 		//Display the window.
 		frame.setSize(640,460); // make frame 640x460
 		frame.setLocationRelativeTo(null); //centers window
-		//frame.pack();
+		frame.pack();
 		frame.setVisible(true);
 
 	}
@@ -253,7 +283,7 @@ public class Main implements ActionListener {
 		combopanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		//Add Entries combo box
-		String[] entryTypes = { "Add New Entry...", "Book", "DVD", "VHS", "VHS_R"};//, "Game", "Recipe", "Music", "Movie" };
+		String[] entryTypes = { "Add New Entry...", "Book", "DVD", "VHS", "VHS_R", "Video Game"};//, "Game", "Recipe", "Music", "Movie" };
 		entrytypeList = new JComboBox(entryTypes);
 		entrytypeList.setSelectedIndex(0);
 		entrytypeList.setMaximumSize(new Dimension(160, 40));
@@ -347,8 +377,8 @@ public class Main implements ActionListener {
 		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		viewpanel.add(btnBooks);
 		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		//viewpanel.add(btnGames);
-		//viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
+		viewpanel.add(btnGames);
+		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		//viewpanel.add(btnRecipes);
 		//viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		//viewpanel.add(btnMusic);
@@ -425,6 +455,8 @@ public class Main implements ActionListener {
 		}
 		else if (e.getActionCommand().equals("Games")){
 			System.out.println("Show Games");
+			tableType = "Video Games";
+			refreshJTable();
 		}
 		else if (e.getActionCommand().equals("Recipes")){
 			System.out.println("Show Recipes");
@@ -459,12 +491,15 @@ public class Main implements ActionListener {
 	        	System.out.println("Add VHS_R");
 	        	AddEditVHS_RGUI.CreateGUI(currentUser, (VHS_R) null, 0);
 	        }
+	        else if (temp.getSelectedIndex() == 5){
+	        	System.out.println("Add Video Game");
+	        	AddEditVideoGameGUI.CreateGUI(currentUser, (VideoGame) null, 0);
+	        }
 /*	        else if (temp.getSelectedIndex() == 3){
 	        	System.out.println("Add Recipe");}
 	        else if (temp.getSelectedIndex() == 4){
 	        	System.out.println("Add Music");}
-	        else if (temp.getSelectedIndex() == 5){
-	        	System.out.println("Add Movie");}*/
+*/
 		}
 		//deleteing a medium from table
 		else if (e.getActionCommand().equals("Delete")){
@@ -490,6 +525,11 @@ public class Main implements ActionListener {
 				System.out.println("Delete VHS_R");
 				Main.refreshJTable();
 			}
+			else if (classType.equals("class teddySoft.VideoGame")){
+				currentUser.getDB().getVideoGameTree().RBTreeRemove(((VideoGame) data[table.getSelectedRow()][table.getColumnCount()]));
+				System.out.println("Delete VideoGame");
+				Main.refreshJTable();
+			}
 			
 		}
 		//editing a medium from table
@@ -510,6 +550,9 @@ public class Main implements ActionListener {
 			else if (classType.equals("class teddySoft.VHS_R")){
 				AddEditVHS_RGUI.CreateGUI(currentUser,(VHS_R) data[table.getSelectedRow()][table.getColumnCount()], 1);
 			}
+			else if (classType.equals("class teddySoft.VideoGame")){
+				AddEditVideoGameGUI.CreateGUI(currentUser,(VideoGame) data[table.getSelectedRow()][table.getColumnCount()], 1);
+			}
 			
 		}
 		//view a medium from table
@@ -527,6 +570,9 @@ public class Main implements ActionListener {
 				}
 				else if (classType.equals("class teddySoft.VHS_R")){
 					ViewVHS_RGUI.CreateGUI((VHS_R) data[table.getSelectedRow()][table.getColumnCount()]);
+				}
+				else if (classType.equals("class teddySoft.VideoGame")){
+					ViewVideoGameGUI.CreateGUI((VideoGame) data[table.getSelectedRow()][table.getColumnCount()]);
 				}
 				
 			}
