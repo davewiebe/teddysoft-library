@@ -16,31 +16,48 @@ package teddySoft;
 public class GenCitation {
 
 	
-	public String genAPA(String author, String year, String title, String place, String publisher, String edition){
-	
-		
+	public static String genAPA(String author, String year, String title, String place, String publisher, String edition){
 		String apa = "";
-		String citeauthor = citeAuthor(author);
-		if (citeauthor.compareTo("") == 0){
-			apa = apa +
-				citeTitle(title) +
-				citeEdition(edition) +
-				citeYear(year) +
-				citePlace(place) +
-				citePublisher(publisher);
-			// return citation without author
-			return apa;
+		String citeAuthor = citeAuthor(author).trim();
+		if (citeAuthor.equalsIgnoreCase("")){
+			if(!citeTitle(title).equalsIgnoreCase("")){
+				apa += citeTitle(title);
+				if(!citeEdition(edition).equalsIgnoreCase("")){
+					apa += " (" + citeEdition(edition) + " ed.)";
+				}	
+				apa += ". ";
+			}
+			if (!citeYear(year).equalsIgnoreCase("")){
+				apa += "(" + citeYear(year) + "). ";
+			}
 		}
 		else {
-			apa = apa +
-				citeAuthor(author) + 
-				citeYear(year) + 
-				citeTitle(title) + " " + 
-				citeEdition(edition) +
-				citePlace(place) + 
-				citePublisher(publisher);
-			return apa;
+			apa += citeAuthor + " ";
+			if (!citeYear(year).equalsIgnoreCase("")){
+				apa += "(" + citeYear(year) + "). ";
+			}
+			if (!citeTitle(title).equalsIgnoreCase("")){
+				apa += citeTitle(title);
+				if(!citeEdition(edition).equalsIgnoreCase("")){
+					apa += " (" + citeEdition(edition) + " ed.)";
+				}	
+				apa += ". ";
+			}
 		}
+		
+		if (!citePlace(place).equalsIgnoreCase("")){
+			apa += citePlace(place);
+			if (!citePublisher(publisher).equalsIgnoreCase("")){
+				apa += ": " + citePublisher(publisher);
+			}
+			apa += ". ";
+		}
+		else{
+			if (!citePublisher(publisher).equalsIgnoreCase("")){
+				apa += citePublisher(publisher) + ". ";
+			}
+		}// return citation without author
+		return apa;
 	}
 
 	private static String citeAuthor(String author){
@@ -156,83 +173,219 @@ public class GenCitation {
 		
 	}
 	
-	private static void citeAuthorTest(String author){
+	private static void testCiteAuthorHelper(String author){
 		System.out.println(author + " == " + citeAuthor(author));
 	}
 	
 	public static void main(String []args){
-		testCiteAuthor();
+		//testCiteAuthor();
+		//testCiteEdition();
+		//testGenAPA();
 		
 	}
+	
+	private static void testCiteEdition(){
+		testCiteEdtionHelper("3");
+		testCiteEdtionHelper("3rd");
+		testCiteEdtionHelper("third");
+		testCiteEdtionHelper("36th");
+		testCiteEdtionHelper("34");
+		testCiteEdtionHelper("33");
+		testCiteEdtionHelper("35478587854857841");
+		testCiteEdtionHelper("1");
+		testCiteEdtionHelper("0");
+		testCiteEdtionHelper(" ");
+		testCiteEdtionHelper("Twenty Fifth");
+		testCiteEdtionHelper("dsfdagsgdsffdgshtrgyhtd");
+		testCiteEdtionHelper("David Wiebe");
+		testCiteEdtionHelper("-3");
+		testCiteEdtionHelper("fourteenth");
+		testCiteEdtionHelper("Fourteen");
+		
+	}
+	
+	private static void testCiteEdtionHelper(String edition){
+		System.out.println(edition + " == " + citeEdition(edition));
+	}
+	
+	private static void testGenAPA(){
+		//genAPA(String author, String year, String title, String place, String publisher, String edition)
+		testGenAPAHelper("Dave Wiebe", "1996", "Title of the book here.", "New Jersey", "Apple Books Publishing Ltd", "ThIRD edition");
+		testGenAPAHelper("", "1996", "Title of the book here.", "New Jersey", "Apple Books Publishing Ltd", "ThIRD edition");
+		testGenAPAHelper("Dave Wiebe", "", "Title of the book here.", "New Jersey", "Apple Books Publishing Ltd", "ThIRD edition");
+		testGenAPAHelper("Dave Wiebe", "1996", "", "New Jersey", "Apple Books Publishing Ltd", "ThIRD edition");
+		testGenAPAHelper("Dave Wiebe", "1996", "Title of the book here.", "", "Apple Books Publishing Ltd", "ThIRD edition");
+		testGenAPAHelper("Dave Wiebe", "1996", "Title of the book here.", "New Jersey", "", "ThIRD edition");
+		testGenAPAHelper("Dave Wiebe", "1996", "Title of the book here.", "New Jersey", "Apple Books Publishing Ltd", "");
+		testGenAPAHelper("", "", "", "", "", "");
+		testGenAPAHelper("Dave Wiebe; Jordan McMillan; Chen, Lisa A.", "1996", "Title of the book here.", "New Jersey", "Apple Books Publishing Ltd", "ThIRD edition");
+		
+		}
+	
+	private static void testGenAPAHelper(String author, String year, String title, String place, String publisher, String edition){
+		System.out.println(author +" - "+ year +" - "+ title +" - "+ place +" - "+ publisher +" - "+ edition);
+		System.out.println(genAPA(author, year, title, place, publisher, edition));
+		System.out.println();		
+	}
+	
 	
 	private static void testCiteAuthor(){
-		citeAuthorTest("Fanna  Williamson   Jr.");
-		citeAuthorTest("Williamson, Fanna  jr  ");
-		citeAuthorTest("Fanna JR. Williamson   ");
-		citeAuthorTest("Williamson F  Jr.      ");
-		citeAuthorTest("Williamson, F  Jr.     ");
-		citeAuthorTest("Williamson, jr F       ");
+		testCiteAuthorHelper("Fanna  Williamson   Jr.");
+		testCiteAuthorHelper("Williamson, Fanna  jr  ");
+		testCiteAuthorHelper("Fanna JR. Williamson   ");
+		testCiteAuthorHelper("Williamson F  Jr.      ");
+		testCiteAuthorHelper("Williamson, F  Jr.     ");
+		testCiteAuthorHelper("Williamson, jr F       ");
 		
-		citeAuthorTest("");
-		citeAuthorTest("Fds sfds fds fsdf dsf df");
-		citeAuthorTest("David Andrew Wiebe");
-		citeAuthorTest("04593 9305 39053943");
+		testCiteAuthorHelper("");
+		testCiteAuthorHelper("Fds sfds fds fsdf dsf df");
+		testCiteAuthorHelper("David Andrew Wiebe");
+		testCiteAuthorHelper("04593 9305 39053943");
 		
-		citeAuthorTest("Fanna A. Williamson   Jr. ");
-		citeAuthorTest("Williamson, Fanna A jr    ");
-		citeAuthorTest("Fanna A JR. Williamson    ");
-		citeAuthorTest("F A Williamson Jr.        ");
-		citeAuthorTest("Williamson, F A.  Jr.     ");
-		citeAuthorTest("Williamson, A, jr F       ");
+		testCiteAuthorHelper("Fanna A. Williamson   Jr. ");
+		testCiteAuthorHelper("Williamson, Fanna A jr    ");
+		testCiteAuthorHelper("Fanna A JR. Williamson    ");
+		testCiteAuthorHelper("F A Williamson Jr.        ");
+		testCiteAuthorHelper("Williamson, F A.  Jr.     ");
+		testCiteAuthorHelper("Williamson, A, jr F       ");
 
-		citeAuthorTest("Fanna A. Williamson   Jr. ; David A Wiebe");
-		citeAuthorTest("Williamson, Fanna A jr; Dave Wiebe, A.    ");
-		citeAuthorTest("Fanna A JR. Williamson ; D Wiebe ; Mcmillan, Jordan");
-		citeAuthorTest("F A Williamson Jr.        ");
-		citeAuthorTest("Williamson, F A.  Jr.     ");
-		citeAuthorTest(" D Wiebe    ");
-		citeAuthorTest(" Dave Wiebe    ");
-		citeAuthorTest(" Dave Wiebe, A.   ");
-		citeAuthorTest(" Wiebe D A   ");
-		citeAuthorTest(" Wiebe D   ");
+		testCiteAuthorHelper("Fanna A. Williamson   Jr. ; David A Wiebe");
+		testCiteAuthorHelper("Williamson, Fanna A jr; Dave Wiebe, A.    ");
+		testCiteAuthorHelper("Fanna A JR. Williamson ; D Wiebe ; Mcmillan, Jordan");
+		testCiteAuthorHelper("F A Williamson Jr.        ");
+		testCiteAuthorHelper("Williamson, F A.  Jr.     ");
+		testCiteAuthorHelper(" D Wiebe    ");
+		testCiteAuthorHelper(" Dave Wiebe    ");
+		testCiteAuthorHelper(" Dave Wiebe, A.   ");
+		testCiteAuthorHelper(" Wiebe D A   ");
+		testCiteAuthorHelper(" Wiebe D   ");
 	}
 	
-	private String citeYear(String year){
-		if (year.compareTo("") == 0 || year.compareTo(" ")==0){
-			return "";
+	private static String citeYear(String year){
+		year = year.trim();
+		if(year.endsWith(",") || year.endsWith(".")){
+			year = year.substring(0, year.length()-1);
 		}
-		else {
-			return ("("+year+"). ");
+		return year;
+	}
+	
+	private static String citeTitle(String title){		
+		title = title.trim();
+		if(title.endsWith(",") || title.endsWith(".")){
+			title = title.substring(0, title.length()-1);
 		}
+		return title;
 	}
 	
-	private String citeTitle(String title){		
-		if(title.endsWith(". "))
-			return title;
-		else
-			return (title);
-	}
-	
-	private String citePlace(String place){
+	private static String citePlace(String place){
+		place = place.trim();
+		if(place.endsWith(",") || place.endsWith(".")){
+			place = place.substring(0, place.length()-1);
+		}
 		return place;
 	}
 	
-	private String citePublisher(String publisher){
-		
-		if (publisher.compareTo("") != 0 || publisher.compareTo(" ") != 0){
-			return ": " + publisher;
+	private static String citePublisher(String publisher){
+		publisher = publisher.trim();
+		if(publisher.endsWith(",") || publisher.endsWith(".")){
+			publisher = publisher.substring(0, publisher.length()-1);
 		}
-		else{
-			return "";
-		}
+		return publisher;
 	}
 
-	private String citeEdition(String edition){
-		if (edition.compareTo("") != 0 || edition.compareTo(" ") != 0){
-			return "("+edition+"). ";
+	private static String citeEdition(String edition){
+		edition = edition.trim();
+		if(edition.endsWith(",") || edition.endsWith(".")){
+			edition = edition.substring(0, edition.length()-1);
+		}
+		if(edition.equalsIgnoreCase(""))
+		{
+			return "";
+		}
+		else if(edition.startsWith("1st") || edition.startsWith("1ST") || edition.equalsIgnoreCase("1") || edition.equalsIgnoreCase("first")){
+			return "1st";
+		}
+		else if(edition.startsWith("2nd") || edition.startsWith("2ND") || edition.equalsIgnoreCase("2") || edition.equalsIgnoreCase("second")){
+			return "2nd";
+		}
+		else if(edition.startsWith("3rd") || edition.startsWith("3RD") || edition.equalsIgnoreCase("3") || edition.equalsIgnoreCase("third")){
+			return "3rd";
 		}
 		else{
-			return "";
+			String[] editionSplit = edition.split(" ");
+			
+			if(editionSplit[0].equalsIgnoreCase("first")){
+				return "1st";
+			}
+			else if(editionSplit[0].equalsIgnoreCase("second")){
+				return "2nd";
+			}
+			else if(editionSplit[0].equalsIgnoreCase("third")){
+				return "3rd";
+			}
+			else if(editionSplit[0].equalsIgnoreCase("fourth")){
+				return "4th";
+			}
+			else if(editionSplit[0].equalsIgnoreCase("fifth")){
+				return "5th";
+			}
+			else if(editionSplit[0].equalsIgnoreCase("sixth")){
+				return "6th";
+			}
+			else if(editionSplit[0].equalsIgnoreCase("seventh")){
+				return "7th";
+			}
+			else if(editionSplit[0].equalsIgnoreCase("eighth")){
+				return "8th";
+			}
+			else if(editionSplit[0].equalsIgnoreCase("ninth")){
+				return "9th";
+			}
+			else if(editionSplit[0].equalsIgnoreCase("tenth")){
+				return "10th";
+			}
+			else if(editionSplit[0].equalsIgnoreCase("eleventh")){
+				return "11th";
+			}
+			else if(editionSplit[0].equalsIgnoreCase("twelveth")){
+				return "12th";
+			}
+			else if(editionSplit[0].equalsIgnoreCase("thirteenth")){
+				return "13th";
+			}
+			else if(editionSplit[0].equalsIgnoreCase("fourteenth")){
+				return "14th";
+			}
+			else if(editionSplit[0].endsWith("st") || editionSplit[0].endsWith("ST") || editionSplit[0].endsWith("St")){
+				return editionSplit[0].substring(0, editionSplit[0].length()-2) + "st";
+			}
+			else if(editionSplit[0].endsWith("ND") || editionSplit[0].endsWith("nd")|| editionSplit[0].endsWith("nD")){
+				return editionSplit[0].substring(0, editionSplit[0].length()-2) + "nd";
+			}
+			else if(editionSplit[0].endsWith("rd") || editionSplit[0].endsWith("RD")|| editionSplit[0].endsWith("Rd")){
+				return editionSplit[0].substring(0, editionSplit[0].length()-2) + "rd";
+			}
+			else if(editionSplit[0].endsWith("th") || editionSplit[0].endsWith("TH") || editionSplit[0].endsWith("Th")){
+				return editionSplit[0].substring(0, editionSplit[0].length()-2) + "th";
+			}
+			else if(editionSplit[0].endsWith("1")){
+				return editionSplit[0] + "st";
+			}
+			else if(editionSplit[0].endsWith("2")){
+				return editionSplit[0] + "nd";
+			}
+			else if(editionSplit[0].endsWith("3")){
+				return editionSplit[0] + "rd";
+			}
+			else if(editionSplit[0].endsWith("4") || editionSplit[0].endsWith("5") ||
+					editionSplit[0].endsWith("6") || editionSplit[0].endsWith("7") || 
+					editionSplit[0].endsWith("8") || editionSplit[0].endsWith("9") || 
+					editionSplit[0].endsWith("0")){
+				return editionSplit[0] + "th";
+			}			
+			else{
+				return edition;
+			}
 		}
 	}
 	
