@@ -13,6 +13,7 @@
 
 package teddySoft;
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.FileInputStream;
@@ -27,8 +28,9 @@ public class Main implements ActionListener {
 	private static String tableType = "All"; //initialized to show all media
 	private static JTable table;
 	private JButton btnView, btnEdit, btnDelete, btnAll, btnBooks, btnRecipes, btnGames,
-		btnMusic, btnMovies, btnExit, btnLogOut;
-		JComboBox entrytypeList;
+		btnMusic, btnMovies, btnExit, btnLogOut, btnSearch;
+		JComboBox entrytypeList, searchtypeList;
+		JTextField searchfield;
 	private static User currentUser;
 	private static JFrame frame;
 	private static Object[][] data;
@@ -253,9 +255,9 @@ public class Main implements ActionListener {
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
-		frame.setSize(640,460); // make frame 640x460
+        frame.setSize(640,460); // make frame 640x460
+        frame.pack();
 		frame.setLocationRelativeTo(null); //centers window
-		frame.pack();
 		frame.setVisible(true);
 
 	}
@@ -378,7 +380,7 @@ public class Main implements ActionListener {
 		//Table Panel
 		JPanel tablepanel = new JPanel();
 		tablepanel.setLayout(new BoxLayout(tablepanel, BoxLayout.PAGE_AXIS));	
-		topleftpanel.setAlignmentX(Component.CENTER_ALIGNMENT);	
+		//tablepanel.setAlignmentX(Component.LEFT_ALIGNMENT);	
 		
 		//Table
 		getTable(tableType);
@@ -390,6 +392,30 @@ public class Main implements ActionListener {
 		JPanel bottompanel = new JPanel();
 		bottompanel.setLayout(new BoxLayout(bottompanel, BoxLayout.LINE_AXIS));	
 		//topleftpanel.setAlignmentX(Component.LEFT_ALIGNMENT);		
+		
+		//Search Panel
+		JPanel searchpanel = new JPanel();
+		searchpanel.setLayout(new BoxLayout(searchpanel, BoxLayout.LINE_AXIS));	
+		//searchpanel.setAlignmentX(Component.LEFT_ALIGNMENT);	
+		
+		//Add Entries combo box
+		String[] searchTypes = { "All", "Book", "DVD", "Recipe", "VHS", "VHS_R", "Video Game"};//, "Music" };
+		searchtypeList = new JComboBox(searchTypes);
+		searchtypeList.setSelectedIndex(0);
+		searchtypeList.setMaximumSize(new Dimension(100, 40));
+		searchtypeList.setActionCommand("SearchType");
+		searchtypeList.addActionListener(this);
+		
+		//Search field
+		searchfield = new JTextField(40);
+		searchfield.setMinimumSize(new Dimension(120, 20));
+		searchfield.setMaximumSize(new Dimension(120, 20));	
+		
+		//Search button 
+		btnSearch = new JButton("Search");
+		btnSearch.setMaximumSize(new Dimension(80, 23));
+		btnSearch.setActionCommand("Search");
+		btnSearch.addActionListener(this);		
 		
 		//Logout button 
 		btnExit = new JButton("Exit");
@@ -440,12 +466,23 @@ public class Main implements ActionListener {
 		//tablepanel.add(table.getTableHeader());
 		//tablepanel.add(table);
 		tablepanel.add(scrollPane);
+		
+		searchpanel.add(searchtypeList);
+		searchpanel.add(Box.createRigidArea(new Dimension(5,0)));
+		searchpanel.add(searchfield);
+		searchpanel.add(Box.createRigidArea(new Dimension(5,0)));
+		searchpanel.add(btnSearch);
+		searchpanel.add(Box.createHorizontalGlue());
+		
 		bottompanel.add(Box.createHorizontalGlue());
 		bottompanel.add(btnLogOut);
+		bottompanel.add(Box.createRigidArea(new Dimension(5,0)));
 		bottompanel.add(btnExit);		
 		
 		rightpanel.add(tablepanel);
-		rightpanel.add(Box.createRigidArea(new Dimension(0,30)));		
+		rightpanel.add(Box.createRigidArea(new Dimension(0,10)));	
+		rightpanel.add(searchpanel);
+		rightpanel.add(Box.createRigidArea(new Dimension(0,10)));
 		rightpanel.add(bottompanel);
 		
 		//Main Panel
