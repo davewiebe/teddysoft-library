@@ -88,7 +88,7 @@ public class VHS implements Serializable, Comparable {
 		
 		//toString
 		public String toString(){
-			String dataDump = title+" "+director+" "+year+" "+contentRated+" "+runningTime+" "+rating;
+			String dataDump = " "+title+" "+director+" "+year+" "+contentRated+" "+runningTime+" "+rating+" ";
 			dataDump=dataDump.toLowerCase();
 			return dataDump;
 		}

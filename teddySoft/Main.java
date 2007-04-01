@@ -76,39 +76,227 @@ public class Main implements ActionListener {
 		}
 	}
 	
-	public static void search(int mediaType, String keyword){
+	public static void search(int mediaType, String textFeild){
 		//mediaTypes All, Book, DVD, Recipe, VHS, VHS_R, Video Game
-		
+
 		int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
 		int DVDTreeLength = currentUser.getDB().getDVDTree().getSize();
 		int VHSTreeLength = currentUser.getDB().getVHSTree().getSize();
 		int VHS_RTreeLength = currentUser.getDB().getVHS_RTree().getSize();
 		int VideoGameTreeLength = currentUser.getDB().getVideoGameTree().getSize();
 		int RecipeTreeLength = currentUser.getDB().getRecipeTree().getSize();
-		
-		if(mediaType==1){
+
+		if(mediaType==0){ //all
+			int partition = 0;
+			String[] columnNames = {"Title", "Type", "Rating"};
+			int count=-1; //counts how many elements in List are not equal to null pointers
+			data = new Object[BooksTreeLength + DVDTreeLength + VHSTreeLength + VHS_RTreeLength + VideoGameTreeLength + RecipeTreeLength][columnNames.length + 1];
 			
+			List = currentUser.getDB().getBooksTree().searchTreeElements(textFeild);
+			while(count+1<List.length && List[count+1]!=null) count++; //while next element is not null or end of list, increment count
+			count++; //zero based indexing correction
+			for(int i=0;(i<count);i++){
+				Books temp = (Books)List[i];
+				data[partition+i][0] = temp.getTitle();
+				data[partition+i][1] = temp.getType();
+				Integer tempint = new Integer(temp.getRating());
+				data[partition+i][2] = "" + tempint;
+				data[partition+i][3] = temp; //last column contains reference to object
+			}
+			partition = partition+count;
+			
+			count=-1; //counts how many elements in List are not equal to null pointers
+			List = currentUser.getDB().getDVDTree().searchTreeElements(textFeild);
+			while(count+1<List.length && List[count+1]!=null) count++; //while next element is not null or end of list, increment count
+			count++; //zero based indexing correction
+			for(int i=0;(i<count);i++){
+				DVD temp = (DVD)List[i];
+				data[partition+i][0] = temp.getTitle();
+				data[partition+i][1] = temp.getType();
+				Integer tempint = new Integer(temp.getRating());
+				data[partition+i][2] = "" + tempint;
+				data[partition+i][3] = temp; //last column contains reference to object
+			}
+			partition = partition+count;
+			
+			count=-1; //counts how many elements in List are not equal to null pointers
+			List = currentUser.getDB().getRecipeTree().searchTreeElements(textFeild);
+			while(count+1<List.length && List[count+1]!=null) count++; //while next element is not null or end of list, increment count
+			count++; //zero based indexing correction
+			for(int i=0;(i<count);i++){
+				Recipe temp = (Recipe)List[i];
+				data[partition+i][0] = temp.getTitle();
+				data[partition+i][1] = temp.getType();
+				Integer tempint = new Integer(temp.getRating());
+				data[partition+i][2] = "" + tempint;
+				data[partition+i][3] = temp; //last column contains reference to object
+			}
+			partition = partition+count;
+			
+			count=-1; //counts how many elements in List are not equal to null pointers
+			List = currentUser.getDB().getVHSTree().searchTreeElements(textFeild);
+			while(count+1<List.length && List[count+1]!=null) count++; //while next element is not null or end of list, increment count
+			count++; //zero based indexing correction
+			for(int i=0;(i<count);i++){
+				VHS temp = (VHS)List[i];
+				data[partition+i][0] = temp.getTitle();
+				data[partition+i][1] = temp.getType();
+				Integer tempint = new Integer(temp.getRating());
+				data[partition+i][2] = "" + tempint;
+				data[partition+i][3] = temp; //last column contains reference to object
+			}
+			partition = partition+count;
+			
+			count=-1; //counts how many elements in List are not equal to null pointers
+			List = currentUser.getDB().getVHS_RTree().searchTreeElements(textFeild);
+			while(count+1<List.length && List[count+1]!=null) count++; //while next element is not null or end of list, increment count
+			count++; //zero based indexing correction
+			for(int i=0;(i<count);i++){
+				VHS_R temp = (VHS_R)List[i];
+				data[partition+i][0] = temp.getTitle();
+				data[partition+i][1] = temp.getType();
+				Integer tempint = new Integer(temp.getRating());
+				data[partition+i][2] = "" + tempint;
+				data[partition+i][3] = temp; //last column contains reference to object
+			}
+			partition = partition+count;
+			
+			count=-1; //counts how many elements in List are not equal to null pointers
+			List = currentUser.getDB().getVideoGameTree().searchTreeElements(textFeild);
+			while(count+1<List.length && List[count+1]!=null) count++; //while next element is not null or end of list, increment count
+			count++; //zero based indexing correction
+			for(int i=0;(i<count);i++){
+				VideoGame temp = (VideoGame)List[i];
+				data[partition+i][0] = temp.getTitle();
+				data[partition+i][1] = temp.getType();
+				Integer tempint = new Integer(temp.getRating());
+				data[partition+i][2] = "" + tempint;
+				data[partition+i][3] = temp; //last column contains reference to object
+			}
+			partition = partition+count;
+			
+			count = -1;
+			while(count+1<data.length && data[count+1][3]!=null) count++;
+			count++;
+			Object[][] dataShortened = new Object[count][columnNames.length + 1];
+			for(int i=0;(i<count);i++){
+				dataShortened[i][0]=data[i][0];
+				dataShortened[i][1]=data[i][1];
+				dataShortened[i][2]=data[i][2];
+				dataShortened[i][3]=data[i][3];
+			}
+			table = new JTable(dataShortened, columnNames);
+
 		}
-		else if(mediaType==2){
-			String[] columnNames = {"Title","Director","Year","Type", "Rating"};
-			List = currentUser.getDB().getDVDTree().searchTreeElements(keyword);
-			int count=0;
-			for(int i=0;List[i]!=null;i++)
-				count++;
+		else if(mediaType==1){ //Books
+			int count=-1; //counts how many elements in List are not equal to null pointers
+			String[] columnNames = {"Title","Author","Genre", "Rating"};
+			List = currentUser.getDB().getBooksTree().searchTreeElements(textFeild);
+			while(count+1<List.length && List[count+1]!=null) count++; //while next element is not null or end of list, increment count
+			count++; //zero based indexing correction
 			data = new Object[count][columnNames.length + 1];
-			//System.out.println("length is "+List.length);
-			for(int i=0;i<count;i++){
+			for(int i=0;(i<count);i++){
+				Books temp = (Books)List[i];
+				data[i][0] = temp.getTitle();
+				data[i][1] = temp.getAuthor();
+				data[i][2] = temp.getGenre();
+				Integer tempint = new Integer(temp.getRating());
+				data[i][3] = "" + tempint;
+				data[i][4] = temp; //last column contains reference to object
+			}
+			table = new JTable(data, columnNames);
+		}
+		else if(mediaType==2){ //DVD
+			int count=-1; //counts how many elements in List are not equal to null pointers
+			String[] columnNames = {"Title","Director","Year","Content", "Rating"};
+			//List = new Comparable[currentUser.getDB().getDVDTree().getSize()];
+			List = currentUser.getDB().getDVDTree().searchTreeElements(textFeild);
+			while(count+1<List.length && List[count+1]!=null) count++; //while next element is not null or end of list, increment count
+			count++; //zero based indexing correction
+			data = new Object[count][columnNames.length + 1];
+			System.out.println(List.length+" "+count);
+			for(int i=0;(i<count);i++){
 				DVD temp = (DVD)List[i];
 				data[i][0] = temp.getTitle();
 				data[i][1] = temp.getdirector();
 				data[i][2] = temp.getyear();
-				data[i][3] = temp.getType();
+				data[i][3] = temp.getContentRated();
 				Integer tempint = new Integer(temp.getRating());
 				data[i][4] = "" + tempint;
 				data[i][5] = temp; //last column contains reference to object
 			}
-			
-			
+			table = new JTable(data, columnNames);
+		}
+		else if(mediaType==3){ //Recipe
+			int count=-1; //counts how many elements in List are not equal to null pointers
+			String[] columnNames = {"Title","Rating"};
+			List = currentUser.getDB().getRecipeTree().searchTreeElements(textFeild);
+			while(count+1<List.length && List[count+1]!=null) count++; //while next element is not null or end of list, increment count
+			count++; //zero based indexing correction
+			data = new Object[count][columnNames.length + 1];
+			for(int i=0;(i<count);i++){
+				Recipe temp = (Recipe)List[i];
+				data[i][0] = temp.getTitle();
+				Integer tempint = new Integer(temp.getRating());
+				data[i][1] = "" + tempint;
+				data[i][2] = temp; //last column contains reference to object
+			}
+			table = new JTable(data, columnNames);
+		}
+		else if(mediaType==4){ //VHS
+			int count=-1; //counts how many elements in List are not equal to null pointers
+			String[] columnNames = {"Title","Director","Year","Content", "Rating"};
+			List = currentUser.getDB().getVHSTree().searchTreeElements(textFeild);
+			while(count+1<List.length && List[count+1]!=null) count++; //while next element is not null or end of list, increment count
+			count++; //zero based indexing correction
+			data = new Object[count][columnNames.length + 1];
+			for(int i=0;(i<count);i++){
+				VHS temp = (VHS)List[i];
+				data[i][0] = temp.getTitle();
+				data[i][1] = temp.getdirector();
+				data[i][2] = temp.getyear();
+				data[i][3] = temp.getContentRated();
+				Integer tempint = new Integer(temp.getRating());
+				data[i][4] = "" + tempint;
+				data[i][5] = temp; //last column contains reference to object
+			}
+			table = new JTable(data, columnNames);
+		}
+		else if(mediaType==5){ //VHS_R
+			int count=-1; //counts how many elements in List are not equal to null pointers
+			String[] columnNames = {"Title","Director","Year","Content", "Rating"};
+			List = currentUser.getDB().getVHS_RTree().searchTreeElements(textFeild);
+			while(count+1<List.length && List[count+1]!=null) count++; //while next element is not null or end of list, increment count
+			count++; //zero based indexing correction
+			data = new Object[count][columnNames.length + 1];
+			for(int i=0;(i<count);i++){
+				VHS_R temp = (VHS_R)List[i];
+				data[i][0] = temp.getTitle();
+				data[i][1] = temp.getdirector();
+				data[i][2] = temp.getyear();
+				data[i][3] = temp.getContentRated();
+				Integer tempint = new Integer(temp.getRating());
+				data[i][4] = "" + tempint;
+				data[i][5] = temp; //last column contains reference to object
+			}
+			table = new JTable(data, columnNames);
+		}
+		else if(mediaType==6){ //VideoGame
+			int count=-1; //counts how many elements in List are not equal to null pointers
+			String[] columnNames = {"Title","Platform","Max Players", "Rating"};
+			List = currentUser.getDB().getVideoGameTree().searchTreeElements(textFeild);
+			while(count+1<List.length && List[count+1]!=null) count++; //while next element is not null or end of list, increment count
+			count++; //zero based indexing correction
+			data = new Object[count][columnNames.length + 1];
+			for(int i=0;(i<count);i++){
+				VideoGame temp = (VideoGame)List[i];
+				data[i][0] = temp.getTitle();
+				data[i][1] = temp.getPlatform();
+				data[i][2] = temp.getMaxPlayers();
+				Integer tempint = new Integer(temp.getRating());
+				data[i][3] = "" + tempint;
+				data[i][4] = temp; //last column contains reference to object
+			}
 			table = new JTable(data, columnNames);
 		}
 	}
@@ -205,7 +393,6 @@ public class Main implements ActionListener {
 		
 		else if(type.equals("Books")){ //create table of books
 			String[] columnNames = {"Title","Author","Genre", "Rating"};
-			
 			//Add book objects to table
 			List = currentUser.getDB().getBooksTree().getTreeElements();
 			data = new Object[BooksTreeLength][columnNames.length + 1];
@@ -222,7 +409,7 @@ public class Main implements ActionListener {
 		}
 		
 		else if(type.equals("Movies")){ //create table of DVDs, VHSs, and VHS_Rs
-			String[] columnNames = {"Title","Director","Year","Type", "Rating"};
+			String[] columnNames = {"Title","Director","Year","Content", "Rating"};
 			int partition = 0; //keeps track of how many rows of the Jtable are already occupied with data
 			
 			//Add DVD objects to table
@@ -233,7 +420,7 @@ public class Main implements ActionListener {
 				data[partition+i][0] = temp.getTitle();
 				data[partition+i][1] = temp.getdirector();
 				data[partition+i][2] = temp.getyear();
-				data[partition+i][3] = temp.getType();
+				data[partition+i][3] = temp.getContentRated();
 				Integer tempint = new Integer(temp.getRating());
 				data[partition+i][4] = "" + tempint;
 				data[partition+i][5] = temp; //last column contains reference to object
@@ -247,7 +434,7 @@ public class Main implements ActionListener {
 				data[partition+i][0] = temp.getTitle();
 				data[partition+i][1] = temp.getdirector();
 				data[partition+i][2] = temp.getyear();
-				data[partition+i][3] = temp.getType();
+				data[partition+i][3] = temp.getContentRated();
 				Integer tempint = new Integer(temp.getRating());
 				data[partition+i][4] = "" + tempint;
 				data[partition+i][5] = temp; //last column contains reference to object
@@ -261,7 +448,7 @@ public class Main implements ActionListener {
 				data[partition+i][0] = temp.getTitle();
 				data[partition+i][1] = temp.getdirector();
 				data[partition+i][2] = temp.getyear();
-				data[partition+i][3] = temp.getType();
+				data[partition+i][3] = temp.getContentRated();
 				Integer tempint = new Integer(temp.getRating());
 				data[partition+i][4] = "" + tempint;
 				data[partition+i][5] = temp; //last column contains reference to object
@@ -630,10 +817,10 @@ public class Main implements ActionListener {
 		}
 		//Search for an item
 		else if (e.getActionCommand().equals("Search")){
-			String keyword = searchfield.getText();
-			if(keyword != ""){
-				search(searchtypeList.getSelectedIndex(), keyword);
-				showSearchResultsFlag = true; //we want the table to display our results found in search()
+			String textFeild = searchfield.getText(); //get text in search feild
+			if(textFeild != ""){
+				search(searchtypeList.getSelectedIndex(), textFeild);
+				showSearchResultsFlag = true; //want the table to display our results found in search()
 				refreshJTable();
 			}
 		}

@@ -71,7 +71,7 @@ public class Recipe implements Serializable, Comparable {
 	
 	//toString
 	public String toString(){
-		String dataDump = title+" "+ingredients+" "+instructions+" "+rating;
+		String dataDump = " "+title+" "+ingredients+" "+instructions+" "+rating+" ";
 		dataDump=dataDump.toLowerCase();
 		return dataDump;
 	}

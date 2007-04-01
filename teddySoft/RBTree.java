@@ -411,11 +411,12 @@ public class RBTree implements Serializable{
 	///////////////////////////////////////////////////////////////////
 	//POST: Returns list of tree elements in which their toString function contains the keyword
 	//      Length of returning array will always be the size of the entire red black tree
-	public Comparable[] searchTreeElements(String keyword){
+	public Comparable[] searchTreeElements(String textFeild){
 		listCount = 0;
-		keyword = keyword.toLowerCase();
+		textFeild = textFeild.toLowerCase();
+		String[] keywords = textFeild.split(" "); //split the text into individual words
 		Comparable Results[] = new Comparable[this.size];
-		return searchTreeElementsHelper(root, Results, keyword); //start with root of tree
+		return searchTreeElementsHelper(root, Results, keywords); //start with root of tree
 	}	
 	///////////////////////////////////////////////////////////////////
 	//POST: Puts all matches in tree into an ordered list. 
@@ -423,15 +424,24 @@ public class RBTree implements Serializable{
 	//PARAM: current: current node being visited
 	//       Results: current list of nodes that contain the keyword
 	//       keyword: string that is being searched for in nodes
-	public Comparable[] searchTreeElementsHelper(RBnode current, Comparable[] Results, String keyword){
+	public Comparable[] searchTreeElementsHelper(RBnode current, Comparable[] Results, String[] keywords){
 		if (current != null){ //if current node exists
-			searchTreeElementsHelper(current.left, Results, keyword); //recurse with current node's left child
-			if(current.data.toString().contains(keyword)){ //toString is overwritten in each media type class
-				System.out.println("currentdata dot toString "+current.data.toString());
+			searchTreeElementsHelper(current.left, Results, keywords); //recurse with current node's left child
+			
+			boolean containsFlag=false;
+			for(int i=0;i<keywords.length;i++){ //for all keywords, if current data contains a keyword
+				//keywords[i] = " "+keywords[i]+" "; //ensures that we search for the entire keyword and not just a portion of it
+				if(current.data.toString().contains(keywords[i])){ //toString is overwritten in each media type class
+					//System.out.println("currentdata dot toString "+current.data.toString());
+					containsFlag=true;
+				}
+			}
+			if(containsFlag){
 				Results[listCount] = current.data;
 				listCount++;
 			}
-			searchTreeElementsHelper(current.right, Results, keyword); //recurse with current node's right child
+			
+			searchTreeElementsHelper(current.right, Results, keywords); //recurse with current node's right child
 		}
 		return Results;
 	}
