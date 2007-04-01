@@ -338,6 +338,7 @@ public class AddEditRecipeGUI implements ActionListener {
 					description.getText(), review.getText(), rating);
 					
 			currentUser.getDB().addRecipe(newRecipe);
+			Main.writeData(); //serialize the new data
 			
 			// If "Add" was pressed
 			if (e.getSource() == btnAdd){

@@ -438,6 +438,7 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 					runningtime.getText(), review.getText(), description.getText(), format.getText(), isWideScreen, rating);
 					
 			currentUser.getDB().addDVD(newDVD);
+			Main.writeData(); //serialize the new data
 			
 			// If "Add" was pressed
 			if (e.getSource() == btnAdd){

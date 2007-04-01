@@ -42,7 +42,8 @@ public class DVD extends VHS {
 	
 	//toString
 	public String toString(){
-		String dataDump = title+director+year+contentRated+runningTime+format+isWideScreen+rating;
+		String dataDump = title+" "+director+" "+year+" "+contentRated+" "+runningTime+" "+format+" "+isWideScreen+" "+rating;
+		dataDump=dataDump.toLowerCase();
 		return dataDump;
 	}
 	

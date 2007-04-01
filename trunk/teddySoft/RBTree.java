@@ -397,6 +397,7 @@ public class RBTree implements Serializable{
 	///////////////////////////////////////////////////////////////////
 	//POST: puts all elements in tree into an ordered list
 	//PARAM: current: current node being visited
+	//       List: current list of nodes
 	public Comparable[] getTreeElementsHelper(RBnode current, Comparable[] List){
 		if (current != null){ //if current node exists
 			getTreeElementsHelper(current.left, List); //recurse with current node's left child
@@ -405,6 +406,34 @@ public class RBTree implements Serializable{
 			getTreeElementsHelper(current.right, List); //recurse with current node's right child
 		}
 		return List;
+	}
+	
+	///////////////////////////////////////////////////////////////////
+	//POST: Returns list of tree elements in which their toString function contains the keyword
+	//      Length of returning array will always be the size of the entire red black tree
+	public Comparable[] searchTreeElements(String keyword){
+		listCount = 0;
+		keyword = keyword.toLowerCase();
+		Comparable Results[] = new Comparable[this.size];
+		return searchTreeElementsHelper(root, Results, keyword); //start with root of tree
+	}	
+	///////////////////////////////////////////////////////////////////
+	//POST: Puts all matches in tree into an ordered list. 
+	//      If no matches are found it returns an array of length one. The only element is a null element
+	//PARAM: current: current node being visited
+	//       Results: current list of nodes that contain the keyword
+	//       keyword: string that is being searched for in nodes
+	public Comparable[] searchTreeElementsHelper(RBnode current, Comparable[] Results, String keyword){
+		if (current != null){ //if current node exists
+			searchTreeElementsHelper(current.left, Results, keyword); //recurse with current node's left child
+			if(current.data.toString().contains(keyword)){ //toString is overwritten in each media type class
+				System.out.println("currentdata dot toString "+current.data.toString());
+				Results[listCount] = current.data;
+				listCount++;
+			}
+			searchTreeElementsHelper(current.right, Results, keyword); //recurse with current node's right child
+		}
+		return Results;
 	}
 	
 }
