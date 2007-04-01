@@ -42,7 +42,7 @@ public class VHS_R extends VHS {
 	
 	//toString
 	public String toString(){
-		String dataDump = title+" "+director+" "+year+" "+contentRated+" "+runningTime+" "+rating+" "+timeStamp+" "+index;
+		String dataDump = " "+title+" "+director+" "+year+" "+contentRated+" "+runningTime+" "+timeStamp+" "+index+" "+rating+" ";
 		dataDump=dataDump.toLowerCase();
 		return dataDump;
 	}
