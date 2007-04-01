@@ -402,6 +402,7 @@ public class AddEditVHSGUI implements ActionListener{
 					runningtime.getText(), review.getText(), description.getText(), rating);
 					
 			currentUser.getDB().addVHS(newVHS);
+			Main.writeData(); //serialize the new data
 			
 			// If "Add" was pressed
 			if (e.getSource() == btnAdd){

@@ -428,6 +428,7 @@ public class AddEditVHS_RGUI implements ActionListener{
 					 review.getText(), description.getText(), runningtime.getText(), timestamp.getText(), index.getText(), rating);
 					
 			currentUser.getDB().addVHS_R(newVHS_R);
+			Main.writeData(); //serialize the new data
 			
 			// If "Add" was pressed
 			if (e.getSource() == btnAdd){

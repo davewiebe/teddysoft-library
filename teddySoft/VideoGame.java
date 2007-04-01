@@ -94,7 +94,8 @@ public class VideoGame implements Serializable, Comparable  {
 	
 	//toString
 	public String toString(){
-		String dataDump = title+developer+year+contentRated+platform+rating+maxPlayers;
+		String dataDump = title+" "+developer+" "+year+" "+contentRated+" "+platform+" "+rating+" "+maxPlayers;
+		dataDump=dataDump.toLowerCase();
 		return dataDump;
 	}
 	

@@ -497,6 +497,7 @@ public class AddEditVideoGameGUI implements ActionListener {
 					stringrating, stringplatform, description.getText(), review.getText(), rating, players);
 					
 			currentUser.getDB().addVideoGame(newGame);
+			Main.writeData(); //serialize the new data
 			
 			// If "Add" was pressed
 			if (e.getSource() == btnAdd){

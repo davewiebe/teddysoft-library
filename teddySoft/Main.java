@@ -29,16 +29,88 @@ public class Main implements ActionListener {
 	private static JTable table;
 	private JButton btnView, btnEdit, btnDelete, btnAll, btnBooks, btnRecipes, btnGames,
 		btnMusic, btnMovies, btnExit, btnLogOut, btnSearch;
-		JComboBox entrytypeList, searchtypeList;
-		JTextField searchfield;
+	private static JComboBox entrytypeList, searchtypeList;
+	private static JTextField searchfield;
 	private static User currentUser;
 	private static JFrame frame;
 	private static Object[][] data;
 	private static Comparable List[]; //array of comparable objects
 	private static JScrollPane scrollPane;
+	private static Component contents;
+	private static boolean showSearchResultsFlag = false; //initialize to not show search results
 		
 	public static User getCurrentUser(){
 		return currentUser;
+	}
+	
+	public static void readData(){
+		//read userDB.ser
+		try{
+			InputStream istream = new FileInputStream(currentUser.getName() +"-MediaDB.ser");
+			ObjectInput oinput = new ObjectInputStream(istream);
+			MediaDatabase media = (MediaDatabase)oinput.readObject();
+			currentUser.setDB(media);
+			oinput.close();
+		}
+		catch (IOException ex) {
+			System.out.println("User MediaDB not found or not created yet.");
+			currentUser.setDB(new MediaDatabase());
+		}
+		catch (ClassNotFoundException ex2){
+			System.out.println("User class not found.");
+		}
+	}
+	
+	//POST: Writes currentUser's media database to a serializable file
+	public static void writeData(){
+		//write UserMedia.ser
+		try{
+			FileOutputStream fileout = new FileOutputStream(currentUser.getName() +"-MediaDB.ser");
+			ObjectOutputStream objectout = new ObjectOutputStream(fileout);
+			objectout.writeObject(currentUser.getDB());
+			objectout.flush();
+			objectout.close();
+		}
+		catch (IOException ex) {
+			System.out.println("User MediaDB cannot be written.");
+		}
+	}
+	
+	public static void search(int mediaType, String keyword){
+		//mediaTypes All, Book, DVD, Recipe, VHS, VHS_R, Video Game
+		
+		int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
+		int DVDTreeLength = currentUser.getDB().getDVDTree().getSize();
+		int VHSTreeLength = currentUser.getDB().getVHSTree().getSize();
+		int VHS_RTreeLength = currentUser.getDB().getVHS_RTree().getSize();
+		int VideoGameTreeLength = currentUser.getDB().getVideoGameTree().getSize();
+		int RecipeTreeLength = currentUser.getDB().getRecipeTree().getSize();
+		
+		if(mediaType==1){
+			
+		}
+		else if(mediaType==2){
+			String[] columnNames = {"Title","Director","Year","Type", "Rating"};
+			List = currentUser.getDB().getDVDTree().searchTreeElements(keyword);
+			int count=0;
+			for(int i=0;List[i]!=null;i++)
+				count++;
+			data = new Object[count][columnNames.length + 1];
+			//System.out.println("length is "+List.length);
+			for(int i=0;i<count;i++){
+				DVD temp = (DVD)List[i];
+				data[i][0] = temp.getTitle();
+				data[i][1] = temp.getdirector();
+				data[i][2] = temp.getyear();
+				data[i][3] = temp.getType();
+				Integer tempint = new Integer(temp.getRating());
+				data[i][4] = "" + tempint;
+				data[i][5] = temp; //last column contains reference to object
+			}
+			
+			
+			table = new JTable(data, columnNames);
+		}
 	}
 	
 	//PRE: A String with data "All", "Books", "Movies", "Video Games", or "Recipies"
@@ -237,49 +309,28 @@ public class Main implements ActionListener {
 	
 	//POST: Creates Main Window with a Table that displays current data in currentUser's media database
 	public static void refreshJTable(){
-		if (frame != null)
+	/*	if (frame != null)
 			frame.dispose();
-        
-		//Create and set up the window.
-		frame = new JFrame("Media Library");
-		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-
-        frame.addWindowListener(new WindowAdapter() {//add Window closing handler
-            public void windowClosing(WindowEvent e) {
-            	Main.close();
-            	}
-        });
 		
         Main app = new Main();
-        Component contents = app.mainWindowComponents();
+        contents = app.mainWindowComponents();
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
         frame.setSize(640,460); // make frame 640x460
         frame.pack();
 		frame.setLocationRelativeTo(null); //centers window
-		frame.setVisible(true);
+		frame.setVisible(true);*/
+		
+		frame.getContentPane().setVisible(false);
+		frame.getContentPane().removeAll();
+        Main app = new Main();
+        contents = app.mainWindowComponents();
+		frame.getContentPane().add(contents, BorderLayout.CENTER);
+		frame.getContentPane().setVisible(true);
 
 	}
 	
-	//POST: Writes currentUser's media database to a serializable file and closes Main window
-	public static void close(){
-		//write UserMedia.ser
-		try{
-			FileOutputStream fileout = new FileOutputStream(currentUser.getName() +"-MediaDB.ser");
-			ObjectOutputStream objectout = new ObjectOutputStream(fileout);
-			objectout.writeObject(currentUser.getDB());
-			objectout.flush();
-			objectout.close();
-		}
-		catch (IOException ex) {
-			System.out.println("User MediaDB cannot be written.");
-		}
-		//close window
-		frame.dispose();
-		
-	}
-		
 	public static void setWindowsLook(){
 	    try{
 	        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -334,6 +385,14 @@ public class Main implements ActionListener {
 		entrytypeList.setActionCommand("EntryType");
 		entrytypeList.addActionListener(this);
 
+		//Search combo box
+		String[] searchTypes = { "All", "Book", "DVD", "Recipe", "VHS", "VHS_R", "Video Game"};//, "Music" };
+		searchtypeList = new JComboBox(searchTypes);
+		searchtypeList.setSelectedIndex(0);
+		searchtypeList.setMaximumSize(new Dimension(100, 40));
+		searchtypeList.setActionCommand("SearchType");
+		searchtypeList.addActionListener(this);
+		
 		//View Panel
 		JPanel viewpanel = new JPanel();
 		viewpanel.setLayout(new BoxLayout(viewpanel, BoxLayout.PAGE_AXIS));	
@@ -383,7 +442,10 @@ public class Main implements ActionListener {
 		//tablepanel.setAlignmentX(Component.LEFT_ALIGNMENT);	
 		
 		//Table
-		getTable(tableType);
+		if(!showSearchResultsFlag) //if we do not want to display search results
+			getTable(tableType);
+		else
+			showSearchResultsFlag = false;
 		
 		//Scroll Pane
 		scrollPane = new JScrollPane(table);
@@ -397,14 +459,6 @@ public class Main implements ActionListener {
 		JPanel searchpanel = new JPanel();
 		searchpanel.setLayout(new BoxLayout(searchpanel, BoxLayout.LINE_AXIS));	
 		//searchpanel.setAlignmentX(Component.LEFT_ALIGNMENT);	
-		
-		//Add Entries combo box
-		String[] searchTypes = { "All", "Book", "DVD", "Recipe", "VHS", "VHS_R", "Video Game"};//, "Music" };
-		searchtypeList = new JComboBox(searchTypes);
-		searchtypeList.setSelectedIndex(0);
-		searchtypeList.setMaximumSize(new Dimension(100, 40));
-		searchtypeList.setActionCommand("SearchType");
-		searchtypeList.addActionListener(this);
 		
 		//Search field
 		searchfield = new JTextField(40);
@@ -506,12 +560,12 @@ public class Main implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("Exit")){
 			LoginGUI.CreateGUI();
-			close();
+			frame.dispose();
 			System.exit(0);
 		}
 		else if (e.getActionCommand().equals("Log Out")){
 			LoginGUI.CreateGUI();
-			close();
+			frame.dispose();
 		}
 		else if (e.getActionCommand().equals("All")){
 			System.out.println("Show All");
@@ -547,12 +601,10 @@ public class Main implements ActionListener {
 			//"Book", "Game", "Recipe", "Music", "Movie"
 	        if (temp.getSelectedIndex() == 1){
 	        	System.out.println("Add Book");
-	        	//AddBookGUI.CreateGUI(currentUser);
 	        	AddEditBookGUI.CreateGUI(currentUser, (Books) null, 0);
 				}
 	        else if (temp.getSelectedIndex() == 2){
 	        	System.out.println("Add DVD");
-	        	//AddDVDGUI.CreateGUI(currentUser);
 	        	AddEditDVDGUI.CreateGUI(currentUser, (DVD) null, 0);
 			}
 	        else if (temp.getSelectedIndex() == 3){
@@ -572,9 +624,18 @@ public class Main implements ActionListener {
 	        	AddEditVideoGameGUI.CreateGUI(currentUser, (VideoGame) null, 0);
 	        }
 /*	        
-	        else if (temp.getSelectedIndex() == 4){
+	        else if (temp.getSelectedIndex() == 7){
 	        	System.out.println("Add Music");}
 */
+		}
+		//Search for an item
+		else if (e.getActionCommand().equals("Search")){
+			String keyword = searchfield.getText();
+			if(keyword != ""){
+				search(searchtypeList.getSelectedIndex(), keyword);
+				showSearchResultsFlag = true; //we want the table to display our results found in search()
+				refreshJTable();
+			}
 		}
 		//deleting a medium from table
 		else if (e.getActionCommand().equals("Delete")){
@@ -668,44 +729,29 @@ public class Main implements ActionListener {
 	public static void CreateGUI(User user){
 		setWindowsLook(); //Set windows decorations
 		currentUser = user;
-		//read userDB.ser
-		try{
-			InputStream istream = new FileInputStream(currentUser.getName() +"-MediaDB.ser");
-			ObjectInput oinput = new ObjectInputStream(istream);
-			MediaDatabase media = (MediaDatabase)oinput.readObject();
-			currentUser.setDB(media);
-			oinput.close();
-		}
-		catch (IOException ex) {
-			System.out.println("User MediaDB not found or not created yet.");
-			currentUser.setDB(new MediaDatabase());
-		}
-		catch (ClassNotFoundException ex2){
-			System.out.println("User class not found.");
-		}
 		
-		refreshJTable();
-/*		//Create and set up the window.
+		Main.readData(); //read users serialized data
+		
+		//Create and set up the window.
 		frame = new JFrame("Media Library");
 		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
-        frame.addWindowListener(new WindowAdapter() {
+        frame.addWindowListener(new WindowAdapter() {//add Window closing handler
             public void windowClosing(WindowEvent e) {
-            	Main.close();
-            	System.exit(0);
+            	frame.dispose();
             	}
         });
 		
         Main app = new Main();
-        Component contents = app.mainWindowComponents();
+        contents = app.mainWindowComponents();
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.
-		frame.pack();
-		frame.setVisible(true);
-		frame.setSize(640,460); // make frame 640x460
+        frame.setSize(640,460); // make frame 640x460
+        frame.pack();
 		frame.setLocationRelativeTo(null); //centers window
-*/
+		frame.setVisible(true);
+
 	}	
 	
 }
