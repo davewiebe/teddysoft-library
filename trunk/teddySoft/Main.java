@@ -496,18 +496,6 @@ public class Main implements ActionListener {
 	
 	//POST: Creates Main Window with a Table that displays current data in currentUser's media database
 	public static void refreshJTable(){
-	/*	if (frame != null)
-			frame.dispose();
-		
-        Main app = new Main();
-        contents = app.mainWindowComponents();
-        frame.getContentPane().add(contents, BorderLayout.CENTER);
-		
-		//Display the window.
-        frame.setSize(640,460); // make frame 640x460
-        frame.pack();
-		frame.setLocationRelativeTo(null); //centers window
-		frame.setVisible(true);*/
 		
 		frame.getContentPane().setVisible(false);
 		frame.getContentPane().removeAll();
@@ -786,6 +774,10 @@ public class Main implements ActionListener {
 		else if (e.getActionCommand().equals("EntryType")){
 			JComboBox temp = (JComboBox)e.getSource();
 			//"Book", "Game", "Recipe", "Music", "Movie"
+			entrytypeList.setEnabled(false);
+			btnLogOut.setEnabled(false);
+			btnExit.setEnabled(false);
+			
 	        if (temp.getSelectedIndex() == 1){
 	        	System.out.println("Add Book");
 	        	AddEditBookGUI.CreateGUI(currentUser, (Books) null, 0);
@@ -825,7 +817,7 @@ public class Main implements ActionListener {
 			}
 		}
 		//deleting a medium from table
-		else if (e.getActionCommand().equals("Delete")){
+		else if (e.getActionCommand().equals("Delete") && table.getSelectedRow() != -1){
 			String classType = "" + data[table.getSelectedRow()][table.getColumnCount()].getClass();
 			//System.out.println(classType);
 			if(classType.equals("class teddySoft.DVD")){
@@ -858,7 +850,7 @@ public class Main implements ActionListener {
 				System.out.println("Delete Recipe");
 				Main.refreshJTable();
 			}
-			
+			writeData();
 		}
 		//editing a medium from table
 		else if (e.getActionCommand().equals("Edit") && table.getSelectedRow() != -1){
