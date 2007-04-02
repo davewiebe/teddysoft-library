@@ -561,6 +561,7 @@ public class Main implements ActionListener {
 		entrytypeList.addActionListener(this);
 
 		//Search combo box
+		JLabel searchlabel = new JLabel("Search by:");
 		String[] searchTypes = { "All", "Book", "DVD", "Recipe", "VHS", "VHS_R", "Video Game"};//, "Music" };
 		searchtypeList = new JComboBox(searchTypes);
 		searchtypeList.setSelectedIndex(0);
@@ -696,6 +697,8 @@ public class Main implements ActionListener {
 		//tablepanel.add(table);
 		tablepanel.add(scrollPane);
 		
+		searchpanel.add(searchlabel);
+		searchpanel.add(Box.createRigidArea(new Dimension(5,0)));		
 		searchpanel.add(searchtypeList);
 		searchpanel.add(Box.createRigidArea(new Dimension(5,0)));
 		searchpanel.add(searchfield);
