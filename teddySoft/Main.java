@@ -13,7 +13,6 @@
 
 package teddySoft;
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.FileInputStream;
@@ -25,8 +24,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class Main implements ActionListener {
+    private static JTable table;
 	private static String tableType = "All"; //initialized to show all media
-	private static JTable table;
 	private JButton btnView, btnEdit, btnDelete, btnAll, btnBooks, btnRecipes, btnGames,
 		btnMusic, btnMovies, btnExit, btnLogOut, btnSearch;
 	private static JComboBox entrytypeList, searchtypeList;
@@ -185,7 +184,13 @@ public class Main implements ActionListener {
 				dataShortened[i][2]=data[i][2];
 				dataShortened[i][3]=data[i][3];
 			}
-			table = new JTable(dataShortened, columnNames);
+			//table = new JTable(dataShortened, columnNames);
+			table = new JTable(dataShortened, columnNames){
+				public boolean isCellEditable(int row, int column)
+				{
+					return false;
+				}
+			};
 
 		}
 		else if(mediaType==1){ //Books
@@ -204,7 +209,12 @@ public class Main implements ActionListener {
 				data[i][3] = "" + tempint;
 				data[i][4] = temp; //last column contains reference to object
 			}
-			table = new JTable(data, columnNames);
+			table = new JTable(data, columnNames){
+				public boolean isCellEditable(int row, int column)
+				{
+					return false;
+				}
+			};
 		}
 		else if(mediaType==2){ //DVD
 			int count=-1; //counts how many elements in List are not equal to null pointers
@@ -225,7 +235,12 @@ public class Main implements ActionListener {
 				data[i][4] = "" + tempint;
 				data[i][5] = temp; //last column contains reference to object
 			}
-			table = new JTable(data, columnNames);
+			table = new JTable(data, columnNames){
+				public boolean isCellEditable(int row, int column)
+				{
+					return false;
+				}
+			};
 		}
 		else if(mediaType==3){ //Recipe
 			int count=-1; //counts how many elements in List are not equal to null pointers
@@ -241,7 +256,12 @@ public class Main implements ActionListener {
 				data[i][1] = "" + tempint;
 				data[i][2] = temp; //last column contains reference to object
 			}
-			table = new JTable(data, columnNames);
+			table = new JTable(data, columnNames){
+				public boolean isCellEditable(int row, int column)
+				{
+					return false;
+				}
+			};
 		}
 		else if(mediaType==4){ //VHS
 			int count=-1; //counts how many elements in List are not equal to null pointers
@@ -260,7 +280,12 @@ public class Main implements ActionListener {
 				data[i][4] = "" + tempint;
 				data[i][5] = temp; //last column contains reference to object
 			}
-			table = new JTable(data, columnNames);
+			table = new JTable(data, columnNames){
+				public boolean isCellEditable(int row, int column)
+				{
+					return false;
+				}
+			};
 		}
 		else if(mediaType==5){ //VHS_R
 			int count=-1; //counts how many elements in List are not equal to null pointers
@@ -279,7 +304,12 @@ public class Main implements ActionListener {
 				data[i][4] = "" + tempint;
 				data[i][5] = temp; //last column contains reference to object
 			}
-			table = new JTable(data, columnNames);
+			table = new JTable(data, columnNames){
+				public boolean isCellEditable(int row, int column)
+				{
+					return false;
+				}
+			};
 		}
 		else if(mediaType==6){ //VideoGame
 			int count=-1; //counts how many elements in List are not equal to null pointers
@@ -297,7 +327,12 @@ public class Main implements ActionListener {
 				data[i][3] = "" + tempint;
 				data[i][4] = temp; //last column contains reference to object
 			}
-			table = new JTable(data, columnNames);
+			table = new JTable(data, columnNames){
+				public boolean isCellEditable(int row, int column)
+				{
+					return false;
+				}
+			};
 		}
 	}
 	
@@ -388,7 +423,12 @@ public class Main implements ActionListener {
 			}
 			partition = partition + List.length;
 			
-			table = new JTable(data, columnNames);
+			table = new JTable(data, columnNames){
+				public boolean isCellEditable(int row, int column)
+				{
+					return false;
+				}				
+			};
 		}
 		
 		else if(type.equals("Books")){ //create table of books
@@ -405,7 +445,12 @@ public class Main implements ActionListener {
 				data[i][3] = "" + tempint;
 				data[i][4] = temp; //last column contains reference to object
 			}
-			table = new JTable(data, columnNames);
+			table = new JTable(data, columnNames){
+				public boolean isCellEditable(int row, int column)
+				{
+					return false;
+				}
+			};
 		}
 		
 		else if(type.equals("Movies")){ //create table of DVDs, VHSs, and VHS_Rs
@@ -455,7 +500,12 @@ public class Main implements ActionListener {
 			}
 			partition = partition + List.length;
 			
-			table = new JTable(data, columnNames);
+			table = new JTable(data, columnNames){
+				public boolean isCellEditable(int row, int column)
+				{
+					return false;
+				}
+			};
 		}
 		
 		else if(type.equals("Video Games")){ //create a table of VideoGame objects
@@ -473,7 +523,12 @@ public class Main implements ActionListener {
 				data[i][3] = "" + tempint;
 				data[i][4] = temp; //last column contains reference to object
 			}
-			table = new JTable(data, columnNames);
+			table = new JTable(data, columnNames){
+				public boolean isCellEditable(int row, int column)
+				{
+					return false;
+				}
+			};
 		}
 		
 		else if(type.equals("Recipies")){ //create table of Recipe objects
@@ -489,7 +544,12 @@ public class Main implements ActionListener {
 				data[i][1] = "" + tempint;
 				data[i][2] = temp; //last column contains reference to object
 			}
-			table = new JTable(data, columnNames);
+			table = new JTable(data, columnNames){
+				public boolean isCellEditable(int row, int column)
+				{
+					return false;
+				}
+			};
 		}
 		
 	}
@@ -561,7 +621,7 @@ public class Main implements ActionListener {
 		entrytypeList.addActionListener(this);
 
 		//Search combo box
-		JLabel searchlabel = new JLabel("Search by:");
+		JLabel searchlabel = new JLabel("Search for:");
 		String[] searchTypes = { "All", "Book", "DVD", "Recipe", "VHS", "VHS_R", "Video Game"};//, "Music" };
 		searchtypeList = new JComboBox(searchTypes);
 		searchtypeList.setSelectedIndex(0);
@@ -605,7 +665,34 @@ public class Main implements ActionListener {
 		btnMovies = new JButton("Only Movies");
 		btnMovies.setMaximumSize(new Dimension(100, 23));
 		btnMovies.setActionCommand("Movies");
-		btnMovies.addActionListener(this);		
+		btnMovies.addActionListener(this);	
+		JLabel helplabel = new JLabel("Not sure what to do?");
+		helplabel.setForeground(new Color(0xff0000));
+		JLabel help2label = new JLabel("Try Clicking on the");
+		help2label.setForeground(new Color(0xff0000));
+		JLabel help3label = new JLabel("'Add New Entry'");
+		help3label.setForeground(new Color(0xff0000));
+		JLabel help4label = new JLabel("Menu to begin!");
+		help4label.setForeground(new Color(0xff0000));
+		helplabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		help2label.setAlignmentX(Component.CENTER_ALIGNMENT);
+		help3label.setAlignmentX(Component.CENTER_ALIGNMENT);
+		help4label.setAlignmentX(Component.CENTER_ALIGNMENT);
+		if (currentUser.getDB().getBooksTree().getSize() +
+			currentUser.getDB().getDVDTree().getSize() +
+			currentUser.getDB().getRecipeTree().getSize() +
+			currentUser.getDB().getVHS_RTree().getSize() +
+			currentUser.getDB().getVHSTree().getSize() +
+			currentUser.getDB().getVideoGameTree().getSize() != 0) {	
+			helplabel.setVisible(false);
+			help2label.setVisible(false);
+			help3label.setVisible(false);
+			help4label.setVisible(false);
+		}
+		helplabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		help2label.setAlignmentX(Component.CENTER_ALIGNMENT);
+		help3label.setAlignmentX(Component.CENTER_ALIGNMENT);
+		help4label.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		//Left Panel
 		JPanel leftpanel = new JPanel();
@@ -622,6 +709,8 @@ public class Main implements ActionListener {
 			getTable(tableType);
 		else
 			showSearchResultsFlag = false;
+		
+		table.getTableHeader().setReorderingAllowed(false);
 		
 		//Scroll Pane
 		scrollPane = new JScrollPane(table);
@@ -684,11 +773,17 @@ public class Main implements ActionListener {
 		viewpanel.add(btnMovies);
 		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
 	
+		leftpanel.add(combopanel);
+		leftpanel.add(Box.createRigidArea(new Dimension(0,5)));		
 		leftpanel.add(topleftpanel);
 		leftpanel.add(Box.createRigidArea(new Dimension(0,5)));			
-		leftpanel.add(combopanel);
-		leftpanel.add(Box.createRigidArea(new Dimension(0,5)));			
 		leftpanel.add(viewpanel);
+		leftpanel.add(Box.createRigidArea(new Dimension(0,10)));	
+		leftpanel.add(helplabel);
+		leftpanel.add(Box.createRigidArea(new Dimension(0,5)));	
+		leftpanel.add(help2label);
+		leftpanel.add(help3label);
+		leftpanel.add(help4label);
 		leftpanel.add(Box.createVerticalGlue());
 		leftpanel.add(btnDelete);
 		leftpanel.add(Box.createRigidArea(new Dimension(0,5)));
