@@ -619,13 +619,15 @@ public class AddEditAlbumGUI implements ActionListener, ImageObserver {
 		
 		// When Album is Added
 		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
-	        BufferedImage bi = new BufferedImage(scaleImage.getWidth(this),scaleImage.getHeight(this),BufferedImage.TYPE_INT_BGR);
-	        bi.getGraphics().drawImage(this.scaleImage,0,0,null);
-	        File outputfile = new File(currentUser.getName()+"-"+"album_"+currentUser.getDB().getAlbumInt()+".jpg"); 
-	        try{
+			if (scaleImage != null){
+				BufferedImage bi = new BufferedImage(scaleImage.getWidth(this),scaleImage.getHeight(this),BufferedImage.TYPE_INT_BGR);
+	        	bi.getGraphics().drawImage(this.scaleImage,0,0,null);
+	        	File outputfile = new File(currentUser.getName()+"-"+"album_"+currentUser.getDB().getAlbumInt()+".jpg"); 
+	        	try{
 	        	ImageIO.write(bi, "jpg", outputfile);
-	        }catch (IOException ex){System.out.println("Cannot write image to hard drive.");}
-			System.out.println("album num is: "+currentUser.getDB().getAlbumInt());
+	        	}catch (IOException ex){System.out.println("Cannot write image to hard drive.");}
+			}
+	        System.out.println("album num is: "+currentUser.getDB().getAlbumInt());
 			Albums newAlbum = new Albums(title.getText(),artist.getText(), releaseDate.getText(),
 					String.valueOf(tracks), label.getText(), format, genre, 
 					rating, description.getText(), review.getText(), currentUser.getDB().getAlbumInt() );
