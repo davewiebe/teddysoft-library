@@ -30,6 +30,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -286,15 +288,15 @@ public class AddEditAlbumGUI implements ActionListener {
 			
 			//format "N/A", "Audio CD", "Cassette", "DVD-Audio", "Vinyl"
 			if (albums.getFormat().equals("Audio CD")){
-				genreList.setSelectedIndex(1);
-			}else if (albums.getGenre().equals("Cassette")){
-				genreList.setSelectedIndex(2);
-			}else if (albums.getGenre().equals("DVD-Audio")){
-				genreList.setSelectedIndex(3);
-			}else if (albums.getGenre().equals("Vinyl")){
-				genreList.setSelectedIndex(4);
+				formatList.setSelectedIndex(1);
+			}else if (albums.getFormat().equals("Cassette")){
+				formatList.setSelectedIndex(2);
+			}else if (albums.getFormat().equals("DVD-Audio")){
+				formatList.setSelectedIndex(3);
+			}else if (albums.getFormat().equals("Vinyl")){
+				formatList.setSelectedIndex(4);
 			}else{
-				genreList.setSelectedIndex(0);
+				formatList.setSelectedIndex(0);
 			}				
 			
 			//Rating
@@ -313,7 +315,7 @@ public class AddEditAlbumGUI implements ActionListener {
 		    title.setText(albums.getTitle());
 		    artist.setText(albums.getArtist());
 		    releaseDate.setText(albums.getReleaseDate());
-		    numberTracks.setText(albums.getNumTracks());
+		    numberTracks.setText(albums.getTracks());
 		    label.setText(albums.getLabel());
 		    description.setText(albums.getDescription());
 		    review.setText(albums.getReview());		    
@@ -468,19 +470,22 @@ public class AddEditAlbumGUI implements ActionListener {
 			genre = "Soundtracks";
 		}			
 		
-		//Set Genre when action happens
-//		format "N/A", "Audio CD", "Cassette", "DVD-Audio", "Vinyl"
+		//Set Format when action happens
+		//format "N/A", "Audio CD", "Cassette", "DVD-Audio", "Vinyl"
 		String format = "";
-		if (genreList.getSelectedIndex() == 1){
+		if(formatList.getSelectedIndex() == 0){
+			format = "N/A";
+		}
+		else if (formatList.getSelectedIndex() == 1){
 			format = "Audio CD";
 		}
-		else if(genreList.getSelectedIndex() == 2){
+		else if(formatList.getSelectedIndex() == 2){
 			format = "Cassette";
 		}
-		else if(genreList.getSelectedIndex() == 3){
+		else if(formatList.getSelectedIndex() == 3){
 			format = "DVD-Audio";
 		}
-		else if(genreList.getSelectedIndex() == 4){
+		else if(formatList.getSelectedIndex() == 4){
 			format = "Vinyl";
 		}
 		
@@ -504,7 +509,7 @@ public class AddEditAlbumGUI implements ActionListener {
 			albums.setTitle(title.getText());
 			albums.setArtist(artist.getText());
 			albums.setReleaseDate(releaseDate.getText());
-			albums.setNumTracks(String.valueOf(tracks));
+			albums.setTracks(String.valueOf(tracks));
 			albums.setLabel(label.getText());
 			albums.setFormat(format);
 			albums.setGenre(genre);
@@ -560,7 +565,14 @@ public class AddEditAlbumGUI implements ActionListener {
 			frame = new JFrame("Edit Album");
 			albums = currentalbum;
 		}
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+        frame.addWindowListener(new WindowAdapter() {//add Window closing handler
+            public void windowClosing(WindowEvent e) {
+            	Main.enableButtons();
+            	frame.dispose();
+            	}
+        });
 		
         AddEditAlbumGUI app = new AddEditAlbumGUI();
         Component contents = app.mainWindowComponents();

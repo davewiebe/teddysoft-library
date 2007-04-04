@@ -16,6 +16,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -371,7 +373,14 @@ public class AddEditRecipeGUI implements ActionListener {
 			frame = new JFrame("Edit Recipe");
 			recipes = currentrecipe;
 		}
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+        frame.addWindowListener(new WindowAdapter() {//add Window closing handler
+            public void windowClosing(WindowEvent e) {
+            	Main.enableButtons();
+            	frame.dispose();
+            	}
+        });
 		
         AddEditRecipeGUI app = new AddEditRecipeGUI();
         Component contents = app.mainWindowComponents();
