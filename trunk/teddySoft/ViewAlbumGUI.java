@@ -24,12 +24,15 @@
  * albums.getReview();*/
 
 package teddySoft;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.image.*;
+import java.io.File;
+import java.io.IOException;
 
 public class ViewAlbumGUI implements ActionListener {
 	
@@ -93,8 +96,8 @@ public class ViewAlbumGUI implements ActionListener {
 		imagepanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		imagepanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		if (scaleImage != null){
-			ImageIcon icon = new ImageIcon(scaleImage);
-			attachment = new JLabel(icon);
+			ImageIcon picture = new ImageIcon(scaleImage);
+			attachment = new JLabel(picture);
 			attachment.setBorder(BorderFactory.createEtchedBorder());
 			attachment.setAlignmentX(Component.CENTER_ALIGNMENT);
 		}
@@ -387,11 +390,19 @@ public class ViewAlbumGUI implements ActionListener {
 	public static void CreateGUI(Albums album){
 		setWindowsLook(); //Set windows decorations
 		albums = album;
-		if (albums.getScaleImage() != null)
-			scaleImage = ImageFilter.getImageFromArray(albums.getScaleImage(), albums.getImageW(),albums.getImageW());
+		scaleImage = null;
 		
 		//Create and set up the window.
 		frame = new JFrame("View Album");
+		
+		scaleImage = null;
+		BufferedImage img = null;
+		try {
+			//System.out.println("Album num is "+albums.getAlbumNum());
+			img = ImageIO.read(new File(Main.getCurrentUser().getName()+"-"+"album_"+albums.getAlbumNum()+".jpg"));
+			scaleImage = (Image) img;
+		} catch (IOException e) {}
+		
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
         ViewAlbumGUI app = new ViewAlbumGUI();

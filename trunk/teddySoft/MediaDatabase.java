@@ -23,6 +23,7 @@ public class MediaDatabase implements Serializable {
 	private RBTree DVDTree;
 	private RBTree VideoGameTree;
 	private RBTree RecipeTree;
+	private int albumInt=0;
 	
 	public MediaDatabase(){
 		AlbumTree = new RBTree();
@@ -77,5 +78,12 @@ public class MediaDatabase implements Serializable {
 	
 	public RBTree getRecipeTree(){
 		return RecipeTree;}
+	
+	public int getAlbumInt(){
+		return albumInt;
+		}
+	public void incAlbNum(){
+		albumInt++;
+	}
 	
 }
