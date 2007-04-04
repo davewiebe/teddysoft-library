@@ -96,7 +96,7 @@ public class ViewAlbumGUI implements ActionListener {
 		artist.setAlignmentX(Component.LEFT_ALIGNMENT);	
 				
 		//ReleaseDate
-		JLabel datelabel = new JLabel("Author:");
+		JLabel datelabel = new JLabel("Release Date:");
 		JLabel ReleaseDate = new JLabel();
 		if (!albums.getReleaseDate().equals("")){
 			ReleaseDate.setText(albums.getReleaseDate());
