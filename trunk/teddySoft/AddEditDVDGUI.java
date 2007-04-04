@@ -143,7 +143,6 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 		rightpanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		rightpanel.setAlignmentY(Component.TOP_ALIGNMENT - 50);
 		rightpanel.add(Box.createRigidArea(new Dimension(7,8)));
-		//scaleImage = ImageFilter.getInputImage();
 		if (scaleImage != null){
 			ImageIcon icon = new ImageIcon(scaleImage);
 			JLabel art = new JLabel(icon);
