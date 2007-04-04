@@ -41,13 +41,25 @@ public class AddEditAlbumGUI implements ActionListener {
 	private JTextField title, artist, releaseDate, numberTracks, label;
 	private ButtonGroup ratinggroup;
 	private JComboBox genreList, formatList; 
-	private JButton btnAdd, btnAnother, btnClose;
+	private JButton btnAdd, btnAnother, btnClose, btnAttach;
 	private JButton btnSave, btnCancel;
 	private static JFrame frame;
 	private JTextArea description, review;
 	private JRadioButton oneButton, twoButton, threeButton, fourButton, fiveButton;
 	private static User currentUser;
 	private static int op; //0=add, 1=edit
+	
+	/** Returns an ImageIcon, or null if the path was invalid. (From Java Swing tutorial)*/
+	protected static ImageIcon createImageIcon(String path,
+	                                           String description) {
+	    java.net.URL imgURL = LoginGUI.class.getResource(path);
+	    if (imgURL != null) {
+	        return new ImageIcon(imgURL, description);
+	    } else {
+	        System.err.println("Couldn't find file: " + path);
+	        return null;
+	    }
+	}	
 	
 	public static void setWindowsLook(){
 	    try{
@@ -102,6 +114,29 @@ public class AddEditAlbumGUI implements ActionListener {
 		textpanel.setLayout(new BoxLayout(textpanel, BoxLayout.PAGE_AXIS));	
 		textpanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textpanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		
+		//Image Panel
+		JPanel imagepanel = new JPanel();
+		imagepanel.setLayout(new BoxLayout(imagepanel, BoxLayout.PAGE_AXIS));	
+		imagepanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		imagepanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		
+		ImageIcon picture = createImageIcon("null.gif","null");
+		JLabel attachment = new JLabel(picture);
+		attachment.setBorder(BorderFactory.createEtchedBorder());
+		attachment.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		btnAttach = new JButton("Attach picture");
+		btnAttach.setMaximumSize(new Dimension(120, 23));
+		btnAttach.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnAttach.setActionCommand("Attach");
+		btnAttach.addActionListener(this);
+		
+		//if (op == 1){
+		//	JLabel attachment = new JLabel(picture);
+		//	btnAttach.setText("Edit picture");
+		//	btnAttach.setText("Remove picture");
+		//}
 		
 		//Title
 		JLabel titlelabel = new JLabel("Title:");
@@ -351,10 +386,16 @@ public class AddEditAlbumGUI implements ActionListener {
 		textpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		textpanel.add(formatList);
 		
+		imagepanel.add(attachment);
+		imagepanel.add(Box.createRigidArea(new Dimension(0,5)));
+		imagepanel.add(btnAttach);
+		
 		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
 		infopanel.add(labelpanel);
 		infopanel.add(Box.createRigidArea(new Dimension(2,0)));
 		infopanel.add(textpanel);
+		infopanel.add(Box.createRigidArea(new Dimension(2,0)));
+		infopanel.add(imagepanel);		
 		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
 				
 		ratepanel.add(oneButton);
