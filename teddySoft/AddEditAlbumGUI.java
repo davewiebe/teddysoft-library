@@ -123,18 +123,6 @@ public class AddEditAlbumGUI implements ActionListener {
 		imagepanel.setLayout(new BoxLayout(imagepanel, BoxLayout.PAGE_AXIS));	
 		imagepanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		imagepanel.setAlignmentY(Component.TOP_ALIGNMENT);
-		if (scaleImage != null){
-			ImageIcon icon = new ImageIcon(scaleImage);
-			attachment = new JLabel(icon);
-			attachment.setBorder(BorderFactory.createEtchedBorder());
-			attachment.setAlignmentX(Component.CENTER_ALIGNMENT);
-		}
-		else{
-		ImageIcon picture = createImageIcon("null.gif","null");
-		attachment = new JLabel(picture);
-		attachment.setBorder(BorderFactory.createEtchedBorder());
-		attachment.setAlignmentX(Component.CENTER_ALIGNMENT);
-		}
 		
 		btnAttach = new JButton("Attach picture");
 		btnAttach.setMaximumSize(new Dimension(120, 23));
@@ -142,8 +130,20 @@ public class AddEditAlbumGUI implements ActionListener {
 		btnAttach.setActionCommand("Attach");
 		btnAttach.addActionListener(this);
 		
-		//if (op == 1){
-		//	JLabel attachment = new JLabel(picture);
+		if (scaleImage != null){
+			ImageIcon icon = new ImageIcon(scaleImage);
+			attachment = new JLabel(icon);
+			attachment.setBorder(BorderFactory.createEtchedBorder());
+			attachment.setAlignmentX(Component.CENTER_ALIGNMENT);
+			btnAttach.setText("Remove picture");
+		}
+		else{
+			ImageIcon picture = createImageIcon("null.gif","null");
+			attachment = new JLabel(picture);
+			attachment.setBorder(BorderFactory.createEtchedBorder());
+			attachment.setAlignmentX(Component.CENTER_ALIGNMENT);
+		}
+		
 		//	btnAttach.setText("Edit picture");
 		//	btnAttach.setText("Remove picture");
 		//}
@@ -404,7 +404,7 @@ public class AddEditAlbumGUI implements ActionListener {
 		infopanel.add(labelpanel);
 		infopanel.add(Box.createRigidArea(new Dimension(2,0)));
 		infopanel.add(textpanel);
-		infopanel.add(Box.createRigidArea(new Dimension(2,0)));
+		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
 		infopanel.add(imagepanel);		
 		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
 				
@@ -573,7 +573,11 @@ public class AddEditAlbumGUI implements ActionListener {
 		}	
 		
 		if(e.getSource() == btnAttach){
-			scaleImage = ImageFilter.getInputImage();
+			if (scaleImage != null){
+				scaleImage = null;
+			}else{
+				scaleImage = ImageFilter.getInputImage();
+			}
 			frame.getContentPane().setVisible(false);
 			frame.getContentPane().removeAll();
 	        AddEditAlbumGUI app = new AddEditAlbumGUI();
