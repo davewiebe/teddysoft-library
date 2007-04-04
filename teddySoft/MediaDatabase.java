@@ -16,6 +16,7 @@ import java.io.Serializable;
 
 public class MediaDatabase implements Serializable {
 	
+	private RBTree AlbumTree;
 	private RBTree BooksTree;
 	private RBTree VHSTree;
 	private RBTree VHS_RTree;
@@ -24,6 +25,7 @@ public class MediaDatabase implements Serializable {
 	private RBTree RecipeTree;
 	
 	public MediaDatabase(){
+		AlbumTree = new RBTree();
 		BooksTree = new RBTree();
 		VHSTree = new RBTree();
 		VHS_RTree = new RBTree();
@@ -32,9 +34,12 @@ public class MediaDatabase implements Serializable {
 		RecipeTree = new RBTree();
 	}
 	
+	public void addAlbum(Albums a){
+		AlbumTree.RBTreeInsert(a);}
+	
 	public void addBook(Books b){
 		BooksTree.RBTreeInsert(b);
-		System.out.println(b.getTitle() + " added!");}
+		/*System.out.println(b.getTitle() + " added!");*/}
 	
 	public void addVHS(VHS v){
 		VHSTree.RBTreeInsert(v);}
@@ -52,6 +57,9 @@ public class MediaDatabase implements Serializable {
 		RecipeTree.RBTreeInsert(r);}
 	
 	// Getters
+	public RBTree getAlbumTree(){
+		return AlbumTree;}
+	
 	public RBTree getBooksTree(){
 		return BooksTree;}
 	
@@ -70,9 +78,4 @@ public class MediaDatabase implements Serializable {
 	public RBTree getRecipeTree(){
 		return RecipeTree;}
 	
-
-/*	// Setters
-	public void setBooksTree(RBTree BooksTree){
-		this.BooksTree = BooksTree;
-	}*/
 }

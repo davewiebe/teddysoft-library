@@ -26,8 +26,8 @@ import java.io.ObjectOutputStream;
 public class Main implements ActionListener {
     private static JTable table;
 	private static String tableType = "All"; //initialized to show all media
-	private JButton btnView, btnEdit, btnDelete, btnAll, btnBooks, btnRecipes, btnGames,
-		btnMusic, btnMovies, btnExit, btnLogOut, btnSearch;
+	private static JButton btnView, btnEdit, btnDelete, btnAll, btnBooks, btnRecipes, btnGames,
+		btnAlbums, btnMovies, btnExit, btnLogOut, btnSearch;
 	private static JComboBox entrytypeList, searchtypeList;
 	private static JTextField searchfield;
 	private static User currentUser;
@@ -40,6 +40,12 @@ public class Main implements ActionListener {
 		
 	public static User getCurrentUser(){
 		return currentUser;
+	}
+	
+	public static void enableButtons(){
+		entrytypeList.setEnabled(true);
+		btnLogOut.setEnabled(true);
+		btnExit.setEnabled(true);
 	}
 	
 	public static void readData(){
@@ -77,7 +83,8 @@ public class Main implements ActionListener {
 	
 	public static void search(int mediaType, String textFeild){
 		//mediaTypes All, Book, DVD, Recipe, VHS, VHS_R, Video Game
-
+		
+		int AlbumTreeLength = currentUser.getDB().getAlbumTree().getSize();
 		int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
 		int DVDTreeLength = currentUser.getDB().getDVDTree().getSize();
 		int VHSTreeLength = currentUser.getDB().getVHSTree().getSize();
@@ -89,8 +96,22 @@ public class Main implements ActionListener {
 			int partition = 0;
 			String[] columnNames = {"Title", "Type", "Rating"};
 			int count=-1; //counts how many elements in List are not equal to null pointers
-			data = new Object[BooksTreeLength + DVDTreeLength + VHSTreeLength + VHS_RTreeLength + VideoGameTreeLength + RecipeTreeLength][columnNames.length + 1];
+			data = new Object[AlbumTreeLength + BooksTreeLength + DVDTreeLength + VHSTreeLength + VHS_RTreeLength + VideoGameTreeLength + RecipeTreeLength][columnNames.length + 1];
 			
+			List = currentUser.getDB().getAlbumTree().searchTreeElements(textFeild);
+			while(count+1<List.length && List[count+1]!=null) count++; //while next element is not null or end of list, increment count
+			count++; //zero based indexing correction
+			for(int i=0;(i<count);i++){
+				Albums temp = (Albums)List[i];
+				data[partition+i][0] = temp.getTitle();
+				data[partition+i][1] = temp.getType();
+				Integer tempint = new Integer(temp.getRating());
+				data[partition+i][2] = "" + tempint;
+				data[partition+i][3] = temp; //last column contains reference to object
+			}
+			partition = partition+count;
+			
+			count=-1;
 			List = currentUser.getDB().getBooksTree().searchTreeElements(textFeild);
 			while(count+1<List.length && List[count+1]!=null) count++; //while next element is not null or end of list, increment count
 			count++; //zero based indexing correction
@@ -193,7 +214,31 @@ public class Main implements ActionListener {
 			};
 
 		}
-		else if(mediaType==1){ //Books
+		else if(mediaType==1){ //Albums
+			int count=-1; //counts how many elements in List are not equal to null pointers
+			String[] columnNames = {"Title","Artist", "Format", "Genre", "Rating"};
+			List = currentUser.getDB().getAlbumTree().searchTreeElements(textFeild);
+			while(count+1<List.length && List[count+1]!=null) count++; //while next element is not null or end of list, increment count
+			count++; //zero based indexing correction
+			data = new Object[count][columnNames.length + 1];
+			for(int i=0;(i<count);i++){
+				Albums temp = (Albums)List[i];
+				data[i][0] = temp.getTitle();
+				data[i][1] = temp.getArtist();
+				data[i][2] = temp.getFormat();
+				data[i][3] = temp.getGenre();
+				Integer tempint = new Integer(temp.getRating());
+				data[i][4] = "" + tempint;
+				data[i][5] = temp; //last column contains reference to object
+			}
+			table = new JTable(data, columnNames){
+				public boolean isCellEditable(int row, int column)
+				{
+					return false;
+				}
+			};
+		}
+		else if(mediaType==2){ //Books
 			int count=-1; //counts how many elements in List are not equal to null pointers
 			String[] columnNames = {"Title","Author","Genre", "Rating"};
 			List = currentUser.getDB().getBooksTree().searchTreeElements(textFeild);
@@ -216,7 +261,7 @@ public class Main implements ActionListener {
 				}
 			};
 		}
-		else if(mediaType==2){ //DVD
+		else if(mediaType==3){ //DVD
 			int count=-1; //counts how many elements in List are not equal to null pointers
 			String[] columnNames = {"Title","Director","Year","Content", "Rating"};
 			//List = new Comparable[currentUser.getDB().getDVDTree().getSize()];
@@ -242,7 +287,7 @@ public class Main implements ActionListener {
 				}
 			};
 		}
-		else if(mediaType==3){ //Recipe
+		else if(mediaType==4){ //Recipe
 			int count=-1; //counts how many elements in List are not equal to null pointers
 			String[] columnNames = {"Title","Rating"};
 			List = currentUser.getDB().getRecipeTree().searchTreeElements(textFeild);
@@ -263,7 +308,7 @@ public class Main implements ActionListener {
 				}
 			};
 		}
-		else if(mediaType==4){ //VHS
+		else if(mediaType==5){ //VHS
 			int count=-1; //counts how many elements in List are not equal to null pointers
 			String[] columnNames = {"Title","Director","Year","Content", "Rating"};
 			List = currentUser.getDB().getVHSTree().searchTreeElements(textFeild);
@@ -287,7 +332,7 @@ public class Main implements ActionListener {
 				}
 			};
 		}
-		else if(mediaType==5){ //VHS_R
+		else if(mediaType==6){ //VHS_R
 			int count=-1; //counts how many elements in List are not equal to null pointers
 			String[] columnNames = {"Title","Director","Year","Content", "Rating"};
 			List = currentUser.getDB().getVHS_RTree().searchTreeElements(textFeild);
@@ -311,7 +356,7 @@ public class Main implements ActionListener {
 				}
 			};
 		}
-		else if(mediaType==6){ //VideoGame
+		else if(mediaType==7){ //VideoGame
 			int count=-1; //counts how many elements in List are not equal to null pointers
 			String[] columnNames = {"Title","Platform","Max Players", "Rating"};
 			List = currentUser.getDB().getVideoGameTree().searchTreeElements(textFeild);
@@ -336,9 +381,10 @@ public class Main implements ActionListener {
 		}
 	}
 	
-	//PRE: A String with data "All", "Books", "Movies", "Video Games", or "Recipies"
+	//PRE: A String with data "All", "Albums", "Books", "Movies", "Video Games", or "Recipies"
 	//POST: JTable object is altered to include selected information from currentUser's database
 	public static void getTable(String type){
+		int AlbumsTreeLength = currentUser.getDB().getAlbumTree().getSize();
 		int BooksTreeLength = currentUser.getDB().getBooksTree().getSize();
 		int DVDTreeLength = currentUser.getDB().getDVDTree().getSize();
 		int VHSTreeLength = currentUser.getDB().getVHSTree().getSize();
@@ -349,10 +395,22 @@ public class Main implements ActionListener {
 		if(type.equals("All")){ //create table of all objects
 			String[] columnNames = {"Title", "Type", "Rating"};
 			int partition = 0; //keeps track of how many rows of the Jtable are already occupied with data
+			data = new Object[AlbumsTreeLength + BooksTreeLength + DVDTreeLength + VHSTreeLength + VHS_RTreeLength + VideoGameTreeLength + RecipeTreeLength][columnNames.length + 1];
+			
+			//Add album ojects to Table
+			List = currentUser.getDB().getAlbumTree().getTreeElements();
+			for(int i=0;i<List.length;i++){
+				Albums temp = (Albums)List[i];
+				data[partition+i][0] = temp.getTitle();
+				data[partition+i][1] = temp.getType();
+				Integer tempint = new Integer(temp.getRating());
+				data[partition+i][2] = "" + tempint;
+				data[partition+i][3] = temp; //last column contains reference to object
+			}
+			partition = partition + List.length;
 			
 			//Add book ojects to Table
 			List = currentUser.getDB().getBooksTree().getTreeElements();
-			data = new Object[BooksTreeLength + DVDTreeLength + VHSTreeLength + VHS_RTreeLength + VideoGameTreeLength + RecipeTreeLength][columnNames.length + 1];
 			for(int i=0;i<List.length;i++){
 				Books temp = (Books)List[i];
 				data[partition+i][0] = temp.getTitle();
@@ -428,6 +486,29 @@ public class Main implements ActionListener {
 				{
 					return false;
 				}				
+			};
+		}
+		
+		else if(type.equals("Albums")){ //create table of albums
+			String[] columnNames = {"Title", "Artist", "Format", "Genre", "Rating"};
+			//Add album objects to table
+			List = currentUser.getDB().getAlbumTree().getTreeElements();
+			data = new Object[AlbumsTreeLength][columnNames.length + 1];
+			for(int i=0;i<List.length;i++){
+				Albums temp = (Albums)List[i];
+				data[i][0] = temp.getTitle();
+				data[i][1] = temp.getArtist();
+				data[i][2] = temp.getFormat();
+				data[i][3] = temp.getGenre();
+				Integer tempint = new Integer(temp.getRating());
+				data[i][4] = "" + tempint;
+				data[i][5] = temp; //last column contains reference to object
+			}
+			table = new JTable(data, columnNames){
+				public boolean isCellEditable(int row, int column)
+				{
+					return false;
+				}
 			};
 		}
 		
@@ -551,19 +632,16 @@ public class Main implements ActionListener {
 				}
 			};
 		}
-		
 	}
 	
 	//POST: Creates Main Window with a Table that displays current data in currentUser's media database
 	public static void refreshJTable(){
-		
 		frame.getContentPane().setVisible(false);
 		frame.getContentPane().removeAll();
         Main app = new Main();
         contents = app.mainWindowComponents();
 		frame.getContentPane().add(contents, BorderLayout.CENTER);
 		frame.getContentPane().setVisible(true);
-
 	}
 	
 	public static void setWindowsLook(){
@@ -613,7 +691,7 @@ public class Main implements ActionListener {
 		combopanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		//Add Entries combo box
-		String[] entryTypes = { "Add New Entry...", "Book", "DVD", "Recipe", "VHS", "VHS_R", "Video Game"};//, "Game", "Recipe", "Music", "Movie" };
+		String[] entryTypes = { "Add New Entry...", "Album", "Book", "DVD", "Recipe", "VHS", "VHS_R", "Video Game"};
 		entrytypeList = new JComboBox(entryTypes);
 		entrytypeList.setSelectedIndex(0);
 		entrytypeList.setMaximumSize(new Dimension(160, 40));
@@ -622,7 +700,7 @@ public class Main implements ActionListener {
 
 		//Search combo box
 		JLabel searchlabel = new JLabel("Search for:");
-		String[] searchTypes = { "All", "Book", "DVD", "Recipe", "VHS", "VHS_R", "Video Game"};//, "Music" };
+		String[] searchTypes = { "All", "Album", "Book", "DVD", "Recipe", "VHS", "VHS_R", "Video Game"};
 		searchtypeList = new JComboBox(searchTypes);
 		searchtypeList.setSelectedIndex(0);
 		searchtypeList.setMaximumSize(new Dimension(100, 40));
@@ -656,11 +734,11 @@ public class Main implements ActionListener {
 		btnRecipes.setMaximumSize(new Dimension(100, 23));
 		btnRecipes.setActionCommand("Recipes");
 		btnRecipes.addActionListener(this);
-		//Only Music button 
-		btnMusic = new JButton("Only Music");
-		btnMusic.setMaximumSize(new Dimension(100, 23));
-		btnMusic.setActionCommand("Music");
-		btnMusic.addActionListener(this);
+		//Only Album button 
+		btnAlbums = new JButton("Only Albums");
+		btnAlbums.setMaximumSize(new Dimension(100, 23));
+		btnAlbums.setActionCommand("Albums");
+		btnAlbums.addActionListener(this);
 		//Only Movies button 
 		btnMovies = new JButton("Only Movies");
 		btnMovies.setMaximumSize(new Dimension(100, 23));
@@ -678,7 +756,8 @@ public class Main implements ActionListener {
 		help2label.setAlignmentX(Component.CENTER_ALIGNMENT);
 		help3label.setAlignmentX(Component.CENTER_ALIGNMENT);
 		help4label.setAlignmentX(Component.CENTER_ALIGNMENT);
-		if (currentUser.getDB().getBooksTree().getSize() +
+		if (currentUser.getDB().getAlbumTree().getSize() +
+			currentUser.getDB().getBooksTree().getSize() +
 			currentUser.getDB().getDVDTree().getSize() +
 			currentUser.getDB().getRecipeTree().getSize() +
 			currentUser.getDB().getVHS_RTree().getSize() +
@@ -706,10 +785,9 @@ public class Main implements ActionListener {
 		
 		//Table
 		if(!showSearchResultsFlag) //if we do not want to display search results
-			getTable(tableType);
-		else
-			showSearchResultsFlag = false;
-		
+			getTable(tableType); //build the table according to the type of data wanted to display
+		else //if we do want to display search results
+			showSearchResultsFlag = false; //the table is not modified. Set it to be modified by default the next time this function is called
 		table.getTableHeader().setReorderingAllowed(false);
 		
 		//Scroll Pane
@@ -762,14 +840,14 @@ public class Main implements ActionListener {
 
 		viewpanel.add(btnAll);
 		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
+		viewpanel.add(btnAlbums);
+		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		viewpanel.add(btnBooks);
 		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		viewpanel.add(btnGames);
 		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		viewpanel.add(btnRecipes);
 		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
-		//viewpanel.add(btnMusic);
-		//viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
 		viewpanel.add(btnMovies);
 		viewpanel.add(Box.createRigidArea(new Dimension(0,5)));
 	
@@ -790,7 +868,7 @@ public class Main implements ActionListener {
 		
 		//tablepanel.add(table.getTableHeader());
 		//tablepanel.add(table);
-		tablepanel.add(scrollPane);
+		tablepanel.add(scrollPane); //scrollPane contains the table
 		
 		searchpanel.add(searchlabel);
 		searchpanel.add(Box.createRigidArea(new Dimension(5,0)));		
@@ -860,8 +938,10 @@ public class Main implements ActionListener {
 			tableType = "Recipies";
 			refreshJTable();
 		}
-		else if (e.getActionCommand().equals("Music")){
-			System.out.println("Show Music");
+		else if (e.getActionCommand().equals("Albums")){
+			System.out.println("Show Albums");
+			tableType = "Albums";
+			refreshJTable();
 		}
 		else if (e.getActionCommand().equals("Movies")){
 			System.out.println("Show Movies");
@@ -872,38 +952,40 @@ public class Main implements ActionListener {
 		else if (e.getActionCommand().equals("EntryType")){
 			JComboBox temp = (JComboBox)e.getSource();
 			//"Book", "Game", "Recipe", "Music", "Movie"
+			
+			//Disable some of Main's buttons
 			entrytypeList.setEnabled(false);
 			btnLogOut.setEnabled(false);
 			btnExit.setEnabled(false);
 			
 	        if (temp.getSelectedIndex() == 1){
+	        	System.out.println("Add Album");
+	        	AddEditAlbumGUI.CreateGUI(currentUser, (Albums) null, 0);
+				}
+	        else if (temp.getSelectedIndex() == 2){
 	        	System.out.println("Add Book");
 	        	AddEditBookGUI.CreateGUI(currentUser, (Books) null, 0);
 				}
-	        else if (temp.getSelectedIndex() == 2){
+	        else if (temp.getSelectedIndex() == 3){
 	        	System.out.println("Add DVD");
 	        	AddEditDVDGUI.CreateGUI(currentUser, (DVD) null, 0);
 			}
-	        else if (temp.getSelectedIndex() == 3){
+	        else if (temp.getSelectedIndex() == 4){
 	        	System.out.println("Add Recipe");
 	        	AddEditRecipeGUI.CreateGUI(currentUser, (Recipe) null, 0);
 			}
-	        else if (temp.getSelectedIndex() == 4){
+	        else if (temp.getSelectedIndex() == 5){
 	        	System.out.println("Add VHS");
 	        	AddEditVHSGUI.CreateGUI(currentUser, (VHS) null, 0);
 	        }
-	        else if (temp.getSelectedIndex() == 5){
+	        else if (temp.getSelectedIndex() == 6){
 	        	System.out.println("Add VHS_R");
 	        	AddEditVHS_RGUI.CreateGUI(currentUser, (VHS_R) null, 0);
 	        }
-	        else if (temp.getSelectedIndex() == 6){
+	        else if (temp.getSelectedIndex() == 7){
 	        	System.out.println("Add Video Game");
 	        	AddEditVideoGameGUI.CreateGUI(currentUser, (VideoGame) null, 0);
 	        }
-/*	        
-	        else if (temp.getSelectedIndex() == 7){
-	        	System.out.println("Add Music");}
-*/
 		}
 		//Search for an item
 		else if (e.getActionCommand().equals("Search")){
@@ -948,6 +1030,12 @@ public class Main implements ActionListener {
 				System.out.println("Delete Recipe");
 				Main.refreshJTable();
 			}
+			else if (classType.equals("class teddySoft.Albums")){
+				currentUser.getDB().getAlbumTree().RBTreeRemove(((Albums) data[table.getSelectedRow()][table.getColumnCount()]));
+				System.out.println("Delete Album");
+				Main.refreshJTable();
+			}
+			//serialize the updated data
 			writeData();
 		}
 		//editing a medium from table
@@ -974,6 +1062,9 @@ public class Main implements ActionListener {
 			else if (classType.equals("class teddySoft.Recipe")){
 				AddEditRecipeGUI.CreateGUI(currentUser,(Recipe) data[table.getSelectedRow()][table.getColumnCount()], 1);
 			}
+			else if (classType.equals("class teddySoft.Albums")){
+				AddEditAlbumGUI.CreateGUI(currentUser,(Albums) data[table.getSelectedRow()][table.getColumnCount()], 1);
+			}
 			
 		}
 		//view a medium from table
@@ -998,7 +1089,9 @@ public class Main implements ActionListener {
 				else if (classType.equals("class teddySoft.Recipe")){
 					ViewRecipeGUI.CreateGUI((Recipe) data[table.getSelectedRow()][table.getColumnCount()]);
 				}
-				
+				else if (classType.equals("class teddySoft.Albums")){
+					ViewAlbumGUI.CreateGUI((Albums) data[table.getSelectedRow()][table.getColumnCount()]);
+				}
 			}
 		}
 	}	

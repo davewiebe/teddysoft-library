@@ -18,6 +18,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -464,7 +466,14 @@ public class AddEditVHS_RGUI implements ActionListener{
 			frame = new JFrame("Edit VHS_R");
 			vhs_r = currentvhs_r;
 		}
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+        frame.addWindowListener(new WindowAdapter() {//add Window closing handler
+            public void windowClosing(WindowEvent e) {
+            	Main.enableButtons();
+            	frame.dispose();
+            	}
+        });
 		
         AddEditVHS_RGUI app = new AddEditVHS_RGUI();
         Component contents = app.mainWindowComponents();

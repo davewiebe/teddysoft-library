@@ -109,8 +109,8 @@ public class ViewAlbumGUI implements ActionListener {
 		//NumTracks
 		JLabel trackslabel = new JLabel("Number of Tracks:");
 		JLabel NumTracks = new JLabel();
-		if (!albums.getNumTracks().equals("")){
-			NumTracks.setText(albums.getNumTracks());
+		if (!albums.getTracks().equals("")){
+			NumTracks.setText(albums.getTracks());
 		}else{
 			NumTracks.setText("N/A");
 		}
