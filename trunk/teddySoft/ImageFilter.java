@@ -1,6 +1,11 @@
 package teddySoft;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
@@ -32,5 +37,29 @@ public class ImageFilter extends FileFilter {
     //The description of this filter
     public String getDescription() {
         return "Image Files";
+    }
+    
+    public static Image getInputImage(){
+    	Image scaleImage;
+		JFileChooser fcOpen = new JFileChooser (new File ("."));
+        fcOpen.addChoosableFileFilter(new ImageFilter());
+        fcOpen.setAcceptAllFileFilterUsed(false);
+		fcOpen.showOpenDialog (null);
+		File input = fcOpen.getSelectedFile();
+		try{
+			BufferedImage image = ImageIO.read(input);
+			int width = image.getWidth();
+			int height = image.getHeight();
+			double ratio = (width + 0.0)/(height+0.0);
+			if (ratio < 1.0)
+				scaleImage = image.getScaledInstance(128, (int)(128*ratio), Image.SCALE_DEFAULT);
+			else
+				scaleImage = image.getScaledInstance((int)(128*ratio), 128, Image.SCALE_DEFAULT);
+		}
+		catch (IOException ioe){
+			scaleImage = null;
+			System.out.println("Cannot convert input to image");
+		}
+		return scaleImage;
     }
 }
