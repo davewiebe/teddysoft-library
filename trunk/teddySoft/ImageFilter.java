@@ -4,13 +4,14 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+import java.awt.image.PixelGrabber;
+import java.awt.image.MemoryImageSource;
+import java.awt.Toolkit;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
 public class ImageFilter extends FileFilter {
-
     //Accept all directories and all gif, jpg, tiff, or png files.
     public boolean accept(File f) {
         if (f.isDirectory()) {
@@ -46,20 +47,41 @@ public class ImageFilter extends FileFilter {
         fcOpen.setAcceptAllFileFilterUsed(false);
 		fcOpen.showOpenDialog (null);
 		File input = fcOpen.getSelectedFile();
-		try{
-			BufferedImage image = ImageIO.read(input);
-			int width = image.getWidth();
-			int height = image.getHeight();
-			double ratio = (width + 0.0)/(height+0.0);
-			if (ratio < 1.0)
-				scaleImage = image.getScaledInstance((int)(128*ratio), 128, Image.SCALE_DEFAULT);
-			else
-				scaleImage = image.getScaledInstance(128, (int)(128/ratio), Image.SCALE_DEFAULT);
+		if (input != null){
+			try{
+				BufferedImage image = ImageIO.read(input);
+				int width = image.getWidth();
+				int height = image.getHeight();
+				double ratio = (width + 0.0)/(height+0.0);
+				if (ratio < 1.0)
+					scaleImage = image.getScaledInstance((int)(128*ratio), 128, Image.SCALE_DEFAULT);
+				else
+					scaleImage = image.getScaledInstance(128, (int)(128/ratio), Image.SCALE_DEFAULT);
+			}
+			catch (IOException ioe){
+				scaleImage = null;
+				System.out.println("Cannot convert input to image");
+			}
+			return scaleImage;
 		}
-		catch (IOException ioe){
-			scaleImage = null;
-			System.out.println("Cannot convert input to image");
+		else{
+			return null;
 		}
-		return scaleImage;
     }
+    
+    public static Image getImageFromArray(int[] pixels, int width, int height) {
+    	MemoryImageSource mis = new MemoryImageSource(width, height, pixels, 0, width);
+    	Toolkit tk = Toolkit.getDefaultToolkit();
+    	return tk.createImage(mis);
+    }  //  private Image getImageFromArray()
+    
+    public static int[] getArrayFromImage(Image img, int width, int height) {
+    	int[] pixels = new int[width * height];
+    	PixelGrabber pg = new PixelGrabber(img, 0, 0, width, height, pixels, 0, width);
+    	try{
+    	pg.grabPixels();
+    	} catch (InterruptedException e){System.out.println("interupted getArrayFromImage");};
+    	return pixels;
+    }  //  private int[] getArrayFromImage()
+    
 }

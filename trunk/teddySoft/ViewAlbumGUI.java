@@ -29,12 +29,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.image.*;
 
 public class ViewAlbumGUI implements ActionListener {
 	
 	private static Albums albums;
 	private JButton btnClose;
 	private static JFrame frame;
+	private static Image scaleImage;
+	private static JLabel attachment;
 	
 	public static void setWindowsLook(){
 	    try{
@@ -50,6 +53,17 @@ public class ViewAlbumGUI implements ActionListener {
 	       // handle exception
 	    }		
 	}	
+	
+	protected static ImageIcon createImageIcon(String path,
+			String description) {
+		java.net.URL imgURL = LoginGUI.class.getResource(path);
+		if (imgURL != null) {
+			return new ImageIcon(imgURL, description);
+		} else {
+			System.err.println("Couldn't find file: " + path);
+			return null;
+		}
+	}
 	
 	private Component mainWindowComponents() {
 		
@@ -72,6 +86,25 @@ public class ViewAlbumGUI implements ActionListener {
 		textpanel.setLayout(new BoxLayout(textpanel, BoxLayout.PAGE_AXIS));
 		textpanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textpanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		
+		//Image Panel
+		JPanel imagepanel = new JPanel();
+		imagepanel.setLayout(new BoxLayout(imagepanel, BoxLayout.PAGE_AXIS));	
+		imagepanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		imagepanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		if (scaleImage != null){
+			ImageIcon icon = new ImageIcon(scaleImage);
+			attachment = new JLabel(icon);
+			attachment.setBorder(BorderFactory.createEtchedBorder());
+			attachment.setAlignmentX(Component.CENTER_ALIGNMENT);
+		}
+		else{
+		ImageIcon picture = createImageIcon("null.gif","null");
+		attachment = new JLabel(picture);
+		attachment.setBorder(BorderFactory.createEtchedBorder());
+		attachment.setAlignmentX(Component.CENTER_ALIGNMENT);
+		}
+		imagepanel.add(attachment);
 		
 		//Title
 		JLabel titlelabel = new JLabel("Title:");
@@ -311,8 +344,9 @@ public class ViewAlbumGUI implements ActionListener {
 		infopanel.add(labelpanel);
 		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
 		infopanel.add(textpanel);
-		infopanel.add(Box.createRigidArea(new Dimension(5,0)));		
-		infopanel.add(Box.createHorizontalGlue());
+		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
+		infopanel.add(imagepanel);
+		//infopanel.add(Box.createHorizontalGlue());
 				
 		ratepanel.add(oneButton);
 		ratepanel.add(twoButton);
@@ -353,6 +387,8 @@ public class ViewAlbumGUI implements ActionListener {
 	public static void CreateGUI(Albums album){
 		setWindowsLook(); //Set windows decorations
 		albums = album;
+		if (albums.getScaleImage() != null)
+			scaleImage = ImageFilter.getImageFromArray(albums.getScaleImage(), albums.getImageW(),albums.getImageW());
 		
 		//Create and set up the window.
 		frame = new JFrame("View Album");

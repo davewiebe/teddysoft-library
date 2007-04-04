@@ -35,8 +35,10 @@ import java.awt.event.WindowEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.awt.image.*;
+import javax.imageio.ImageIO;
 
-public class AddEditAlbumGUI implements ActionListener {
+public class AddEditAlbumGUI implements ActionListener, ImageObserver {
 	private static Albums albums;
 	private JTextField title, artist, releaseDate, numberTracks, label;
 	private ButtonGroup ratinggroup;
@@ -51,6 +53,12 @@ public class AddEditAlbumGUI implements ActionListener {
 	private static Image scaleImage;
 	private static JLabel attachment;
 	private static Component contents;
+	
+	public boolean imageUpdate(Image img, int infoflags, int x, int y, 
+			int width, int height) 
+	{
+		return true;	  
+	} 
 	
 	/** Returns an ImageIcon, or null if the path was invalid. (From Java Swing tutorial)*/
 	protected static ImageIcon createImageIcon(String path,
@@ -123,6 +131,18 @@ public class AddEditAlbumGUI implements ActionListener {
 		imagepanel.setLayout(new BoxLayout(imagepanel, BoxLayout.PAGE_AXIS));	
 		imagepanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		imagepanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		if (scaleImage != null){
+			ImageIcon icon = new ImageIcon(scaleImage);
+			attachment = new JLabel(icon);
+			attachment.setBorder(BorderFactory.createEtchedBorder());
+			attachment.setAlignmentX(Component.CENTER_ALIGNMENT);
+		}
+		else{
+		ImageIcon picture = createImageIcon("null.gif","null");
+		attachment = new JLabel(picture);
+		attachment.setBorder(BorderFactory.createEtchedBorder());
+		attachment.setAlignmentX(Component.CENTER_ALIGNMENT);
+		}
 		
 		btnAttach = new JButton("Attach picture");
 		btnAttach.setMaximumSize(new Dimension(120, 23));
@@ -130,20 +150,8 @@ public class AddEditAlbumGUI implements ActionListener {
 		btnAttach.setActionCommand("Attach");
 		btnAttach.addActionListener(this);
 		
-		if (scaleImage != null){
-			ImageIcon icon = new ImageIcon(scaleImage);
-			attachment = new JLabel(icon);
-			attachment.setBorder(BorderFactory.createEtchedBorder());
-			attachment.setAlignmentX(Component.CENTER_ALIGNMENT);
-			btnAttach.setText("Remove picture");
-		}
-		else{
-			ImageIcon picture = createImageIcon("null.gif","null");
-			attachment = new JLabel(picture);
-			attachment.setBorder(BorderFactory.createEtchedBorder());
-			attachment.setAlignmentX(Component.CENTER_ALIGNMENT);
-		}
-		
+		//if (op == 1){
+		//	JLabel attachment = new JLabel(picture);
 		//	btnAttach.setText("Edit picture");
 		//	btnAttach.setText("Remove picture");
 		//}
@@ -300,7 +308,7 @@ public class AddEditAlbumGUI implements ActionListener {
 		//title, artist, releaseDate, numberTracks, Label, genre, format
 		//Addalbum op=0, Editalbum op=1
 		if (op == 1){
-			//Genre: "N/A", "Children's", "Classical", "Country", "Dance", "Folk", "Hip-Hop", "Instrumental", "Jazz", "Misc", "Pop", "R&B", "Rock", "Soundtracks"
+//			Genre: "N/A", "Children's", "Classical", "Country", "Dance", "Folk", "Hip-Hop", "Instrumental", "Jazz", "Misc", "Pop", "R&B", "Rock", "Soundtracks"
 			if (albums.getGenre().equals("Children's")){
 				genreList.setSelectedIndex(1);
 			}else if (albums.getGenre().equals("Classical")){
@@ -363,7 +371,7 @@ public class AddEditAlbumGUI implements ActionListener {
 		    numberTracks.setText(albums.getTracks());
 		    label.setText(albums.getLabel());
 		    description.setText(albums.getDescription());
-		    review.setText(albums.getReview());		    
+		    review.setText(albums.getReview());
 		}
 
 
@@ -404,7 +412,7 @@ public class AddEditAlbumGUI implements ActionListener {
 		infopanel.add(labelpanel);
 		infopanel.add(Box.createRigidArea(new Dimension(2,0)));
 		infopanel.add(textpanel);
-		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
+		infopanel.add(Box.createRigidArea(new Dimension(2,0)));
 		infopanel.add(imagepanel);		
 		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
 				
@@ -573,25 +581,45 @@ public class AddEditAlbumGUI implements ActionListener {
 		}	
 		
 		if(e.getSource() == btnAttach){
-			if (scaleImage != null){
-				scaleImage = null;
-			}else{
-				scaleImage = ImageFilter.getInputImage();
-			}
 			frame.getContentPane().setVisible(false);
 			frame.getContentPane().removeAll();
 	        AddEditAlbumGUI app = new AddEditAlbumGUI();
+	        app.scaleImage = ImageFilter.getInputImage();
 	        contents = app.mainWindowComponents();
 			frame.getContentPane().add(contents, BorderLayout.CENTER);
+			app.genreList.setSelectedIndex(this.genreList.getSelectedIndex());
+			app.formatList.setSelectedIndex(this.formatList.getSelectedIndex());
+			app.oneButton.setSelected(this.oneButton.isSelected());	
+			app.twoButton.setSelected(this.twoButton.isSelected());	
+			app.threeButton.setSelected(this.threeButton.isSelected());	
+			app.fourButton.setSelected(this.fourButton.isSelected());	
+			app.fiveButton.setSelected(this.fiveButton.isSelected());	
+			app.title.setText(this.title.getText());
+			app.artist.setText(this.artist.getText());
+			app.releaseDate.setText(this.releaseDate.getText());
+			app.numberTracks.setText(this.numberTracks.getText());
+			app.label.setText(this.label.getText());
+			app.description.setText(this.description.getText());
+			app.review.setText(this.review.getText());
+			
 			frame.getContentPane().setVisible(true);
 		}
 		
 		// When Album is Added
 		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
-						
+			
+			int[] imgArr=null;
+			int imgWidth = 0;
+			int imgHeight = 0;
+			if (scaleImage != null){
+				imgArr = ImageFilter.getArrayFromImage(scaleImage, scaleImage.getWidth(this), scaleImage.getHeight(this)  );		
+				imgWidth = scaleImage.getWidth(this);
+				imgHeight = scaleImage.getHeight(this);
+			}
+			
 			Albums newAlbum = new Albums(title.getText(),artist.getText(), releaseDate.getText(),
 					String.valueOf(tracks), label.getText(), format, genre, 
-					rating, description.getText(), review.getText());
+					rating, description.getText(), review.getText(), imgArr, imgWidth , imgHeight );
 					
 			currentUser.getDB().addAlbum(newAlbum);
 			Main.writeData(); //serialize the new data
@@ -626,9 +654,12 @@ public class AddEditAlbumGUI implements ActionListener {
 		op = operation;
 		if (op == 0){
 			frame = new JFrame("Add Album");
+			scaleImage = null;
 		}else{
 			frame = new JFrame("Edit Album");
 			albums = currentalbum;
+			if (albums.getScaleImage() != null)
+				scaleImage = ImageFilter.getImageFromArray(albums.getScaleImage(), albums.getImageW(),albums.getImageW());
 		}
 		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
