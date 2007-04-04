@@ -11,6 +11,7 @@
 	 * 	Lisa Chen
 	 */
 package teddySoft;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.*;
@@ -20,9 +21,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
+import java.awt.image.*;
 
 public class AddEditDVDGUI implements ActionListener, ItemListener{
 	private static DVD dvds;
@@ -38,6 +38,7 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 	private static User currentUser;
 	private static int op; //0=add, 1=edit
 	private boolean isWideScreen;
+	private static Image scaleImage;
 	
 	public static void setWindowsLook(){
 	    try{
@@ -135,6 +136,21 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 		ratepanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		ratepanel.setBorder(BorderFactory.createTitledBorder(
         "Rating"));
+		
+		//Right Panel
+		JPanel rightpanel = new JPanel();
+		rightpanel.setLayout(new BoxLayout(rightpanel, BoxLayout.PAGE_AXIS));	
+		rightpanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		rightpanel.setAlignmentY(Component.TOP_ALIGNMENT - 50);
+		rightpanel.add(Box.createRigidArea(new Dimension(7,8)));
+		//scaleImage = ImageFilter.getInputImage();
+		if (scaleImage != null){
+			ImageIcon icon = new ImageIcon(scaleImage);
+			JLabel art = new JLabel(icon);
+			art.setBorder(BorderFactory.createEtchedBorder());
+			rightpanel.add(art);
+			rightpanel.add(Box.createHorizontalGlue());
+		}
 		
 		//Mid Panel
 		JPanel midpanel = new JPanel();
@@ -326,6 +342,7 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
 		
 		midpanel.add(infopanel);
 		midpanel.add(ratepanel);
+		midpanel.add(rightpanel);
 		
 		descpanel.add(descscroll);
 				
@@ -486,6 +503,7 @@ public class AddEditDVDGUI implements ActionListener, ItemListener{
             	}
         });
 		
+        
         AddEditDVDGUI app = new AddEditDVDGUI();
         Component contents = app.mainWindowComponents();
         frame.getContentPane().add(contents, BorderLayout.CENTER);
