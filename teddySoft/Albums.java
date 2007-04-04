@@ -13,14 +13,16 @@
 
 package teddySoft;
 
+import java.awt.Image;
 import java.io.Serializable;
 
 public class Albums implements Comparable, Serializable {
 	
 	private String title, artist, releaseDate, tracks, label, format, genre, description, review;
-	private int rating;
+	private int rating, width, height;
+	private int[] scaleImage = null;
 
-	public Albums(String title, String artist, String releaseDate, String tracks , String label, String format, String genre, int rating, String description, String review){
+	public Albums(String title, String artist, String releaseDate, String tracks , String label, String format, String genre, int rating, String description, String review, int[] scaleImage, int width, int height){
 		this.title = title;
 		this.artist = artist;
 		this.releaseDate = releaseDate;
@@ -31,6 +33,9 @@ public class Albums implements Comparable, Serializable {
 		this.description = description;
 		this.review = review;
 		this.rating = rating;
+		this.scaleImage = scaleImage;
+		this.width = width;
+		this.height = height;
 	}
 	
 	//Getters
@@ -63,6 +68,15 @@ public class Albums implements Comparable, Serializable {
 	
 	public int getRating(){
 		return rating;}
+	
+	public int[] getScaleImage(){
+		return scaleImage;}
+	
+	public int getImageW(){
+		return width;}
+	
+	public int getImageH(){
+		return height;}
 	
 	public String getType(){
 		return "Album";}
