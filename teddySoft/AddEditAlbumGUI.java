@@ -48,6 +48,9 @@ public class AddEditAlbumGUI implements ActionListener {
 	private JRadioButton oneButton, twoButton, threeButton, fourButton, fiveButton;
 	private static User currentUser;
 	private static int op; //0=add, 1=edit
+	private static Image scaleImage;
+	private static JLabel attachment;
+	private static Component contents;
 	
 	/** Returns an ImageIcon, or null if the path was invalid. (From Java Swing tutorial)*/
 	protected static ImageIcon createImageIcon(String path,
@@ -120,11 +123,18 @@ public class AddEditAlbumGUI implements ActionListener {
 		imagepanel.setLayout(new BoxLayout(imagepanel, BoxLayout.PAGE_AXIS));	
 		imagepanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		imagepanel.setAlignmentY(Component.TOP_ALIGNMENT);
-		
+		if (scaleImage != null){
+			ImageIcon icon = new ImageIcon(scaleImage);
+			attachment = new JLabel(icon);
+			attachment.setBorder(BorderFactory.createEtchedBorder());
+			attachment.setAlignmentX(Component.CENTER_ALIGNMENT);
+		}
+		else{
 		ImageIcon picture = createImageIcon("null.gif","null");
-		JLabel attachment = new JLabel(picture);
+		attachment = new JLabel(picture);
 		attachment.setBorder(BorderFactory.createEtchedBorder());
 		attachment.setAlignmentX(Component.CENTER_ALIGNMENT);
+		}
 		
 		btnAttach = new JButton("Attach picture");
 		btnAttach.setMaximumSize(new Dimension(120, 23));
@@ -560,7 +570,17 @@ public class AddEditAlbumGUI implements ActionListener {
 			
 			Main.refreshJTable();
 			frame.dispose();
-		}		
+		}	
+		
+		if(e.getSource() == btnAttach){
+			scaleImage = ImageFilter.getInputImage();
+			frame.getContentPane().setVisible(false);
+			frame.getContentPane().removeAll();
+	        AddEditAlbumGUI app = new AddEditAlbumGUI();
+	        contents = app.mainWindowComponents();
+			frame.getContentPane().add(contents, BorderLayout.CENTER);
+			frame.getContentPane().setVisible(true);
+		}
 		
 		// When Album is Added
 		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
@@ -616,7 +636,7 @@ public class AddEditAlbumGUI implements ActionListener {
         });
 		
         AddEditAlbumGUI app = new AddEditAlbumGUI();
-        Component contents = app.mainWindowComponents();
+        contents = app.mainWindowComponents();
         frame.getContentPane().add(contents, BorderLayout.CENTER);
 		
 		//Display the window.

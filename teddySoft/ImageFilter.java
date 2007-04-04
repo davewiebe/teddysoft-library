@@ -52,9 +52,9 @@ public class ImageFilter extends FileFilter {
 			int height = image.getHeight();
 			double ratio = (width + 0.0)/(height+0.0);
 			if (ratio < 1.0)
-				scaleImage = image.getScaledInstance(128, (int)(128*ratio), Image.SCALE_DEFAULT);
-			else
 				scaleImage = image.getScaledInstance((int)(128*ratio), 128, Image.SCALE_DEFAULT);
+			else
+				scaleImage = image.getScaledInstance(128, (int)(128/ratio), Image.SCALE_DEFAULT);
 		}
 		catch (IOException ioe){
 			scaleImage = null;
