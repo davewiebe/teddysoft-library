@@ -415,7 +415,7 @@ public class AddEditAlbumGUI implements ActionListener, ImageObserver {
 		infopanel.add(labelpanel);
 		infopanel.add(Box.createRigidArea(new Dimension(2,0)));
 		infopanel.add(textpanel);
-		infopanel.add(Box.createRigidArea(new Dimension(2,0)));
+		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
 		infopanel.add(imagepanel);		
 		infopanel.add(Box.createRigidArea(new Dimension(5,0)));
 				
