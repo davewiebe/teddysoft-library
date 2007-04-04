@@ -155,6 +155,9 @@ public class GenCitation {
 				lname = splitString[i];
 				h++;
 			}
+			else if(h==3 && splitString[i].compareTo("") != 0){
+				lname = splitString[i];
+			}
 		}
 		
 		// if the first name ends with a comma, 
