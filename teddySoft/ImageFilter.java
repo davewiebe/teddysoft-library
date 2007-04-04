@@ -62,26 +62,11 @@ public class ImageFilter extends FileFilter {
 				scaleImage = null;
 				System.out.println("Cannot convert input to image");
 			}
+			
 			return scaleImage;
 		}
 		else{
 			return null;
 		}
-    }
-    
-    public static Image getImageFromArray(int[] pixels, int width, int height) {
-    	MemoryImageSource mis = new MemoryImageSource(width, height, pixels, 0, width);
-    	Toolkit tk = Toolkit.getDefaultToolkit();
-    	return tk.createImage(mis);
-    }  //  private Image getImageFromArray()
-    
-    public static int[] getArrayFromImage(Image img, int width, int height) {
-    	int[] pixels = new int[width * height];
-    	PixelGrabber pg = new PixelGrabber(img, 0, 0, width, height, pixels, 0, width);
-    	try{
-    	pg.grabPixels();
-    	} catch (InterruptedException e){System.out.println("interupted getArrayFromImage");};
-    	return pixels;
-    }  //  private int[] getArrayFromImage()
-    
+    } 
 }

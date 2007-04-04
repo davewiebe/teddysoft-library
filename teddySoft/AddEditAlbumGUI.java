@@ -32,10 +32,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.awt.image.*;
+
 import javax.imageio.ImageIO;
 
 public class AddEditAlbumGUI implements ActionListener, ImageObserver {
@@ -59,6 +61,7 @@ public class AddEditAlbumGUI implements ActionListener, ImageObserver {
 	{
 		return true;	  
 	} 
+	
 	
 	/** Returns an ImageIcon, or null if the path was invalid. (From Java Swing tutorial)*/
 	protected static ImageIcon createImageIcon(String path,
@@ -132,8 +135,8 @@ public class AddEditAlbumGUI implements ActionListener, ImageObserver {
 		imagepanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		imagepanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		if (scaleImage != null){
-			ImageIcon icon = new ImageIcon(scaleImage);
-			attachment = new JLabel(icon);
+			ImageIcon picture = new ImageIcon(scaleImage);
+			attachment = new JLabel(picture);
 			attachment.setBorder(BorderFactory.createEtchedBorder());
 			attachment.setAlignmentX(Component.CENTER_ALIGNMENT);
 		}
@@ -576,6 +579,13 @@ public class AddEditAlbumGUI implements ActionListener, ImageObserver {
 			albums.setDescription(description.getText());
 			albums.setReview(review.getText());
 			
+	        BufferedImage bi = new BufferedImage(scaleImage.getWidth(this),scaleImage.getHeight(this),BufferedImage.TYPE_INT_BGR);
+	        bi.getGraphics().drawImage(this.scaleImage,0,0,null);
+	        File outputfile = new File(currentUser.getName()+"-"+"album_"+albums.getAlbumNum()+".jpg"); 
+	        try{
+	        	ImageIO.write(bi, "jpg", outputfile);
+	        }catch (IOException ex){System.out.println("Cannot write image to hard drive.");}
+			
 			Main.refreshJTable();
 			frame.dispose();
 		}	
@@ -584,7 +594,9 @@ public class AddEditAlbumGUI implements ActionListener, ImageObserver {
 			frame.getContentPane().setVisible(false);
 			frame.getContentPane().removeAll();
 	        AddEditAlbumGUI app = new AddEditAlbumGUI();
-	        app.scaleImage = ImageFilter.getInputImage();
+	        Image i = ImageFilter.getInputImage();
+	        scaleImage = i;
+	        app.scaleImage = i;
 	        contents = app.mainWindowComponents();
 			frame.getContentPane().add(contents, BorderLayout.CENTER);
 			app.genreList.setSelectedIndex(this.genreList.getSelectedIndex());
@@ -607,22 +619,21 @@ public class AddEditAlbumGUI implements ActionListener, ImageObserver {
 		
 		// When Album is Added
 		else if(e.getSource() == btnAdd || e.getSource() == btnAnother){
-			
-			int[] imgArr=null;
-			int imgWidth = 0;
-			int imgHeight = 0;
-			if (scaleImage != null){
-				imgArr = ImageFilter.getArrayFromImage(scaleImage, scaleImage.getWidth(this), scaleImage.getHeight(this)  );		
-				imgWidth = scaleImage.getWidth(this);
-				imgHeight = scaleImage.getHeight(this);
-			}
-			
+	        BufferedImage bi = new BufferedImage(scaleImage.getWidth(this),scaleImage.getHeight(this),BufferedImage.TYPE_INT_BGR);
+	        bi.getGraphics().drawImage(this.scaleImage,0,0,null);
+	        File outputfile = new File(currentUser.getName()+"-"+"album_"+currentUser.getDB().getAlbumInt()+".jpg"); 
+	        try{
+	        	ImageIO.write(bi, "jpg", outputfile);
+	        }catch (IOException ex){System.out.println("Cannot write image to hard drive.");}
+			System.out.println("album num is: "+currentUser.getDB().getAlbumInt());
 			Albums newAlbum = new Albums(title.getText(),artist.getText(), releaseDate.getText(),
 					String.valueOf(tracks), label.getText(), format, genre, 
-					rating, description.getText(), review.getText(), imgArr, imgWidth , imgHeight );
+					rating, description.getText(), review.getText(), currentUser.getDB().getAlbumInt() );
 					
 			currentUser.getDB().addAlbum(newAlbum);
 			Main.writeData(); //serialize the new data
+			currentUser.getDB().incAlbNum();
+			System.out.println("album num after inc: "+currentUser.getDB().getAlbumInt());
 			
 			// If "Add" was pressed
 			if (e.getSource() == btnAdd){
@@ -658,8 +669,13 @@ public class AddEditAlbumGUI implements ActionListener, ImageObserver {
 		}else{
 			frame = new JFrame("Edit Album");
 			albums = currentalbum;
-			if (albums.getScaleImage() != null)
-				scaleImage = ImageFilter.getImageFromArray(albums.getScaleImage(), albums.getImageW(),albums.getImageW());
+			scaleImage = null;
+			BufferedImage img = null;
+			try {
+				//System.out.println("Album num is "+albums.getAlbumNum());
+				img = ImageIO.read(new File(currentUser.getName()+"-"+"album_"+albums.getAlbumNum()+".jpg"));
+				scaleImage = (Image) img;
+			} catch (IOException e) {}
 		}
 		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
