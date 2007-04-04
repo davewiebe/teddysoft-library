@@ -106,15 +106,15 @@ public class Albums implements Comparable, Serializable {
 	}
 	
 	//Comparable interface
-	public int compareTo(Object dvd) throws ClassCastException{
-		if (!(dvd instanceof DVD))
-			throw new ClassCastException("A DVD object expected.");
+	public int compareTo(Object album) throws ClassCastException{
+		if (!(album instanceof Albums))
+			throw new ClassCastException("An Album object expected.");
 		
 		int x;
-		DVD dvdToTest = ((DVD) dvd);
-		if ((this.toString()).equals(dvdToTest.toString())){
+		Albums albumToTest = ((Albums) album);
+		if ((this.toString()).equals(albumToTest.toString())){
 			x = 0;}
-		else if (this.toString().compareTo(dvdToTest.toString()) > 0){
+		else if (this.toString().compareTo(albumToTest.toString()) > 0){
 			x = 1;}
 		else{
 			x=-1;}
