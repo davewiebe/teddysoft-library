@@ -1,0 +1,1 @@
+A personal library database to store information about books, DVDs, CDs, video games, recipes. Will include the abilty to add reviews and ratings.
